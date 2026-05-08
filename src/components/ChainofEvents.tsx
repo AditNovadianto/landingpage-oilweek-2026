@@ -10,7 +10,7 @@ import logoGalaDinner from "../images/logo-gala-dinner.png"
 
 const ChainofEvents = () => {
     return (
-        <div className="border border-red-500 mt-10 px-32 py-10 min-h-screen">
+        <div className="border border-red-500 mt-10 px-7 md:px-20 lg:px-32 py-10 min-h-screen">
             <div className="text-white mt-40">
                 <p className="text-5xl font-inter font-bold">Chain</p>
                 <p className="text-3xl font-garamond font-light">of Events</p>

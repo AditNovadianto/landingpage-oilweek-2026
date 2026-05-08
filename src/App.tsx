@@ -9,7 +9,7 @@ import background from "./images/test.png"
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-cover" style={{ backgroundImage: `url(${background})` }}>
+    <div className="min-h-screen bg-cover overflow-hidden" style={{ backgroundImage: `url(${background})` }}>
       <Navbar />
 
       <Home />

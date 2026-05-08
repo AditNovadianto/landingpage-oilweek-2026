@@ -27,7 +27,7 @@ import speCareLogo from "../images/spe-care-logo.png"
 const EventTimeline = () => {
     return (
         <div className="py-10 mt-32 min-h-screen">
-            <p className="px-32 -rotate-3 text-white font-light font-inter text-5xl">Event <span className="italic font-garamond font-semibold underline">Timeline</span></p>
+            <p className="px-5 md:px-20 lg:px-32 -rotate-3 text-white font-light font-inter text-5xl">Event <span className="italic font-garamond font-semibold underline">Timeline</span></p>
 
             <div className="mt-14">
                 <TimelineItem month="June" date="26" title="Pre-Event : Oil on Court" color="#F1944A" icon={preEventLogo} bg={preEventBg} reverse={false} />
