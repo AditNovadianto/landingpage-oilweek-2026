@@ -1,5 +1,6 @@
 import AboutOilWeek from "./components/AboutOilWeek"
 import AboutSPEUISC from "./components/AboutSPEUISC"
+import AreYouReady from "./components/AreYouReady"
 import ChainofEvents from "./components/ChainofEvents"
 import EventTimeline from "./components/EventTimeline"
 import Home from "./components/Home"
@@ -23,6 +24,8 @@ const App = () => {
       <SeriesofCompetition />
 
       <EventTimeline />
+
+      <AreYouReady />
     </div>
   )
 }
