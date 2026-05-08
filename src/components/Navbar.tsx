@@ -21,14 +21,14 @@ const Navbar = () => {
             ${scrolled ? "bg-white/10 py-3 backdrop-blur-xl border-b border-white/20 shadow-lg" : "py-5 bg-transparent"}
             `}
             >
-                <img className="cursor-pointer w-14" src={logo} alt="Logo" />
+                <a href="#"><img className="cursor-pointer w-14" src={logo} alt="Logo" /></a>
 
                 <div className="flex items-center gap-10 font-inter text-white font-light">
                     <a className="hidden lg:block" href="#home">Home</a>
                     <a className="hidden lg:block" href="#aboutspeuisc">About SPE UI SC</a>
                     <a className="hidden lg:block" href="#aboutoilweek">About Oil Week</a>
                     <a className="hidden lg:block" href="#competitions">Competititons</a>
-                    <a className="hidden lg:block" href="#">Contact</a>
+                    <a className="hidden lg:block" href="#contact">Contact</a>
 
                     <button className="glass hidden lg:block px-7 py-2 cursor-pointer">Login</button>
                 </div>
@@ -52,7 +52,7 @@ const Navbar = () => {
                     <a href="#aboutspeuisc" onClick={() => setShowNavbar(false)}>About SPE UI SC</a>
                     <a href="#aboutoilweek" onClick={() => setShowNavbar(false)}>About Oil Week</a>
                     <a href="#competitions" onClick={() => setShowNavbar(false)}>Competititons</a>
-                    <a href="#" onClick={() => setShowNavbar(false)}>Contact</a>
+                    <a href="#contact" onClick={() => setShowNavbar(false)}>Contact</a>
                     <button className="glass px-7 py-2 cursor-pointer w-fit">Login</button>
                 </div>
             </div>

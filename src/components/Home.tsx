@@ -14,11 +14,11 @@ const Home = () => {
                         <ArrowRight />
                     </button>
 
-                    <button className="cursor-pointer flex items-center gap-2 glass px-12 py-2 text-white">
+                    <a href="#competitions" className="cursor-pointer flex items-center gap-2 glass px-12 py-2 text-white">
                         Explore Competition
 
                         <ArrowRight />
-                    </button>
+                    </a>
                 </div>
 
                 <p className="text-2xl md:text-3xl lg:text-4xl text-white mt-10 font-garamond"><span className="font-inter">#</span>Lead<span className="font-light font-inter">The</span><span className="font-garamond italic font-bold">Shift</span></p>
