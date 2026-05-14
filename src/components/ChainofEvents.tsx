@@ -10,13 +10,13 @@ import logoGalaDinner from "../images/logo-gala-dinner.png"
 
 const ChainofEvents = () => {
     return (
-        <div className="border border-red-500 mt-10 px-7 md:px-20 lg:px-32 py-10 min-h-screen">
+        <div className="mt-10 px-7 md:px-20 lg:px-32 py-10 min-h-screen">
             <div className="text-white mt-10 md:mt-40">
                 <p className="text-5xl font-inter font-bold">Chain</p>
                 <p className="text-3xl font-garamond font-light">of Events</p>
             </div>
 
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10">
                 <div className="glass py-5 relative pb-24">
                     <p className="text-white font-light text-xl px-6 py-y">The Pre-Event : <span className="font-semibold font-garamond italic text-[#E7C66B]">Oil on Court</span> is a Padel session designed as an engaging and interactive sports networking activity before the main events of <span className="italic font-semibold">Oil Week 2026</span>.</p>
 

@@ -8,12 +8,12 @@ import logoWellStimulation from '../images/logo-well-stimulation.png'
 
 const SeriesofCompetition = () => {
     return (
-        <div id='competitions' className="px-5 md:px-20 lg:px-32 py-10 mt-36 min-h-screen border border-red-500">
+        <div id='competitions' className="px-5 md:px-20 lg:px-32 py-10 mt-36 min-h-screen">
             <div className="w-max m-auto md:ml-auto">
                 <p className="glass px-8 py-6 text-white text-3xl md:text-4xl lg:text-5xl font-inter font-light"><span className="font-garamond italic font-semibold">Series</span> of <span className="underline">Competition</span></p>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10 items-stretch'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 mt-10 items-stretch'>
                 <div className='relative pb-20 glass px-5 py-3 flex flex-col'>
                     <div className='flex items-center gap-3'>
                         <img className='w-32' src={logoPetrosmart} alt="Petrosmart Logo" />

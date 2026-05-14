@@ -3,7 +3,7 @@ import logoOw from "../images/Logo-ow.png"
 
 const Home = () => {
     return (
-        <div id="home" className="mt-24 px-5 md:px-20 lg:px-32 py-10 min-h-screen border border-red-500 flex flex-col md:flex-row items-center gap-10 justify-between">
+        <div id="home" className="mt-24 px-5 md:px-20 lg:px-32 py-10 min-h-screen flex flex-col md:flex-row items-center gap-10 justify-between">
             <div className="">
                 <h1 className="font-light text-4xl md:text-5xl lg:text-6xl text-white leading-16 font-inter">Empowering Sustainable Growth Through <span className="font-garamond italic">Industry Optimization <span className="font-inter">&</span> Low Carbon</span> Transition</h1>
 

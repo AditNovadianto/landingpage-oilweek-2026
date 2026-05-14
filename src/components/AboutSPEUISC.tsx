@@ -2,7 +2,7 @@ import heroImageAboutSPEUISC from '../images/heroImageAboutSPEUISC.png'
 
 const AboutSPEUISC = () => {
     return (
-        <div id='aboutspeuisc' className='px-5 md:px-20 lg:px-32 py-10 min-h-screen border border-red-500 flex flex-col md:flex-row items-center gap-20 justify-between mt-10'>
+        <div id='aboutspeuisc' className='px-5 md:px-20 lg:px-32 py-10 min-h-screen flex flex-col md:flex-row items-center gap-20 justify-between mt-10'>
             <img className='w-75' src={heroImageAboutSPEUISC} alt="About SPEUISC" />
 
             <div className='text-white text-left'>
