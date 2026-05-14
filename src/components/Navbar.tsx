@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react"
 import logo from "../images/logo.png"
+import AOS from "aos"
+import "aos/dist/aos.css"
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false)
     const [showNavbar, setShowNavbar] = useState(false)
 
     useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: "ease-in-out",
+        });
+
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50) // trigger di 50px
+            setScrolled(window.scrollY > 50)
         }
 
         window.addEventListener("scroll", handleScroll)
@@ -17,20 +25,23 @@ const Navbar = () => {
     return (
         <>
             <div
+                data-aos="fade-down"
                 className={`fixed top-0 px-5 md:px-10 lg:px-20 flex items-center gap-5 justify-between w-full transition-all duration-300 z-50
             ${scrolled ? "bg-white/10 py-3 backdrop-blur-xl border-b border-white/20 shadow-lg" : "py-5 bg-transparent"}
             `}
             >
-                <a href="#"><img className="cursor-pointer w-14" src={logo} alt="Logo" /></a>
+                <a href="#">
+                    <img data-aos="zoom-in" data-aos-delay="200" className="cursor-pointer w-14" src={logo} alt="Logo" />
+                </a>
 
                 <div className="flex items-center gap-10 font-inter text-white font-light">
-                    <a className="hidden lg:block" href="#home">Home</a>
-                    <a className="hidden lg:block" href="#aboutspeuisc">About SPE UI SC</a>
-                    <a className="hidden lg:block" href="#aboutoilweek">About Oil Week</a>
-                    <a className="hidden lg:block" href="#competitions">Competititons</a>
-                    <a className="hidden lg:block" href="#contact">Contact</a>
+                    <a data-aos="fade-down" data-aos-delay="300" className="hidden lg:block" href="#home">Home</a>
+                    <a data-aos="fade-down" data-aos-delay="400" className="hidden lg:block" href="#aboutspeuisc">About SPE UI SC</a>
+                    <a data-aos="fade-down" data-aos-delay="500" className="hidden lg:block" href="#aboutoilweek">About Oil Week</a>
+                    <a data-aos="fade-down" data-aos-delay="600" className="hidden lg:block" href="#competitions">Competititons</a>
+                    <a data-aos="fade-down" data-aos-delay="700" className="hidden lg:block" href="#contact">Contact</a>
 
-                    <button className="glass hidden lg:block px-7 py-2 cursor-pointer">Login</button>
+                    <button data-aos="zoom-in" data-aos-delay="800" className="glass hidden lg:block px-7 py-2 cursor-pointer">Login</button>
                 </div>
 
                 <button

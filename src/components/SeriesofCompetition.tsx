@@ -5,16 +5,27 @@ import logoMudInnovation from '../images/logo-mud-innovation.png'
 import logoPaperandPoster from '../images/logo-paper-and-poster.png'
 import logoPetrosmart from '../images/logo-petrosmart.png'
 import logoWellStimulation from '../images/logo-well-stimulation.png'
+import AOS from "aos"
+import "aos/dist/aos.css"
+import { useEffect } from 'react'
 
 const SeriesofCompetition = () => {
+    useEffect(() => {
+        AOS.init({
+            duration: 600,
+            once: true,
+            easing: "ease-in-out",
+        });
+    }, []);
+
     return (
         <div id='competitions' className="px-5 md:px-20 lg:px-32 py-10 mt-36 min-h-screen">
-            <div className="w-max m-auto md:ml-auto">
+            <div data-aos="fade-left" className="w-max m-auto md:ml-auto">
                 <p className="glass px-8 py-6 text-white text-3xl md:text-4xl lg:text-5xl font-inter font-light"><span className="font-garamond italic font-semibold">Series</span> of <span className="underline">Competition</span></p>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 mt-10 items-stretch'>
-                <div className='relative pb-20 glass px-5 py-3 flex flex-col'>
+                <div data-aos="fade-up" data-aos-delay="100" className='relative pb-20 glass px-5 py-3 flex flex-col'>
                     <div className='flex items-center gap-3'>
                         <img className='w-32' src={logoPetrosmart} alt="Petrosmart Logo" />
 
@@ -33,7 +44,7 @@ const SeriesofCompetition = () => {
                     </button>
                 </div>
 
-                <div className='relative pb-20 glass px-5 py-3 flex flex-col'>
+                <div data-aos="fade-up" data-aos-delay="200" className='relative pb-20 glass px-5 py-3 flex flex-col'>
                     <div className='flex items-center gap-3'>
                         <img className='w-32' src={logoPaperandPoster} alt="Paper & Poster Logo" />
 
@@ -52,7 +63,7 @@ const SeriesofCompetition = () => {
                     </button>
                 </div>
 
-                <div className='relative pb-20 glass px-5 py-3 flex flex-col'>
+                <div data-aos="fade-up" data-aos-delay="300" className='relative pb-20 glass px-5 py-3 flex flex-col'>
                     <div className='flex items-center gap-3'>
                         <img className='w-20 m-5' src={logoBusinessCase} alt="Business Case Logo" />
 
@@ -71,7 +82,7 @@ const SeriesofCompetition = () => {
                     </button>
                 </div>
 
-                <div className='relative pb-20 glass px-5 py-3 flex flex-col'>
+                <div data-aos="fade-up" data-aos-delay="400" className='relative pb-20 glass px-5 py-3 flex flex-col'>
                     <div className='flex items-center gap-3'>
                         <img className='w-20 m-5' src={logoMudInnovation} alt="Mud Innovation Logo" />
 
@@ -90,7 +101,7 @@ const SeriesofCompetition = () => {
                     </button>
                 </div>
 
-                <div className='relative pb-20 glass px-5 py-3 flex flex-col'>
+                <div data-aos="fade-up" data-aos-delay="500" className='relative pb-20 glass px-5 py-3 flex flex-col'>
                     <div className='flex items-center gap-3'>
                         <img className='w-20 m-5' src={logoWellStimulation} alt="Well Stimulation Logo" />
 
@@ -109,7 +120,7 @@ const SeriesofCompetition = () => {
                     </button>
                 </div>
 
-                <div className='relative pb-20 glass px-5 py-3 flex flex-col'>
+                <div data-aos="fade-up" data-aos-delay="600" className='relative pb-20 glass px-5 py-3 flex flex-col'>
                     <div className='flex items-center gap-3'>
                         <img className='w-20 m-6' src={logoCaseStudy} alt="Case Study Logo" />
 

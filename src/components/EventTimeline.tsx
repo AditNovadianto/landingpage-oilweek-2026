@@ -23,36 +23,76 @@ import finalDayLogo from "../images/final-day-logo.png"
 import studentChapterLogo from "../images/student-chapter-logo.png"
 import galaDinnerLogo from "../images/gala-dinner-logo.png"
 import speCareLogo from "../images/spe-care-logo.png"
+import AOS from "aos"
+import "aos/dist/aos.css"
+import { useEffect } from "react"
 
 const EventTimeline = () => {
+    useEffect(() => {
+        AOS.init({
+            duration: 600,
+            once: true,
+            easing: "ease-in-out",
+        });
+    }, []);
+
     return (
         <div className="py-10 mt-32 min-h-screen">
-            <p className="px-5 md:px-20 lg:px-32 -rotate-3 text-white font-light font-inter text-5xl">Event <span className="italic font-garamond font-semibold underline">Timeline</span></p>
+            <p
+                className="px-5 md:px-20 lg:px-32 -rotate-3 text-white font-light font-inter text-5xl"
+                data-aos="fade-right"
+            >
+                Event <span className="italic font-garamond font-semibold underline">Timeline</span>
+            </p>
 
             <div className="mt-14">
-                <TimelineItem month="June" date="26" title="Pre-Event : Oil on Court" color="#F1944A" icon={preEventLogo} bg={preEventBg} reverse={false} />
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <TimelineItem month="June" date="26" title="Pre-Event : Oil on Court" color="#F1944A" icon={preEventLogo} bg={preEventBg} reverse={false} />
+                </div>
 
-                <TimelineItem month="July" date="26" title="Open Registration Competition" color="#25FCFF" icon={openRegistrationLogo} bg={openRegistrationBg} reverse={false} />
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <TimelineItem month="July" date="26" title="Open Registration Competition" color="#25FCFF" icon={openRegistrationLogo} bg={openRegistrationBg} reverse={false} />
+                </div>
 
-                <TimelineItem month="September" date="15" title="Close Registration Competition" color="#25FCFF" icon={closeRegistrationLogo} bg={closeRegistrationBg} reverse={false} />
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <TimelineItem month="September" date="15" title="Close Registration Competition" color="#25FCFF" icon={closeRegistrationLogo} bg={closeRegistrationBg} reverse={false} />
+                </div>
 
-                <TimelineItem month="September" date="16" title="Preliminary Submission" color="#25FCFF" icon={preliminarySubmissionLogo} bg={preliminarySubmissionBg} reverse={false} />
+                <div data-aos="fade-up" data-aos-delay="400">
+                    <TimelineItem month="September" date="16" title="Preliminary Submission" color="#25FCFF" icon={preliminarySubmissionLogo} bg={preliminarySubmissionBg} reverse={false} />
+                </div>
 
-                <TimelineItem month="September" date="19" title="Grand Seminar X Skill Finder" color="#EF3538" icon={grandSeminarLogo} bg={grandSeminarBg} reverse={false} />
+                <div data-aos="fade-up" data-aos-delay="500">
+                    <TimelineItem month="September" date="19" title="Grand Seminar X Skill Finder" color="#EF3538" icon={grandSeminarLogo} bg={grandSeminarBg} reverse={false} />
+                </div>
 
-                <TimelineItem month="Sept - Oct" date="TBA" title="Company Visit" color="#EF35A0" icon={companyVisitLogo} bg={companyVisitBg} reverse={false} />
+                <div data-aos="fade-up" data-aos-delay="600">
+                    <TimelineItem month="Sept - Oct" date="TBA" title="Company Visit" color="#EF35A0" icon={companyVisitLogo} bg={companyVisitBg} reverse={false} />
+                </div>
 
-                <TimelineItem month="Sept - Oct" date="TBA" title="Field Trip" color="#A4A4A4" icon={fieldTripLogo} bg={fieldTripBg} reverse={true} />
+                <div data-aos="fade-up" data-aos-delay="700">
+                    <TimelineItem month="Sept - Oct" date="TBA" title="Field Trip" color="#A4A4A4" icon={fieldTripLogo} bg={fieldTripBg} reverse={true} />
+                </div>
 
-                <TimelineItem month="October" date="7" title="Job Fair" color="#38A4D8" icon={jobFairLogo} bg={jobFairBg} reverse={true} />
+                <div data-aos="fade-up" data-aos-delay="800">
+                    <TimelineItem month="October" date="7" title="Job Fair" color="#38A4D8" icon={jobFairLogo} bg={jobFairBg} reverse={true} />
+                </div>
 
-                <TimelineItem month="October" date="31" title="Final Day Competition" color="#25FCFF" icon={finalDayLogo} bg={finalDayBg} reverse={true} />
+                <div data-aos="fade-up" data-aos-delay="900">
+                    <TimelineItem month="October" date="31" title="Final Day Competition" color="#25FCFF" icon={finalDayLogo} bg={finalDayBg} reverse={true} />
+                </div>
 
-                <TimelineItem month="October" date="31" title="Student Chapter Gathering" color="#25FCFF" icon={studentChapterLogo} bg={studentChapterBg} reverse={true} />
+                <div data-aos="fade-up" data-aos-delay="1000">
+                    <TimelineItem month="October" date="31" title="Student Chapter Gathering" color="#25FCFF" icon={studentChapterLogo} bg={studentChapterBg} reverse={true} />
+                </div>
 
-                <TimelineItem month="November" date="1" title="Gala Dinner" color="#E7C66B" icon={galaDinnerLogo} bg={galaDinnerBg} reverse={true} />
+                <div data-aos="fade-up" data-aos-delay="1100">
+                    <TimelineItem month="November" date="1" title="Gala Dinner" color="#E7C66B" icon={galaDinnerLogo} bg={galaDinnerBg} reverse={true} />
+                </div>
 
-                <TimelineItem month="November" date="28" title="SPE Care" color="#25A4FF" icon={speCareLogo} bg={speCareBg} reverse={true} />
+                <div data-aos="fade-up" data-aos-delay="1200">
+                    <TimelineItem month="November" date="28" title="SPE Care" color="#25A4FF" icon={speCareLogo} bg={speCareBg} reverse={true} />
+                </div>
             </div>
         </div>
     )
