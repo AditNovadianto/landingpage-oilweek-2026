@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  react-landingpage:
+    build: .
+    container_name: react-landingpage
+    ports:
+      - "80"
+    restart: unless-stopped
