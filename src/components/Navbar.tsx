@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"  // ← tambah ini
 import logo from "../images/logo.png"
 import AOS from "aos"
 import "aos/dist/aos.css"
@@ -6,18 +7,36 @@ import "aos/dist/aos.css"
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false)
     const [showNavbar, setShowNavbar] = useState(false)
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    const isHome = location.pathname === "/"
+
+    // Handle klik nav link
+    const handleNavClick = (sectionId: string) => {
+        setShowNavbar(false)
+
+        if (isHome) {
+            // Sudah di home, tinggal scroll ke section
+            document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" })
+        } else {
+            // Dari halaman lain → navigate ke home dulu, lalu scroll
+            navigate("/", { state: { scrollTo: sectionId } })
+        }
+    }
+
+    // Setelah landing di Home dari halaman lain, scroll ke section yang dituju
+    useEffect(() => {
+        if (isHome && location.state?.scrollTo) {
+            setTimeout(() => {
+                document.getElementById(location.state.scrollTo)?.scrollIntoView({ behavior: "smooth" })
+            }, 100) // sedikit delay biar DOM-nya siap
+        }
+    }, [isHome, location.state])
 
     useEffect(() => {
-        AOS.init({
-            duration: 1000,
-            once: true,
-            easing: "ease-in-out",
-        });
-
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50)
-        }
-
+        AOS.init({ duration: 1000, once: true, easing: "ease-in-out" })
+        const handleScroll = () => setScrolled(window.scrollY > 50)
         window.addEventListener("scroll", handleScroll)
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
@@ -27,19 +46,20 @@ const Navbar = () => {
             <div
                 data-aos="fade-down"
                 className={`fixed top-0 px-5 md:px-10 lg:px-20 flex items-center gap-5 justify-between w-full transition-all duration-300 z-50
-            ${scrolled ? "bg-white/10 py-3 backdrop-blur-xl border-b border-white/20 shadow-lg" : "py-5 bg-transparent"}
-            `}
+                    ${scrolled ? "bg-white/10 py-3 backdrop-blur-xl border-b border-white/20 shadow-lg" : "py-5 bg-transparent"}
+                `}
             >
-                <a href="#">
+                <a href="/">
                     <img data-aos="zoom-in" data-aos-delay="200" className="cursor-pointer w-14" src={logo} alt="Logo" />
                 </a>
 
                 <div className="flex items-center gap-10 font-inter text-white font-light">
-                    <a data-aos="fade-down" data-aos-delay="300" className="hidden lg:block" href="#home">Home</a>
-                    <a data-aos="fade-down" data-aos-delay="400" className="hidden lg:block" href="#aboutspeuisc">About SPE UI SC</a>
-                    <a data-aos="fade-down" data-aos-delay="500" className="hidden lg:block" href="#aboutoilweek">About Oil Week</a>
-                    <a data-aos="fade-down" data-aos-delay="600" className="hidden lg:block" href="#competitions">Competititons</a>
-                    <a data-aos="fade-down" data-aos-delay="700" className="hidden lg:block" href="#contact">Contact</a>
+                    {/* Ganti href="#..." jadi onClick */}
+                    <button data-aos="fade-down" data-aos-delay="300" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("home")}>Home</button>
+                    <button data-aos="fade-down" data-aos-delay="400" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("aboutspeuisc")}>About SPE UI SC</button>
+                    <button data-aos="fade-down" data-aos-delay="500" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("aboutoilweek")}>About Oil Week</button>
+                    <button data-aos="fade-down" data-aos-delay="600" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("competitions")}>Competitions</button>
+                    <button data-aos="fade-down" data-aos-delay="700" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("contact")}>Contact</button>
 
                     <button data-aos="zoom-in" data-aos-delay="800" className="glass hidden lg:block px-7 py-2 cursor-pointer">Login</button>
                 </div>
@@ -55,15 +75,14 @@ const Navbar = () => {
                 </button>
             </div>
 
-            <div
-                className={`z-10 fixed top-20 w-full lg:hidden overflow-hidden transition-all duration-300 ${showNavbar ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
-            >
+            {/* Mobile menu */}
+            <div className={`z-10 fixed top-20 w-full lg:hidden overflow-hidden transition-all duration-300 ${showNavbar ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
                 <div className="flex flex-col px-6 py-6 gap-5 font-inter text-white font-light bg-white/10 backdrop-blur-xl">
-                    <a href="#home" onClick={() => setShowNavbar(false)}>Home</a>
-                    <a href="#aboutspeuisc" onClick={() => setShowNavbar(false)}>About SPE UI SC</a>
-                    <a href="#aboutoilweek" onClick={() => setShowNavbar(false)}>About Oil Week</a>
-                    <a href="#competitions" onClick={() => setShowNavbar(false)}>Competititons</a>
-                    <a href="#contact" onClick={() => setShowNavbar(false)}>Contact</a>
+                    <button className="text-left bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("home")}>Home</button>
+                    <button className="text-left bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("aboutspeuisc")}>About SPE UI SC</button>
+                    <button className="text-left bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("aboutoilweek")}>About Oil Week</button>
+                    <button className="text-left bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("competitions")}>Competitions</button>
+                    <button className="text-left bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("contact")}>Contact</button>
                     <button className="glass px-7 py-2 cursor-pointer w-fit">Login</button>
                 </div>
             </div>

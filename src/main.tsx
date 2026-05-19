@@ -4,11 +4,26 @@ import './index.css'
 import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import NotFound from './pages/NotFound.tsx'
+import PaperandPosterCompetition from './pages/PaperandPosterCompetition.tsx'
+import PetrosmartCompetition from './pages/PetrosmartCompetition.tsx'
+import BusinessCaseCompetition from './pages/BusinessCaseCompetition.tsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+  },
+  {
+    path: '/paper-and-poster-competition',
+    element: <PaperandPosterCompetition />,
+  },
+  {
+    path: '/petrosmart-competition',
+    element: <PetrosmartCompetition />,
+  },
+  {
+    path: '/business-case-competition',
+    element: <BusinessCaseCompetition />,
   },
   // {
   //   path: '/sign-up',

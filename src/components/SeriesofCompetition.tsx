@@ -8,6 +8,7 @@ import logoWellStimulation from '../images/logo-well-stimulation.png'
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 const SeriesofCompetition = () => {
     useEffect(() => {
@@ -39,9 +40,9 @@ const SeriesofCompetition = () => {
                         Petrosmart Competition is a <span className='font-semibold font-garamond italic text-[#E7C66B]'>quick round smart competition</span> in which teams of <span className='font-semibold italic'>3 people test their knowledge</span> of oil and gas by answering different types of formatted questions. Teams will be evaluated on their understanding on topics such as Geology, Drilling, and Production.
                     </p>
 
-                    <button className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
+                    <Link to={"/petrosmart-competition"} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
                         <ArrowRight />
-                    </button>
+                    </Link>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="200" className='relative pb-20 glass px-5 py-3 flex flex-col'>
@@ -58,9 +59,9 @@ const SeriesofCompetition = () => {
                         Paper and Poster Competition is where participants <span className='font-semibold font-garamond italic text-[#E7C66B]'>submit and present their innovations</span>, based on given theme. They will <span className='font-semibold italic'>produce a paper</span> detailing their ideas and present them through a presentation on pitching day.
                     </p>
 
-                    <button className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
+                    <Link to={'/paper-and-poster-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
                         <ArrowRight />
-                    </button>
+                    </Link>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="300" className='relative pb-20 glass px-5 py-3 flex flex-col'>
@@ -77,9 +78,9 @@ const SeriesofCompetition = () => {
                         Petrosmart Competition is a <span className='font-semibold font-garamond italic text-[#E7C66B]'>quick round smart competition</span> in which teams of <span className='font-semibold italic'>3 people test their knowledge</span> of oil and gas by answering different types of formatted questions. Teams will be evaluated on their understanding on topics such as Geology, Drilling, and Production.
                     </p>
 
-                    <button className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
+                    <Link to={'/business-case-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
                         <ArrowRight />
-                    </button>
+                    </Link>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="400" className='relative pb-20 glass px-5 py-3 flex flex-col'>
