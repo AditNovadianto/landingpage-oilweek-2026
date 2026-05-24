@@ -97,9 +97,9 @@ const SeriesofCompetition = () => {
                         Mud Innovation Competition tasks the participants to <span className='font-semibold font-garamond italic text-[#E7C66B]'>propose pioneering drilling mud solutions for real world oil and gas challenges</span>. Teams will showcase their technical expertise by <span className='font-semibold italic'>inventing new drilling mud formulations</span> created by using software and conducting lab tests.
                     </p>
 
-                    <button className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
+                    <Link to={'/mud-innovation-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
                         <ArrowRight />
-                    </button>
+                    </Link>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="500" className='relative pb-20 glass px-5 py-3 flex flex-col'>
@@ -116,9 +116,9 @@ const SeriesofCompetition = () => {
                         Well Stimulation Competition challenges participants to <span className='font-semibold font-garamond italic text-[#E7C66B]'>innovate optimal solutions on the topic of well stimulation in the oil and gas sector</span>. They will engage in complex, <span className='font-semibold italic'>real-world scenarios</span> that will require them to devise effective well stimulation techniques to <span className='font-semibold italic'>optimize oil and gas production</span>.
                     </p>
 
-                    <button className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
+                    <Link to={'well-stimulation-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
                         <ArrowRight />
-                    </button>
+                    </Link>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="600" className='relative pb-20 glass px-5 py-3 flex flex-col'>
@@ -135,9 +135,9 @@ const SeriesofCompetition = () => {
                         Case Study Competition challenges participants to <span className='font-semibold font-garamond italic text-[#E7C66B]'>analyze real-world oil and gas problems and develop innovative, practical solutions</span>. Teams will showcase their critical thinking and technical expertise through research, structured analysis, and compelling presentations.
                     </p>
 
-                    <button className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
+                    <Link to={'/case-study-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
                         <ArrowRight />
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

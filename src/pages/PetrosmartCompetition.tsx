@@ -155,7 +155,7 @@ const PetrosmartCompetition = () => {
                     <div className="mt-10 flex flex-col md:flex-row items-stretch gap-10 relative">
                         <div
                             data-aos="fade-right"
-                            className="px-5 md:px-20 lg:px-32"
+                            className="px-5 w-full md:px-20 lg:px-32"
                         >
                             <div className="glass px-5 py-7 md:w-[calc((100%-40px)/2)]">
                                 <p className="font-medium text-xl">Can we change team members after registration?</p>

@@ -165,7 +165,7 @@ const BusinessCaseCompetition = () => {
                     <div className="mt-10 flex flex-col md:flex-row items-stretch gap-10 relative">
                         <div
                             data-aos="fade-right"
-                            className="px-5 md:px-20 lg:px-32"
+                            className="px-5 w-full md:px-20 lg:px-32"
                         >
                             <div className="glass px-5 py-7 md:w-[calc((100%-40px)/2)]">
                                 <p className="font-medium text-xl">What language should we use in submission?</p>
@@ -176,7 +176,7 @@ const BusinessCaseCompetition = () => {
 
                         <div
                             data-aos="fade-left"
-                            className="shadow-[inset_0_0_1000px_rgba(0,0,0,0.35)] px-5 py-7 bg-linear-to-r from-gray-500 to-white md:w-[47%] md:absolute -bottom-28 right-0"
+                            className="shadow-[inset_0_0_1000px_rgba(0,0,0,0.35)] px-5 py-7 bg-linear-to-r from-gray-500 to-white md:w-[47%] md:absolute -bottom-36 right-0"
                         >
                             <p className="font-bold font-inter text-4xl text-shadow-lg">Still Have</p>
 

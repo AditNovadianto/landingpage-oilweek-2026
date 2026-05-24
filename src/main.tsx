@@ -7,6 +7,9 @@ import NotFound from './pages/NotFound.tsx'
 import PaperandPosterCompetition from './pages/PaperandPosterCompetition.tsx'
 import PetrosmartCompetition from './pages/PetrosmartCompetition.tsx'
 import BusinessCaseCompetition from './pages/BusinessCaseCompetition.tsx'
+import MudInnovationCompetition from './pages/MudInnovationCompetition.tsx'
+import WellStimulationCompetition from './pages/WellStimulationCompetition.tsx'
+import CaseStudyCompetition from './pages/CaseStudyCompetition.tsx'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +27,18 @@ const router = createBrowserRouter([
   {
     path: '/business-case-competition',
     element: <BusinessCaseCompetition />,
+  },
+  {
+    path: '/mud-innovation-competition',
+    element: <MudInnovationCompetition />,
+  },
+  {
+    path: '/well-stimulation-competition',
+    element: <WellStimulationCompetition />,
+  },
+  {
+    path: '/case-study-competition',
+    element: <CaseStudyCompetition />,
   },
   // {
   //   path: '/sign-up',
