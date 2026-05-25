@@ -10,6 +10,9 @@ import BusinessCaseCompetition from './pages/competitions/BusinessCaseCompetitio
 import MudInnovationCompetition from './pages/competitions/MudInnovationCompetition.tsx'
 import WellStimulationCompetition from './pages/competitions/WellStimulationCompetition.tsx'
 import CaseStudyCompetition from './pages/competitions/CaseStudyCompetition.tsx'
+import PreEvent from './pages/events/PreEvent.tsx'
+import GrandSeminarXSkillFinder from './pages/events/GrandSeminarXSkillFinder.tsx'
+import JobFair from './pages/events/JobFair.tsx'
 
 const router = createBrowserRouter([
   {
@@ -39,6 +42,18 @@ const router = createBrowserRouter([
   {
     path: '/case-study-competition',
     element: <CaseStudyCompetition />,
+  },
+  {
+    path: '/pre-event',
+    element: <PreEvent />,
+  },
+  {
+    path: '/grand-seminar-x-skill-finder',
+    element: <GrandSeminarXSkillFinder />,
+  },
+  {
+    path: '/job-fair',
+    element: <JobFair />,
   },
   // {
   //   path: '/sign-up',

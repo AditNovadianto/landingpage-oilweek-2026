@@ -10,6 +10,8 @@ import logoGalaDinner from "../images/logo-gala-dinner.png"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { useEffect } from "react"
+import { Link } from "react-router-dom"
+import { ArrowRight } from "lucide-react"
 
 const ChainofEvents = () => {
     useEffect(() => {
@@ -35,6 +37,12 @@ const ChainofEvents = () => {
                         <img className="w-20" src={logoPreEvent} />
                         <p className="italic text-2xl font-garamond text-white">Pre Event</p>
                     </div>
+
+                    <div className="absolute bottom-3 right-5">
+                        <Link to={'pre-event'} className="text-white">
+                            <ArrowRight />
+                        </Link>
+                    </div>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="200" className="glass py-5 relative pb-24">
@@ -44,6 +52,12 @@ const ChainofEvents = () => {
                         <img className="w-20" src={logoGrandSeminar} />
                         <p className="italic text-2xl font-garamond text-white">Grand Seminar X Skill Finder</p>
                     </div>
+
+                    <div className="absolute bottom-3 right-5">
+                        <Link to={'grand-seminar-x-skill-finder'} className="text-white">
+                            <ArrowRight />
+                        </Link>
+                    </div>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="300" className="glass py-5 relative pb-24">
@@ -52,6 +66,12 @@ const ChainofEvents = () => {
                     <div className="absolute -bottom-5 -left-5 flex items-center gap-2">
                         <img className="w-20" src={logoJobFair} />
                         <p className="italic text-2xl font-garamond text-white">Job Fair</p>
+                    </div>
+
+                    <div className="absolute bottom-3 right-5">
+                        <Link to={'job-fair'} className="text-white">
+                            <ArrowRight />
+                        </Link>
                     </div>
                 </div>
 
