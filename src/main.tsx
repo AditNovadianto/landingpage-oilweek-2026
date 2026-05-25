@@ -4,12 +4,12 @@ import './index.css'
 import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import NotFound from './pages/NotFound.tsx'
-import PaperandPosterCompetition from './pages/PaperandPosterCompetition.tsx'
-import PetrosmartCompetition from './pages/PetrosmartCompetition.tsx'
-import BusinessCaseCompetition from './pages/BusinessCaseCompetition.tsx'
-import MudInnovationCompetition from './pages/MudInnovationCompetition.tsx'
-import WellStimulationCompetition from './pages/WellStimulationCompetition.tsx'
-import CaseStudyCompetition from './pages/CaseStudyCompetition.tsx'
+import PaperandPosterCompetition from './pages/competitions/PaperandPosterCompetition.tsx'
+import PetrosmartCompetition from './pages/competitions/PetrosmartCompetition.tsx'
+import BusinessCaseCompetition from './pages/competitions/BusinessCaseCompetition.tsx'
+import MudInnovationCompetition from './pages/competitions/MudInnovationCompetition.tsx'
+import WellStimulationCompetition from './pages/competitions/WellStimulationCompetition.tsx'
+import CaseStudyCompetition from './pages/competitions/CaseStudyCompetition.tsx'
 
 const router = createBrowserRouter([
   {

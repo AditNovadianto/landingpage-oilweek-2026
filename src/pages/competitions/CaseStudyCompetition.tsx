@@ -1,9 +1,9 @@
 import { ArrowRight } from "lucide-react"
-import Footer from "../components/Footer"
-import Navbar from "../components/Navbar"
-import bg from "../images/competitions/csc/bg-csc.png"
-import logo from "../images/competitions/csc/logo-csc.png"
-import timeline from "../images/competitions/csc/timeline-csc.png"
+import Footer from "../../components/Footer"
+import Navbar from "../../components/Navbar"
+import bg from "../../images/competitions/csc/bg-csc.png"
+import logo from "../../images/competitions/csc/logo-csc.png"
+import timeline from "../../images/competitions/csc/timeline-csc.png"
 import Aos from "aos";
 import { useEffect } from "react";
 

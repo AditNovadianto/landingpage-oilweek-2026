@@ -66,7 +66,6 @@ const Navbar = () => {
                     </a>
 
                     <div className="flex items-center gap-10 font-inter text-white font-light">
-                        {/* Ganti href="#..." jadi onClick */}
                         <button data-aos="fade-down" data-aos-delay="300" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("home")}>Home</button>
                         <button data-aos="fade-down" data-aos-delay="400" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("aboutspeuisc")}>About SPE UI SC</button>
                         <button data-aos="fade-down" data-aos-delay="500" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("aboutoilweek")}>About Oil Week</button>

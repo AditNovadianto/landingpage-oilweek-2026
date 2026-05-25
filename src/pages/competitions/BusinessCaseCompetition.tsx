@@ -1,13 +1,13 @@
 import { ArrowRight } from "lucide-react"
-import Navbar from "../components/Navbar"
-import bg from "../images/competitions/pcc/bg-ppc.png"
-import logo from "../images/competitions/pcc/logo-ppc.png"
-import timeline from "../images/competitions/pcc/timeline-ppc.png"
-import Footer from "../components/Footer"
+import Footer from "../../components/Footer"
+import Navbar from "../../components/Navbar"
+import bg from "../../images/competitions/bcc/bg-bcc.png"
+import logo from "../../images/competitions/bcc/logo-bcc.png"
+import timeline from "../../images/competitions/bcc/timeline-bcc.png"
 import { useEffect } from "react"
 import Aos from "aos"
 
-const PaperandPosterCompetition = () => {
+const BusinessCaseCompetition = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         setTimeout(() => {
@@ -40,7 +40,7 @@ const PaperandPosterCompetition = () => {
                     className="px-5 md:px-20 lg:px-32 relative inline-block m-auto"
                 >
                     <h1 className="text-6xl text-center font-semibold italic font-garamond text-white">
-                        Paper & Poster
+                        Business Case
                     </h1>
 
                     <div className="h-1.5 w-full bg-linear-to-r from-[#E7C66B] to-[#F6EBD2]"></div>
@@ -59,49 +59,25 @@ const PaperandPosterCompetition = () => {
                     data-aos-delay="300"
                     className="px-5 md:px-20 lg:px-32 mt-14"
                 >
-                    <p className="text-2xl text-center text-white font-inter font-light">Accelerating Low-Carbon Industry through Optimization : <i>Integrating Clean Energy, Efficiency, and Innovation for Sustainable Growth</i></p>
+                    <p className="text-2xl text-center text-white font-inter font-light"><i>Sustained Growth: Strategic Competitiveness under Market Transformation</i></p>
                 </div>
 
                 <div className="px-5 md:px-20 lg:px-32 mt-20 text-white">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-                        <div
-                            data-aos="fade-up"
-                            data-aos-delay="100"
-                            className="glass text-center px-7 py-5 flex items-center justify-center text-lg min-h-32 font-inter font-light"
-                        >
-                            Process & Operational Excellence
-                        </div>
+                    <button
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                        className="glass cursor-pointer text-center px-7 py-3 flex items-center justify-center gap-5 text-lg font-inter font-light"
+                    >
+                        <p>Register Now</p>
 
-                        <div
-                            data-aos="fade-up"
-                            data-aos-delay="200"
-                            className="glass text-center px-7 py-5 flex items-center justify-center text-lg min-h-32 font-inter font-light"
-                        >
-                            Energy Efficiency & Industrial Energy Optimization
-                        </div>
-
-                        <div
-                            data-aos="fade-up"
-                            data-aos-delay="300"
-                            className="glass text-center px-7 py-5 flex items-center justify-center text-lg min-h-32 font-inter font-light"
-                        >
-                            Digitalization and Smart Manufacturing for Decarbonization
-                        </div>
-
-                        <div
-                            data-aos="fade-up"
-                            data-aos-delay="400"
-                            className="glass text-center px-7 py-5 flex items-center justify-center text-lg min-h-32 font-inter font-light"
-                        >
-                            Low-Carbon Technology & Process Innovation
-                        </div>
-                    </div>
+                        <ArrowRight />
+                    </button>
                 </div>
 
-                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center">
+                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center gap-10 mt-20">
                     <img
                         data-aos="fade-right"
-                        className="w-[70%] md:w-[50%] m-auto md:m-0"
+                        className="w-[70%] md:w-[50%] m-auto md:m-0 px-20 py-20"
                         src={logo}
                         alt=""
                     />
@@ -111,9 +87,9 @@ const PaperandPosterCompetition = () => {
                         className="flex flex-col items-end"
                     >
                         <div className="glass px-5 py-7 text-white">
-                            <p className="text-2xl font-garamond font-semibold">About <i>Paper and Poster Competition</i></p>
+                            <p className="text-2xl font-garamond font-semibold">About <i>Business Case Competition</i></p>
 
-                            <p className="mt-5 font-inter font-light">Paper and Poster Competition is where participants <span className="font-garamond italic text-[#E7C66B]">submit and present their innovations</span>, based on given theme. They will <span className="italic font-semibold">produce a paper</span> detailing their ideas and present them through a presentation on pitching day.</p>
+                            <p className="mt-5 font-inter font-light">Business Case Competition challenges participants to <span className="font-garamond italic text-[#E7C66B]">analyze a given business problem and develop strategic solutions</span>. Teams will showcase their <span className="font-semibold italic">analytical and communication skills</span> through a pitch deck and a comprehensive paper detailing their proposed solution.</p>
                         </div>
 
                         <button
@@ -159,9 +135,9 @@ const PaperandPosterCompetition = () => {
                             data-aos="fade-left"
                             className="glass px-5 py-7 w-full"
                         >
-                            <p className="font-medium text-xl">Can students from different majors join in one team?</p>
+                            <p className="font-medium text-xl">When will the case be released?</p>
 
-                            <p className="font-inter font-light mt-5">Yes, participants from different academic majors are allowed to form a team, as long as that all members are from the same university.</p>
+                            <p className="font-inter font-light mt-5">The case will be released after the registration period ends, and will be informed periodically through official announcements.</p>
                         </div>
                     </div>
 
@@ -170,18 +146,18 @@ const PaperandPosterCompetition = () => {
                             data-aos="fade-right"
                             className="glass px-5 py-7 w-full"
                         >
-                            <p className="font-medium text-xl">What language should be used during the competition?</p>
+                            <p className="font-medium text-xl">Do we need to use specific business frameworks?</p>
 
-                            <p className="font-inter font-light mt-5">All submissions are required to be prepared in English to ensure consistency in the evaluation process.</p>
+                            <p className="font-inter font-light mt-5">No strict frameworks are required, but using them is highly recommended to structure your analysis.</p>
                         </div>
 
                         <div
                             data-aos="fade-left"
                             className="glass px-5 py-7 w-full"
                         >
-                            <p className="font-medium text-xl">Can we change our topic after registering?</p>
+                            <p className="font-medium text-xl">Can we revise our submission after sending it?</p>
 
-                            <p className="font-inter font-light mt-5">Changes are allowed as long as they are made before the submission stage. Once the work has been submitted and proceeds to the next stage, no further changes will be permitted.
+                            <p className="font-inter font-light mt-5">No. once the submission has been sent, it is considered final and no further revisions or replacements will be accepted.
                             </p>
                         </div>
                     </div>
@@ -192,15 +168,15 @@ const PaperandPosterCompetition = () => {
                             className="px-5 w-full md:px-20 lg:px-32"
                         >
                             <div className="glass px-5 py-7 md:w-[calc((100%-40px)/2)]">
-                                <p className="font-medium text-xl">Can we change team members after registration?</p>
+                                <p className="font-medium text-xl">What language should we use in submission?</p>
 
-                                <p className="font-inter font-light mt-5">No, changes to team composition are not permitted once the registration has been completed. All registered team members are considered final and cannot be replaced under any circumstances.</p>
+                                <p className="font-inter font-light mt-5">All submissions are required to be prepared in English to ensure consistency in the evaluation process.</p>
                             </div>
                         </div>
 
                         <div
                             data-aos="fade-left"
-                            className="shadow-[inset_0_0_1000px_rgba(0,0,0,0.35)] px-5 py-7 bg-linear-to-r from-[#FFE44C] to-[#F1944A] md:w-[47%] md:absolute -bottom-28 right-0"
+                            className="shadow-[inset_0_0_1000px_rgba(0,0,0,0.35)] px-5 py-7 bg-linear-to-r from-gray-500 to-white md:w-[47%] md:absolute -bottom-36 right-0"
                         >
                             <p className="font-bold font-inter text-4xl text-shadow-lg">Still Have</p>
 
@@ -209,9 +185,9 @@ const PaperandPosterCompetition = () => {
                             <div className="w-max glass px-5 py-3 shadow-2xl mt-5">Contact Person</div>
 
                             <div className="flex items-start mt-5 gap-5">
-                                <p className="text-base">Manager of Paper and Poster Competition : <br />Nadia Aqila (+62 813 8539 2453)</p>
+                                <p className="text-base">Manager of Business Case Competition : <br />Nadia Aqila (+62 813 8539 2453)</p>
 
-                                <p className="text-base">PIC: <br />Anindya Zhafira (+62 813 1600 3178) <br />Parsa Ghani (+62 877 8151 8796)
+                                <p className="text-base">PIC: <br />Bryan Putera (+62 812 7569 9168) <br />Deatisa Song (+62 82 1401 7901)
                                 </p>
                             </div>
                         </div>
@@ -226,4 +202,4 @@ const PaperandPosterCompetition = () => {
     )
 }
 
-export default PaperandPosterCompetition
+export default BusinessCaseCompetition
