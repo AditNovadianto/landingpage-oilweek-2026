@@ -150,6 +150,12 @@ const ChainofEvents = () => {
                         <img className="w-20" src={logoSCGath} />
                         <p className="italic text-2xl font-garamond text-white">SC Gath</p>
                     </div>
+
+                    <div className="absolute bottom-3 right-5">
+                        <Link to={'student-chapter-gathering'} className="text-white">
+                            <ArrowRight />
+                        </Link>
+                    </div>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="900" className="glass py-5 relative pb-24">
@@ -158,6 +164,12 @@ const ChainofEvents = () => {
                     <div className="absolute -bottom-5 -left-5 flex items-center gap-2">
                         <img className="w-20" src={logoGalaDinner} />
                         <p className="italic text-2xl font-garamond text-white">Gala Dinner</p>
+                    </div>
+
+                    <div className="absolute bottom-3 right-5">
+                        <Link to={'gala-dinner'} className="text-white">
+                            <ArrowRight />
+                        </Link>
                     </div>
                 </div>
             </div>

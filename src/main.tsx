@@ -16,6 +16,8 @@ import JobFair from './pages/events/JobFair.tsx'
 import CompanyVisit from './pages/events/CompanyVisit.tsx'
 import FieldTrip from './pages/events/FieldTrip.tsx'
 import SPECare from './pages/events/SPECare.tsx'
+import GalaDinner from './pages/events/GalaDinner.tsx'
+import SCGathering from './pages/events/SCGathering.tsx'
 
 const router = createBrowserRouter([
   {
@@ -69,6 +71,14 @@ const router = createBrowserRouter([
   {
     path: '/spe-care',
     element: <SPECare />,
+  },
+  {
+    path: '/student-chapter-gathering',
+    element: <SCGathering />,
+  },
+  {
+    path: '/gala-dinner',
+    element: <GalaDinner />,
   },
   // {
   //   path: '/sign-up',
