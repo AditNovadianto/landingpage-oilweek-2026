@@ -13,6 +13,9 @@ import CaseStudyCompetition from './pages/competitions/CaseStudyCompetition.tsx'
 import PreEvent from './pages/events/PreEvent.tsx'
 import GrandSeminarXSkillFinder from './pages/events/GrandSeminarXSkillFinder.tsx'
 import JobFair from './pages/events/JobFair.tsx'
+import CompanyVisit from './pages/events/CompanyVisit.tsx'
+import FieldTrip from './pages/events/FieldTrip.tsx'
+import SPECare from './pages/events/SPECare.tsx'
 
 const router = createBrowserRouter([
   {
@@ -54,6 +57,18 @@ const router = createBrowserRouter([
   {
     path: '/job-fair',
     element: <JobFair />,
+  },
+  {
+    path: '/company-visit',
+    element: <CompanyVisit />,
+  },
+  {
+    path: '/field-trip',
+    element: <FieldTrip />,
+  },
+  {
+    path: '/spe-care',
+    element: <SPECare />,
   },
   // {
   //   path: '/sign-up',

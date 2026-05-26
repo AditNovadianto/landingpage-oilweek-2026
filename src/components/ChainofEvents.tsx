@@ -82,6 +82,12 @@ const ChainofEvents = () => {
                         <img className="w-20" src={logoCompanyVisit} />
                         <p className="italic text-2xl font-garamond text-white">Company Visit</p>
                     </div>
+
+                    <div className="absolute bottom-3 right-5">
+                        <Link to={'company-visit'} className="text-white">
+                            <ArrowRight />
+                        </Link>
+                    </div>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="500" className="glass py-5 relative pb-24">
@@ -114,6 +120,12 @@ const ChainofEvents = () => {
                         <img className="w-20" src={logoFieldTrip} />
                         <p className="italic text-2xl font-garamond text-white">Field Trip</p>
                     </div>
+
+                    <div className="absolute bottom-3 right-5">
+                        <Link to={'field-trip'} className="text-white">
+                            <ArrowRight />
+                        </Link>
+                    </div>
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="700" className="glass py-5 relative pb-24">
@@ -122,6 +134,12 @@ const ChainofEvents = () => {
                     <div className="absolute -bottom-5 -left-5 flex items-center gap-2">
                         <img className="w-20" src={logoSPECare} />
                         <p className="italic text-2xl font-garamond text-white">SPE Care</p>
+                    </div>
+
+                    <div className="absolute bottom-3 right-5">
+                        <Link to={'spe-care'} className="text-white">
+                            <ArrowRight />
+                        </Link>
                     </div>
                 </div>
 
