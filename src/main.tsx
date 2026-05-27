@@ -18,6 +18,10 @@ import FieldTrip from './pages/events/FieldTrip.tsx'
 import SPECare from './pages/events/SPECare.tsx'
 import GalaDinner from './pages/events/GalaDinner.tsx'
 import SCGathering from './pages/events/SCGathering.tsx'
+import SignInTeamLeader from './pages/TeamLeader/SignInTeamLeader.tsx'
+import SignUpTeamLeader from './pages/TeamLeader/SignUpTeamLeader.tsx'
+import ProtectedRoute from './components/ProtectedRoute.tsx'
+import DashboardTeamLeader from './pages/TeamLeader/DashboardTeamLeader.tsx'
 
 const router = createBrowserRouter([
   {
@@ -80,23 +84,27 @@ const router = createBrowserRouter([
     path: '/gala-dinner',
     element: <GalaDinner />,
   },
-  // {
-  //   path: '/sign-up',
-  //   element: <SignUp />
-  // },
+  {
+    path: '/sign-in',
+    element: <SignInTeamLeader />,
+  },
+  {
+    path: '/sign-up',
+    element: <SignUpTeamLeader />
+  },
   // {
   //   path: '/forgot-password',
   //   element: <ForgotPassword />
   // },
-  // {
-  //   element: <ProtectedRoute />,
-  //   children: [
-  //     {
-  //       path: "/dashboard",
-  //       element: <Dashboard />,
-  //     },
-  //   ],
-  // },
+  {
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/dashboard-team-leader",
+        element: <DashboardTeamLeader />,
+      },
+    ],
+  },
   {
     path: '*',
     element: <NotFound />

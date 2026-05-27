@@ -1,14 +1,17 @@
 import { ArrowRight } from "lucide-react"
-import Footer from "../../components/Footer"
-import Navbar from "../../components/Navbar"
+import Footer from "../../components/landingpage/Footer"
+import Navbar from "../../components/landingpage/Navbar"
 import bg from "../../images/events/cv/bg-cv.png"
 import logo from "../../images/events/cv/logo-cv.png"
 import images from "../../images/events/cv/images-cv.png"
 import desc from "../../images/events/cv/desc-cv.png"
 import Aos from "aos"
 import { useEffect } from "react"
+import useImagePreload from "../../hooks/useImagePreload"
 
 const CompanyVisit = () => {
+    const bgLoaded = useImagePreload(bg)
+
     useEffect(() => {
         window.scrollTo(0, 0);
         setTimeout(() => {
@@ -28,7 +31,7 @@ const CompanyVisit = () => {
     }, []);
 
     return (
-        <div className="bg-cover min-h-screen overflow-hidden" style={{ backgroundImage: `url(${bg})` }}>
+        <div className="bg-cover min-h-screen overflow-hidden" style={{ backgroundImage: bgLoaded ? `url(${bg})` : "none", backgroundColor: "#0d1e2e", transition: "background-image 0.3s ease" }}>
             <Navbar />
 
             <div

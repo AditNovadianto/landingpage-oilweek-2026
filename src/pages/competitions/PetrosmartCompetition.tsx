@@ -1,13 +1,16 @@
 import { ArrowRight } from "lucide-react"
-import Footer from "../../components/Footer"
+import Footer from "../../components/landingpage/Footer"
 import bg from "../../images/competitions/pc/bg-petrosmart.png"
 import logo from "../../images/competitions/pc/logo-petrosmart.png"
 import timeline from "../../images/competitions/pc/timeline-petrosmart.png"
-import Navbar from "../../components/Navbar"
+import Navbar from "../../components/landingpage/Navbar"
 import { useEffect } from "react"
 import Aos from "aos"
+import useImagePreload from "../../hooks/useImagePreload"
 
 const PetrosmartCompetition = () => {
+    const bgLoaded = useImagePreload(bg)
+
     useEffect(() => {
         window.scrollTo(0, 0);
         setTimeout(() => {
@@ -27,7 +30,7 @@ const PetrosmartCompetition = () => {
     }, []);
 
     return (
-        <div className="bg-cover min-h-screen overflow-hidden" style={{ backgroundImage: `url(${bg})` }}>
+        <div className="bg-cover min-h-screen overflow-hidden" style={{ backgroundImage: bgLoaded ? `url(${bg})` : "none", backgroundColor: "#0d1e2e", transition: "background-image 0.3s ease" }}>
             <Navbar />
 
             <div

@@ -1,13 +1,16 @@
 import { ArrowRight } from "lucide-react"
-import Navbar from "../../components/Navbar"
+import Navbar from "../../components/landingpage/Navbar"
 import bg from "../../images/competitions/pcc/bg-ppc.png"
 import logo from "../../images/competitions/pcc/logo-ppc.png"
 import timeline from "../../images/competitions/pcc/timeline-ppc.png"
-import Footer from "../../components/Footer"
+import Footer from "../../components/landingpage/Footer"
 import { useEffect } from "react"
 import Aos from "aos"
+import useImagePreload from "../../hooks/useImagePreload"
 
 const PaperandPosterCompetition = () => {
+    const bgLoaded = useImagePreload(bg)
+
     useEffect(() => {
         window.scrollTo(0, 0);
         setTimeout(() => {
@@ -27,7 +30,7 @@ const PaperandPosterCompetition = () => {
     }, []);
 
     return (
-        <div className="bg-cover min-h-screen overflow-hidden" style={{ backgroundImage: `url(${bg})` }}>
+        <div className="bg-cover min-h-screen overflow-hidden" style={{ backgroundImage: bgLoaded ? `url(${bg})` : "none", backgroundColor: "#0d1e2e", transition: "background-image 0.3s ease" }}>
             <Navbar />
 
             <div

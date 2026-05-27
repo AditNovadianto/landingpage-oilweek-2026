@@ -1,14 +1,17 @@
 import { ArrowRight } from "lucide-react"
-import Footer from "../../components/Footer"
-import Navbar from "../../components/Navbar"
+import Footer from "../../components/landingpage/Footer"
+import Navbar from "../../components/landingpage/Navbar"
 import bg from "../../images/events/sg/bg-sg.png"
 import logo from "../../images/events/sg/logo-sg.png"
 import images from "../../images/events/sg/images-sg.png"
-import desc from "../../images/events/gd/desc-gd.png"
+import desc from "../../images/events/sg/desc-sg.png"
 import Aos from "aos"
 import { useEffect } from "react"
+import useImagePreload from "../../hooks/useImagePreload"
 
 const SCGathering = () => {
+    const bgLoaded = useImagePreload(bg)
+
     useEffect(() => {
         window.scrollTo(0, 0);
         setTimeout(() => {
@@ -28,7 +31,7 @@ const SCGathering = () => {
     }, []);
 
     return (
-        <div className="bg-cover min-h-screen overflow-hidden" style={{ backgroundImage: `url(${bg})` }}>
+        <div className="bg-cover min-h-screen overflow-hidden" style={{ backgroundImage: bgLoaded ? `url(${bg})` : "none", backgroundColor: "#0d1e2e", transition: "background-image 0.3s ease" }}>
             <Navbar />
 
             <div
