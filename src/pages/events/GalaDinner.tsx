@@ -8,6 +8,7 @@ import desc from "../../images/events/gd/desc-gd.png"
 import Aos from "aos"
 import { useEffect } from "react"
 import useImagePreload from "../../hooks/useImagePreload"
+import { Link } from "react-router-dom"
 
 const GalaDinner = () => {
     const bgLoaded = useImagePreload(bg)
@@ -45,11 +46,11 @@ const GalaDinner = () => {
                     data-aos-delay="300"
                     className="px-5 md:px-20 lg:px-32 mt-14"
                 >
-                    <p className="text-2xl text-center text-white font-inter font-light"><span className="font-semibold"><i>Company Visit</i></span> is an educational event that provides participants with the <span className="font-semibold">opportunity to gain firsthand insight into the professional world and working environment</span> within the energy industry.</p>
+                    <p className="text-2xl text-center text-white font-inter font-light">The <span className="font-semibold">Gala Dinner</span> marks the <span className="font-semibold">formal conclusion of the Oil Week</span> series in a celebratory and memorable setting.</p>
                 </div>
 
                 <div className="px-5 md:px-20 lg:px-32 mt-20 text-white">
-                    <button
+                    <Link to={'/sign-up'}
                         data-aos="fade-up"
                         data-aos-delay="100"
                         className="glass cursor-pointer text-center px-7 py-3 flex items-center justify-center gap-5 text-lg font-inter font-light"
@@ -57,7 +58,7 @@ const GalaDinner = () => {
                         <p>Register Now</p>
 
                         <ArrowRight />
-                    </button>
+                    </Link>
                 </div>
 
                 <div
@@ -90,7 +91,7 @@ const GalaDinner = () => {
                             data-aos-delay="100"
                             className="glass flex items-center justify-center text-center px-12 py-8"
                         >
-                            <p className="text-xl text-white font-inter">Expand participants’ <span className="font-semibold">understanding of the energy industry</span></p>
+                            <p className="text-xl text-white font-inter">To <span className="font-semibold">celebrate</span> and <span className="font-semibold">appreciate</span> the achievements of participants throughout the Oil Week 2026.</p>
                         </div>
 
                         <div
@@ -98,7 +99,7 @@ const GalaDinner = () => {
                             data-aos-delay="250"
                             className="glass flex items-center justify-center text-center px-12 py-8"
                         >
-                            <p className="text-xl text-white font-inter">Provide insight into <span className="font-semibold">professional work environments and career paths</span></p>
+                            <p className="text-xl text-white font-inter">To provide a memorable <span className="font-semibold">awarding session</span> through the announcement of competition winners and outstanding participants</p>
                         </div>
 
                         <div
@@ -106,7 +107,7 @@ const GalaDinner = () => {
                             data-aos-delay="400"
                             className="glass flex items-center justify-center text-center px-12 py-8"
                         >
-                            <p className="text-xl text-white font-inter"><span className="font-semibold">Build connections</span> between students and industry <span className="font-semibold">professionals</span></p>
+                            <p className="text-xl text-white font-inter">To <span className="font-semibold">strengthen connections</span> and create <span className="font-semibold">memorable experiences</span> among delegates as the closing of the Oil Week.</p>
                         </div>
                     </div>
                 </div>
@@ -116,35 +117,19 @@ const GalaDinner = () => {
                     className="mt-32"
                 >
                     <div className="px-5 md:px-20 lg:px-32 rotate-0 md:-rotate-6">
-                        <p className="font-bold text-3xl font-inter text-white">Looking back on Last Year’s: <span className="font-semibold italic font-garamond text-[#E7C66B]">Company Visit</span></p>
+                        <p className="font-bold text-3xl font-inter text-white">Looking back on Last Year’s: <span className="font-semibold italic font-garamond text-[#E7C66B]">Gala Dinner</span></p>
 
-                        <p className="font-inter text-white text-2xl mt-5">Last year’s Company Visit to <span className="font-semibold">PT Perusahaan Gas Negara (PGN)</span> provided participants with an exciting opportunity to gain firsthand insight into Indonesia’s energy industry. <span className="font-semibold">Through company presentations, office tours, and interactive sharing sessions with professionals</span>, participants explored real-world industry practices, career opportunities, and the dynamic working environment within one of Indonesia’s leading gas companies.
+                        <p className="font-inter text-white text-2xl mt-5">During Oil Week 2025, the Gala Dinner was held as the <span className="font-semibold">final awarding session</span> attended by all finalists from the competition series. The event became a moment of appreciation and celebration, where participants gathered together to witness the winner announcements and commemorate the successful completion of the entire Oil Week program.
                         </p>
-
-                        <p className="mt-10 font-garamond italic font-semibold text-white text-xl">Bigger insights, broader connections, and new industry experiences await. See you at Company Visit 2026!</p>
                     </div>
 
                     <div
                         data-aos="zoom-in"
                         data-aos-delay="300"
-                        className="scale-[1.25] mt-20"
+                        className="mt-10"
                     >
                         <img src={images} alt="" />
                     </div>
-                </div>
-
-                <div
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                    className="w-full flex flex-col items-end px-5 md:px-20 lg:px-32 mt-20"
-                >
-                    <p className="text-xl font-inter text-white text-end">CP : <br />IFadhilah Rasya Putra <br />External Affairs Associate <br />081215417191
-                    </p>
-
-                    <p className="mt-10 text-xl font-inter text-white text-end">ULaura Nathania Simatupang <br />External Affairs Associate <br />081362233632</p>
-
-                    <p className="mt-10 text-xl font-inter text-white text-end">Gina Ramadhania Wahyu <br />Deputy Director of External Affairs <br />085858066861
-                    </p>
                 </div>
             </div>
 

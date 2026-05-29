@@ -7,6 +7,7 @@ import Navbar from "../../components/landingpage/Navbar"
 import { useEffect } from "react"
 import Aos from "aos"
 import useImagePreload from "../../hooks/useImagePreload"
+import { Link } from "react-router-dom"
 
 const PetrosmartCompetition = () => {
     const bgLoaded = useImagePreload(bg)
@@ -66,7 +67,7 @@ const PetrosmartCompetition = () => {
                 </div>
 
                 <div className="px-5 md:px-20 lg:px-32 mt-20 text-white">
-                    <button
+                    <Link to={'/sign-up'}
                         data-aos="fade-up"
                         data-aos-delay="100"
                         className="glass cursor-pointer text-center px-7 py-3 flex items-center justify-center gap-5 text-lg font-inter font-light"
@@ -74,7 +75,7 @@ const PetrosmartCompetition = () => {
                         <p>Register Now</p>
 
                         <ArrowRight />
-                    </button>
+                    </Link>
                 </div>
 
                 <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center">
