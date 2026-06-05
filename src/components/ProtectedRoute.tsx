@@ -11,6 +11,8 @@ const ProtectedRoute = () => {
     if (isTokenExpired(token)) {
         sessionStorage.removeItem("token")
         localStorage.removeItem("user")
+        localStorage.removeItem("team")
+        localStorage.removeItem("member")
         return <Navigate to="/" replace />
     }
 

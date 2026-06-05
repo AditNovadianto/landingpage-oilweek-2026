@@ -1,13 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import bgSignIn from "../../images/bg-sign-in.png"
 import logo from "../../images/logo-double.png"
 import logoOw from "../../images/Logo-ow.png"
 import Toast from "../../components/Toast" // sesuaikan path
 import useImagePreload from "../../hooks/useImagePreload"
+import Aos from "aos"
 
 const SignIn = () => {
     const bgLoaded = useImagePreload(bgSignIn)
+
+    useEffect(() => {
+        Aos.init({
+            duration: 1200,
+            once: true,
+            easing: "ease-in-out",
+        });
+    }, []);
 
     const navigate = useNavigate()
 
@@ -67,8 +76,6 @@ const SignIn = () => {
                 return
             }
 
-            console.log("Registration successful", data)
-
             sessionStorage.setItem("token", data.token)
             localStorage.setItem("user", JSON.stringify(data.user))
             localStorage.setItem("team", JSON.stringify(data.team))
@@ -94,17 +101,21 @@ const SignIn = () => {
                 />
             )}
 
-            <Link to={'/'} className="absolute top-10 left-10 glass w-max px-5 py-2 flex items-center justify-center">
+            <Link to={'/'} className="hidden absolute top-10 left-10 glass w-max px-5 py-2 md:flex items-center justify-center" data-aos="fade-down">
                 <img className="w-14 cursor-pointer" src={logo} alt="" />
             </Link>
 
-            <div className="glass px-10 py-7 text-white w-[40%]">
-                <img className="animate-pulse w-20 m-auto" src={logoOw} alt="" />
+            <div className="glass px-5 py-5 lg:px-10 lg:py-7 text-white w-full md:w-[60%] lg:w-[40%]" data-aos="fade-up">
+                <Link to={'/'} className="glass w-max px-5 py-2 flex md:hidden items-center justify-center" data-aos="fade-down">
+                    <img className="w-14 cursor-pointer" src={logo} alt="" />
+                </Link>
 
-                <p className="font-semibold text-xl font-inter mt-5 text-center italic">Sign In to Oil Week</p>
+                <img className="animate-pulse w-20 m-auto" src={logoOw} alt="" data-aos="zoom-in" data-aos-delay="100" />
+
+                <p className="font-semibold text-xl font-inter mt-5 text-center italic" data-aos="fade-up" data-aos-delay="150">Sign In to Oil Week</p>
 
                 <form className="mt-5" onSubmit={handleSubmit}>
-                    <div>
+                    <div data-aos="fade-up" data-aos-delay="200">
                         <p>Email</p>
 
                         <input
@@ -120,7 +131,7 @@ const SignIn = () => {
                         )}
                     </div>
 
-                    <div className="mt-3">
+                    <div className="mt-3" data-aos="fade-up" data-aos-delay="250">
                         <p>Password</p>
 
                         <input
@@ -138,7 +149,9 @@ const SignIn = () => {
                         <p className="text-xs mt-2 italic font-inter font-light">must be at least 8 characters with uppercase, lowercase, and number</p>
                     </div>
 
-                    <Link to={'/'} className="underline text-base mt-5 text-end block">Forgot your password?</Link>
+                    <div className="flex justify-end">
+                        <Link to={'/'} className="underline text-base mt-5" data-aos="fade-up" data-aos-delay="300">Forgot your password?</Link>
+                    </div>
 
                     <button
                         type="submit"
@@ -156,7 +169,7 @@ const SignIn = () => {
                         ) : "Sign In"}
                     </button>
 
-                    <p className="mt-5 text-center">Don't have an account? <Link to={'/sign-up'} className="text-[#36C2A1]">Sign Up</Link></p>
+                    <p className="mt-5 text-center" data-aos="fade-up" data-aos-delay="400">Don't have an account? <Link to={'/sign-up'} className="text-[#36C2A1]">Sign Up</Link></p>
                 </form>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import bgSignIn from "../../images/bg-sign-in.png"
 import logo from "../../images/logo-double.png"
@@ -6,6 +6,7 @@ import logoOw from "../../images/Logo-ow.png"
 import { Check } from "lucide-react"
 import Toast from "../../components/Toast"
 import useImagePreload from "../../hooks/useImagePreload"
+import Aos from "aos"
 
 interface Step1Data {
     name_team_leader: string
@@ -27,6 +28,14 @@ interface Step2Data {
 
 const SignUpTeamLeader = () => {
     const bgLoaded = useImagePreload(bgSignIn)
+
+    useEffect(() => {
+        Aos.init({
+            duration: 1200,
+            once: true,
+            easing: "ease-in-out",
+        });
+    }, []);
 
     const [step, setStep] = useState<1 | 2>(1)
 
@@ -146,21 +155,25 @@ const SignUpTeamLeader = () => {
                 />
             )}
 
-            <Link to={'/'} className="absolute top-10 left-10 glass w-max px-5 py-2 flex items-center justify-center">
+            <Link to={'/'} className="hidden absolute top-10 left-10 glass w-max px-5 py-2 md:flex items-center justify-center" data-aos="fade-down">
                 <img className="w-14 cursor-pointer" src={logo} alt="" />
             </Link>
 
-            <div className="glass px-10 py-7 text-white w-[40%]">
-                <img className="animate-pulse w-20 m-auto" src={logoOw} alt="" />
+            <div className="glass px-5 py-5 lg:px-10 lg:py-7 text-white w-full md:w-[60%] lg:w-[40%]" data-aos="fade-up">
+                <Link to={'/'} className="glass w-max px-5 py-2 flex md:hidden items-center justify-center" data-aos="fade-down">
+                    <img className="w-14 cursor-pointer" src={logo} alt="" />
+                </Link>
 
-                <p className="font-semibold text-xl font-inter mt-5 text-center italic">Create Your Account</p>
+                <img className="animate-pulse w-20 m-auto" src={logoOw} alt="" data-aos="zoom-in" data-aos-delay="100" />
 
-                <p className="italic font-inter font-light mt-2 text-center">
+                <p className="font-semibold text-xl font-inter mt-5 text-center italic" data-aos="fade-up" data-aos-delay="150">Create Your Account</p>
+
+                <p className="italic font-inter font-light mt-2 text-center" data-aos="fade-up" data-aos-delay="200">
                     Join Oil Week and <span className="font-semibold font-garamond text-[#E7C66B]">Lead the Shift with Us</span>
                 </p>
 
                 {/* Step Indicator */}
-                <div className="flex flex-col items-center justify-center gap-2 mt-5 mb-6">
+                <div className="flex flex-col items-center justify-center gap-2 mt-5 mb-6" data-aos="fade-up" data-aos-delay="250">
                     <div className="flex items-center justify-center gap-2">
                         <div
                             className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold border-2 transition-all duration-300 ${step === 1
@@ -192,7 +205,7 @@ const SignUpTeamLeader = () => {
                     {/* ── STEP 1 ── */}
                     {step === 1 && (
                         <div className="flex flex-col gap-3">
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-2 gap-3" data-aos="fade-up" data-aos-delay="300">
                                 <div>
                                     <p className="text-sm mb-1">Nama Lengkap</p>
 
@@ -227,7 +240,7 @@ const SignUpTeamLeader = () => {
                                 </div>
                             </div>
 
-                            <div>
+                            <div data-aos="fade-up" data-aos-delay="350">
                                 <p className="text-sm mb-1">Email</p>
 
                                 <input
@@ -244,7 +257,7 @@ const SignUpTeamLeader = () => {
                                 )}
                             </div>
 
-                            <div>
+                            <div data-aos="fade-up" data-aos-delay="400">
                                 <p className="text-sm mb-1">Password</p>
 
                                 <input
@@ -265,7 +278,7 @@ const SignUpTeamLeader = () => {
                                 )}
                             </div>
 
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-2 gap-3" data-aos="fade-up" data-aos-delay="450">
                                 <div>
                                     <p className="text-sm mb-1">No. HP</p>
 
@@ -321,12 +334,12 @@ const SignUpTeamLeader = () => {
                     {/* ── STEP 2 ── */}
                     {step === 2 && (
                         <div className="flex flex-col gap-3">
-                            <p className="text-xs text-white/60 italic -mt-2">
+                            <p className="text-xs text-white/60 italic -mt-2" data-aos="fade-up">
                                 Upload semua file sebagai bukti kelengkapan pendaftaran.
                             </p>
 
-                            {fileFields.map(({ name, label }) => (
-                                <div key={name}>
+                            {fileFields.map(({ name, label }, index) => (
+                                <div key={name} data-aos="fade-up" data-aos-delay={index * 50}>
                                     <p className="text-sm mb-1">{label} <span className="text-red-400">*</span></p>
 
                                     <label className="flex items-center gap-2 bg-white/10 border border-dashed border-white/40 rounded-lg px-3 py-2 cursor-pointer hover:bg-white/20 transition text-sm">

@@ -3,6 +3,7 @@ import logoOw from "../../images/Logo-ow.png"
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     useEffect(() => {
@@ -19,11 +20,11 @@ const Home = () => {
                 <h1 data-aos="fade-up" data-aos-delay="100" className="font-light text-4xl md:text-5xl lg:text-6xl text-white leading-16 font-inter">Empowering Sustainable Growth Through <span className="font-garamond italic">Industry Optimization <span className="font-inter">&</span> Low Carbon</span> Transition</h1>
 
                 <div data-aos="fade-up" data-aos-delay="400" className="mt-10 flex flex-col md:flex-row items-start gap-5">
-                    <button data-aos="zoom-in" data-aos-delay="500" className="cursor-pointer flex items-center gap-2 glass px-12 py-2 text-white">
+                    <Link to={'/sign-up'} data-aos="zoom-in" data-aos-delay="500" className="cursor-pointer flex items-center gap-2 glass px-12 py-2 text-white">
                         Register Now
 
                         <ArrowRight />
-                    </button>
+                    </Link>
 
                     <a data-aos="zoom-in" data-aos-delay="700" href="#competitions" className="cursor-pointer flex items-center gap-2 glass px-12 py-2 text-white">
                         Explore Competition

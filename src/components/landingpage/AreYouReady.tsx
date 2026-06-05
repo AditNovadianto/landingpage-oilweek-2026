@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const AreYouReady = () => {
     useEffect(() => {
@@ -29,7 +30,7 @@ const AreYouReady = () => {
                 Compete, collaborate, and take your place among future leaders as you push your limits and fight your way to the top!
             </p>
 
-            <button
+            <Link to={'/sign-up'}
                 className="mt-10 cursor-pointer flex items-center gap-2 glass px-12 py-2 text-white"
                 data-aos="zoom-in"
                 data-aos-delay="400"
@@ -37,7 +38,7 @@ const AreYouReady = () => {
                 Register Now
 
                 <ArrowRight />
-            </button>
+            </Link>
         </div>
     )
 }
