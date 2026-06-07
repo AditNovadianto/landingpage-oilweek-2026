@@ -8,7 +8,7 @@ import Home from "./components/landingpage/Home"
 import Navbar from "./components/landingpage/Navbar"
 import SeriesofCompetition from "./components/landingpage/SeriesofCompetition"
 import useImagePreload from "./hooks/useImagePreload"
-import background from "./images/bg-main.png"
+import background from "./images/bg-main.webp"
 
 const App = () => {
   const bgLoaded = useImagePreload(background)
