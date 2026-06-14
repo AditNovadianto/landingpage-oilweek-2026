@@ -22,7 +22,7 @@ const SeriesofCompetition = () => {
     return (
         <div id='competitions' className="px-5 md:px-20 lg:px-32 py-10 mt-36 min-h-screen">
             <div data-aos="fade-left" className="w-max m-auto md:ml-auto">
-                <p className="glass px-8 py-6 text-white text-3xl md:text-4xl lg:text-5xl font-inter font-light"><span className="font-garamond italic font-semibold">Series</span> of <span className="underline">Competition</span></p>
+                <p className="glass px-8 py-6 text-white text-3xl md:text-4xl lg:text-5xl font-montreal"><span className="font-garamond italic font-semibold">Series</span> of <span className="gold-white-underline">Competition</span></p>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 mt-10 items-stretch'>
@@ -31,13 +31,13 @@ const SeriesofCompetition = () => {
                         <img className='w-32' src={logoPetrosmart} alt="Petrosmart Logo" />
 
                         <div className='text-white'>
-                            <p className='font-garamond text-3xl italic underline'>Petrosmart</p>
-                            <p className='text-2xl font-light font-inter'>Competition</p>
+                            <p className='font-garamond text-3xl italic gold-white-underline'>Petrosmart</p>
+                            <p className='text-2xl font-montreal'>Competition</p>
                         </div>
                     </div>
 
-                    <p className='text-white font-light text-xl mt-4'>
-                        Petrosmart Competition is a <span className='font-semibold font-garamond italic text-[#E7C66B]'>quick round smart competition</span> in which teams of <span className='font-semibold italic'>3 people test their knowledge</span> of oil and gas by answering different types of formatted questions. Teams will be evaluated on their understanding on topics such as Geology, Drilling, and Production.
+                    <p className='text-white text-xl mt-4 text-justify'>
+                        Petrosmart Competition is a <span className='bg-linear-to-l from-yellow-400 to-yellow-100 bg-clip-text text-transparent font-semibold italic font-garamond'>quick round smart competition</span> in which teams of <span className='font-semibold italic'>3 people test their knowledge</span> of oil and gas by answering different types of formatted questions. Teams will be evaluated on their understanding on topics such as Geology, Drilling, and Production.
                     </p>
 
                     <Link to={"/petrosmart-competition"} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
@@ -50,13 +50,13 @@ const SeriesofCompetition = () => {
                         <img className='w-32' src={logoPaperandPoster} alt="Paper & Poster Logo" />
 
                         <div className='text-white'>
-                            <p className='font-garamond text-3xl italic underline'>Paper <span className='font-inter'>&</span> Poster</p>
-                            <p className='text-2xl font-light font-inter'>Competition</p>
+                            <p className='font-garamond text-3xl italic gold-white-underline'>Paper <span className='font-montreal'>&</span> Poster</p>
+                            <p className='text-2xl font-montreal'>Competition</p>
                         </div>
                     </div>
 
-                    <p className='text-white font-light text-xl mt-4'>
-                        Paper and Poster Competition is where participants <span className='font-semibold font-garamond italic text-[#E7C66B]'>submit and present their innovations</span>, based on given theme. They will <span className='font-semibold italic'>produce a paper</span> detailing their ideas and present them through a presentation on pitching day.
+                    <p className='text-white text-xl mt-4 text-justify'>
+                        Paper and Poster Competition is where participants <span className='bg-linear-to-l from-yellow-400 to-yellow-100 bg-clip-text text-transparent font-semibold italic font-garamond'>submit and present their innovations</span>, based on given theme. They will <span className='font-semibold italic'>produce a paper</span> detailing their ideas and present them through a presentation on pitching day.
                     </p>
 
                     <Link to={'/paper-and-poster-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
@@ -69,13 +69,13 @@ const SeriesofCompetition = () => {
                         <img className='w-20 m-5' src={logoBusinessCase} alt="Business Case Logo" />
 
                         <div className='text-white'>
-                            <p className='font-garamond text-3xl italic underline'>Business Case</p>
-                            <p className='text-2xl font-light font-inter'>Competition</p>
+                            <p className='font-garamond text-3xl italic gold-white-underline'>Business Case</p>
+                            <p className='text-2xl font-montreal'>Competition</p>
                         </div>
                     </div>
 
-                    <p className='text-white font-light text-xl mt-4'>
-                        Petrosmart Competition is a <span className='font-semibold font-garamond italic text-[#E7C66B]'>quick round smart competition</span> in which teams of <span className='font-semibold italic'>3 people test their knowledge</span> of oil and gas by answering different types of formatted questions. Teams will be evaluated on their understanding on topics such as Geology, Drilling, and Production.
+                    <p className='text-white text-xl mt-4 text-justify'>
+                        Petrosmart Competition is a <span className='bg-linear-to-l from-yellow-400 to-yellow-100 bg-clip-text text-transparent font-semibold italic font-garamond'>quick round smart competition</span> in which teams of <span className='font-semibold italic'>3 people test their knowledge</span> of oil and gas by answering different types of formatted questions. Teams will be evaluated on their understanding on topics such as Geology, Drilling, and Production.
                     </p>
 
                     <Link to={'/business-case-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
@@ -88,13 +88,13 @@ const SeriesofCompetition = () => {
                         <img className='w-20 m-5' src={logoMudInnovation} alt="Mud Innovation Logo" />
 
                         <div className='text-white'>
-                            <p className='font-garamond text-3xl italic underline'>Mud Innovation</p>
-                            <p className='text-2xl font-light font-inter'>Competition</p>
+                            <p className='font-garamond text-3xl italic gold-white-underline'>Mud Innovation</p>
+                            <p className='text-2xl font-montreal'>Competition</p>
                         </div>
                     </div>
 
-                    <p className='text-white font-light text-xl mt-4'>
-                        Mud Innovation Competition tasks the participants to <span className='font-semibold font-garamond italic text-[#E7C66B]'>propose pioneering drilling mud solutions for real world oil and gas challenges</span>. Teams will showcase their technical expertise by <span className='font-semibold italic'>inventing new drilling mud formulations</span> created by using software and conducting lab tests.
+                    <p className='text-white text-xl mt-4 text-justify'>
+                        Mud Innovation Competition tasks the participants to <span className='bg-linear-to-l from-yellow-400 to-yellow-100 bg-clip-text text-transparent font-semibold italic font-garamond'>propose pioneering drilling mud solutions for real world oil and gas challenges</span>. Teams will showcase their technical expertise by <span className='font-semibold italic'>inventing new drilling mud formulations</span> created by using software and conducting lab tests.
                     </p>
 
                     <Link to={'/mud-innovation-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
@@ -107,13 +107,13 @@ const SeriesofCompetition = () => {
                         <img className='w-20 m-5' src={logoWellStimulation} alt="Well Stimulation Logo" />
 
                         <div className='text-white'>
-                            <p className='font-garamond text-3xl italic underline'>Well Stimulation</p>
-                            <p className='text-2xl font-light font-inter'>Competition</p>
+                            <p className='font-garamond text-3xl italic gold-white-underline'>Well Stimulation</p>
+                            <p className='text-2xl font-montreal'>Competition</p>
                         </div>
                     </div>
 
-                    <p className='text-white font-light text-xl mt-4'>
-                        Well Stimulation Competition challenges participants to <span className='font-semibold font-garamond italic text-[#E7C66B]'>innovate optimal solutions on the topic of well stimulation in the oil and gas sector</span>. They will engage in complex, <span className='font-semibold italic'>real-world scenarios</span> that will require them to devise effective well stimulation techniques to <span className='font-semibold italic'>optimize oil and gas production</span>.
+                    <p className='text-white text-xl mt-4 text-justify'>
+                        Well Stimulation Competition challenges participants to <span className='bg-linear-to-l from-yellow-400 to-yellow-100 bg-clip-text text-transparent font-semibold italic font-garamond'>innovate optimal solutions on the topic of well stimulation in the oil and gas sector</span>. They will engage in complex, <span className='font-semibold italic'>real-world scenarios</span> that will require them to devise effective well stimulation techniques to <span className='font-semibold italic'>optimize oil and gas production</span>.
                     </p>
 
                     <Link to={'well-stimulation-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
@@ -126,13 +126,13 @@ const SeriesofCompetition = () => {
                         <img className='w-20 m-6' src={logoCaseStudy} alt="Case Study Logo" />
 
                         <div className='text-white'>
-                            <p className='font-garamond text-3xl italic underline'>Case Study</p>
-                            <p className='text-2xl font-light font-inter'>Competition</p>
+                            <p className='font-garamond text-3xl italic gold-white-underline'>Case Study</p>
+                            <p className='text-2xl font-montreal'>Competition</p>
                         </div>
                     </div>
 
-                    <p className='text-white font-light text-xl mt-4'>
-                        Case Study Competition challenges participants to <span className='font-semibold font-garamond italic text-[#E7C66B]'>analyze real-world oil and gas problems and develop innovative, practical solutions</span>. Teams will showcase their critical thinking and technical expertise through research, structured analysis, and compelling presentations.
+                    <p className='text-white text-xl mt-4 text-justify'>
+                        Case Study Competition challenges participants to <span className='bg-linear-to-l from-yellow-400 to-yellow-100 bg-clip-text text-transparent font-semibold italic font-garamond'>analyze real-world oil and gas problems and develop innovative, practical solutions</span>. Teams will showcase their critical thinking and technical expertise through research, structured analysis, and compelling presentations.
                     </p>
 
                     <Link to={'/case-study-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>

@@ -20,16 +20,16 @@ const AboutOilWeek = () => {
                 data-aos="fade-up"
                 data-aos-duration="1200"
             >
-                <p className="text-5xl text-white font-inter font-light">
+                <p className="text-5xl text-white font-montreal font-light">
                     About <span className="italic font-garamond font-semibold">Oil Week</span>
                 </p>
 
                 <p
-                    className="font-inter font-light text-white mt-10"
+                    className="font-montreal font-normal text-white mt-10"
                     data-aos="fade-up"
                     data-aos-delay="300"
                 >
-                    Oil Week is the <span className="italic font-garamond">flagship annual event</span> organized by <span className="font-semibold">SPE UI SC</span>, designed to connect students and professionals in the oil and gas industry. This event provides a platform for knowledge exchange, professional networking, technical competitions, and career exposure. Through strategic collaboration with industry partners, Oil Week aims to foster innovation, leadership, and sustainable development in the energy sector.
+                    Oil Week is the <span className="italic font-semibold font-garamond bg-linear-to-b from-yellow-400 via-yellow-200 to-white bg-clip-text text-transparent">flagship annual event</span> organized by <span className="font-semibold">SPE UI SC</span>, designed to connect students and professionals in the oil and gas industry. This event provides a platform for knowledge exchange, professional networking, technical competitions, and career exposure. Through strategic collaboration with industry partners, Oil Week aims to foster innovation, leadership, and sustainable development in the energy sector.
                 </p>
             </div>
         </div>

@@ -30,15 +30,15 @@ const AboutSPEUISC = () => {
                 data-aos="fade-left"
                 data-aos-duration="1200"
             >
-                <p className='text-4xl lg:text-5xl font-inter font-light'>
+                <p className='text-4xl lg:text-5xl font-montreal font-light'>
                     About <span className='italic font-garamond font-semibold'>SPE UI SC</span>
                 </p>
 
-                <p className='mt-5 leading-7'>
-                    Society of Petroleum Engineers Universitas Indonesia Student Chapter (SPE UI SC) is a student chapter under SPE International focusing on the oil and gas energy sector. Established in 1999, SPE UI SC became the first recognized student department club of the Engineering Faculty and is also currently joined by members from the Mathematics and Natural Sciences.
+                <p className='text-justify mt-5 leading-7 font-montreal font-normal'>
+                    <span className='bg-linear-to-l from-yellow-400 via-yellow-200 to-white bg-clip-text text-transparent font-medium'>Society of Petroleum Engineers Universitas Indonesia Student Chapter (SPE UI SC)</span> is a student chapter under SPE International focusing on the oil and gas energy sector. Established in 1999, SPE UI SC became the first recognized student department club of the Engineering Faculty and is also currently joined by members from the Mathematics and Natural Sciences.
                 </p>
 
-                <div className='flex flex-col xl:flex-row items-center gap-10 mt-10 justify-between'>
+                <div className='flex flex-col xl:flex-row items-center gap-10 font-montreal mt-10 justify-between'>
                     <div
                         className='text-center w-full font-light text-xl glass px-10 py-2'
                         data-aos="zoom-in"

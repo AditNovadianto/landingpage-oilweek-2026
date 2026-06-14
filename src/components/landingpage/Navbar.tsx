@@ -57,7 +57,7 @@ const Navbar = () => {
             <div ref={navRef}>
                 <div
                     data-aos="fade-down"
-                    className={`fixed top-0 px-5 md:px-10 lg:px-20 flex items-center gap-5 justify-between w-full transition-all duration-300 z-50
+                    className={`font-montreal fixed top-0 px-5 md:px-10 lg:px-20 flex items-center gap-5 justify-between w-full transition-all duration-300 z-50
                     ${scrolled ? "bg-white/10 py-3 backdrop-blur-xl border-b border-white/20 shadow-lg" : "py-5 bg-transparent"}
                 `}
                 >
@@ -65,12 +65,12 @@ const Navbar = () => {
                         <img data-aos="zoom-in" data-aos-delay="200" className="cursor-pointer w-14" src={logo} alt="Logo" />
                     </a>
 
-                    <div className="flex items-center gap-10 font-inter text-white font-light">
-                        <button data-aos="fade-down" data-aos-delay="300" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("home")}>Home</button>
-                        <button data-aos="fade-down" data-aos-delay="400" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("aboutspeuisc")}>About SPE UI SC</button>
-                        <button data-aos="fade-down" data-aos-delay="500" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("aboutoilweek")}>About Oil Week</button>
-                        <button data-aos="fade-down" data-aos-delay="600" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("competitions")}>Competitions</button>
-                        <button data-aos="fade-down" data-aos-delay="700" className="hidden lg:block bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("contact")}>Contact</button>
+                    <div className="flex items-center gap-10 text-white font-normal">
+                        <button data-aos="fade-down" data-aos-delay="300" className="hidden lg:block bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("home")}>Home</button>
+                        <button data-aos="fade-down" data-aos-delay="400" className="hidden lg:block bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("aboutspeuisc")}>About SPE UI SC</button>
+                        <button data-aos="fade-down" data-aos-delay="500" className="hidden lg:block bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("aboutoilweek")}>About Oil Week</button>
+                        <button data-aos="fade-down" data-aos-delay="600" className="hidden lg:block bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("competitions")}>Competitions</button>
+                        <button data-aos="fade-down" data-aos-delay="700" className="hidden lg:block bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("contact")}>Contact</button>
 
                         <Link to={'/sign-in'} data-aos="zoom-in" data-aos-delay="800" className="glass hidden lg:block px-7 py-2 cursor-pointer">Login</Link>
                     </div>
@@ -87,17 +87,17 @@ const Navbar = () => {
                 </div>
 
                 {/* Mobile menu */}
-                <div className={`z-10 fixed top-20 w-full lg:hidden overflow-hidden transition-all duration-300 ${showNavbar ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
-                    <div className="flex flex-col px-6 py-6 gap-5 font-inter text-white font-light bg-white/10 backdrop-blur-xl">
-                        <button className="text-left bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("home")}>Home</button>
+                <div className={`z-10 font-montreal fixed top-20 w-full lg:hidden overflow-hidden transition-all duration-300 ${showNavbar ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+                    <div className="flex flex-col px-6 py-6 gap-5 text-white font-normal bg-white/10 backdrop-blur-xl">
+                        <button className="text-left bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("home")}>Home</button>
 
-                        <button className="text-left bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("aboutspeuisc")}>About SPE UI SC</button>
+                        <button className="text-left bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("aboutspeuisc")}>About SPE UI SC</button>
 
-                        <button className="text-left bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("aboutoilweek")}>About Oil Week</button>
+                        <button className="text-left bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("aboutoilweek")}>About Oil Week</button>
 
-                        <button className="text-left bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("competitions")}>Competitions</button>
+                        <button className="text-left bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("competitions")}>Competitions</button>
 
-                        <button className="text-left bg-transparent border-none cursor-pointer text-white font-light" onClick={() => handleNavClick("contact")}>Contact</button>
+                        <button className="text-left bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("contact")}>Contact</button>
 
                         <Link to={'/sign-in'} className="glass px-7 py-2 cursor-pointer w-fit">Login</Link>
                     </div>

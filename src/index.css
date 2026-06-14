@@ -1,37 +1,206 @@
 @import "tailwindcss";
 
+/* =========================
+   Apple Garamond Font
+========================= */
+
+@font-face {
+  font-family: "Apple Garamond";
+  src: url("./assets/fonts/AppleGaramond/AppleGaramond.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Apple Garamond";
+  src: url("./assets/fonts/AppleGaramond/AppleGaramond-Light.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Apple Garamond";
+  src: url("./assets/fonts/AppleGaramond/AppleGaramond-Bold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Apple Garamond";
+  src: url("./assets/fonts/AppleGaramond/AppleGaramond-Italic.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Apple Garamond";
+  src: url("./assets/fonts/AppleGaramond/AppleGaramond-LightItalic.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Apple Garamond";
+  src: url("./assets/fonts/AppleGaramond/AppleGaramond-BoldItalic.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* =========================
+   Neue Montreal Font
+========================= */
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./assets/fonts/NeueMontreal/NeueMontreal-Regular.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./assets/fonts/NeueMontreal/NeueMontreal-Light.otf")
+    format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./assets/fonts/NeueMontreal/NeueMontreal-Medium.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./assets/fonts/NeueMontreal/NeueMontreal-Bold.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./assets/fonts/NeueMontreal/NeueMontreal-Italic.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./assets/fonts/NeueMontreal/NeueMontreal-LightItalic.otf")
+    format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./assets/fonts/NeueMontreal/NeueMontreal-MediumItalic.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./assets/fonts/NeueMontreal/NeueMontreal-BoldItalic.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* =========================
+   Tailwind Utilities
+========================= */
+
 @layer utilities {
   .font-inter {
     font-family: "Inter", sans-serif;
   }
 
   .font-garamond {
-    font-family: "EB Garamond", serif;
+    font-family: "Apple Garamond", serif;
+  }
+
+  .font-montreal {
+    font-family: "Neue Montreal", sans-serif;
   }
 }
+
+/* =========================
+   Global Style
+========================= */
 
 * {
   scroll-behavior: smooth;
 }
 
+body {
+  font-family: "Neue Montreal", sans-serif;
+}
+
+/* =========================
+   Glassmorphism
+========================= */
+
 .glass {
-  background: rgba(255, 255, 255, 0.1); /* transparan */
-  backdrop-filter: blur(12px); /* efek blur */
-  -webkit-backdrop-filter: blur(12px); /* safari support */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.05)
+  );
+
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
 
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 10px 34px rgba(0, 0, 0, 0.22);
 }
+
+.gold-white-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.gold-white-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  transform: translateY(-5px);
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #e7c66b 0%, #ffffff 100%);
+}
+
+/* =========================
+   Floating Animation
+========================= */
 
 @keyframes floating {
   0% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-12px);
   }
+
   100% {
     transform: translateY(0px);
   }
