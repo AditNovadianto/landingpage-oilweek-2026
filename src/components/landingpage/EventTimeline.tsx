@@ -1,4 +1,4 @@
-// import TimelineItem from "../../utils/TimelineItem"
+// import TimelineItem from "../TimelineItem"
 // import preEventBg from "../../images/pre-event-bg.png"
 // import openRegistrationBg from "../../images/open-registration-bg.png"
 // import closeRegistrationBg from "../../images/close-registration-bg.png"
