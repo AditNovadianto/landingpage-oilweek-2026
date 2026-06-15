@@ -30,7 +30,7 @@ const AreYouReady = () => {
                 Compete, collaborate, and take your place among future leaders as you push <br />your limits and fight your way to the top!
             </p>
 
-            <Link to={'/sign-up'}
+            <Link to={'/team-leader/sign-up'}
                 className="font-montreal mt-10 cursor-pointer flex items-center gap-2 glass px-12 py-2 text-white"
                 data-aos="zoom-in"
                 data-aos-delay="400"

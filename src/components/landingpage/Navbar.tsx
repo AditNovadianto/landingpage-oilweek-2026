@@ -72,7 +72,7 @@ const Navbar = () => {
                         <button data-aos="fade-down" data-aos-delay="600" className="hidden lg:block bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("competitions")}>Competitions</button>
                         <button data-aos="fade-down" data-aos-delay="700" className="hidden lg:block bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("contact")}>Contact</button>
 
-                        <Link to={'/sign-in'} data-aos="zoom-in" data-aos-delay="800" className="glass hidden lg:block px-7 py-2 cursor-pointer">Login</Link>
+                        <Link to={'/team-leader/sign-in'} data-aos="zoom-in" data-aos-delay="800" className="glass hidden lg:block px-7 py-2 cursor-pointer">Login</Link>
                     </div>
 
                     <button
@@ -99,7 +99,7 @@ const Navbar = () => {
 
                         <button className="text-left bg-transparent border-none cursor-pointer text-white" onClick={() => handleNavClick("contact")}>Contact</button>
 
-                        <Link to={'/sign-in'} className="glass px-7 py-2 cursor-pointer w-fit">Login</Link>
+                        <Link to={'/team-leader/sign-in'} className="glass px-7 py-2 cursor-pointer w-fit">Login</Link>
                     </div>
                 </div>
             </div>

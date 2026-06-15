@@ -20,7 +20,7 @@ const Home = () => {
                 <h1 data-aos="fade-up" data-aos-delay="100" className="font-normal text-4xl md:text-5xl lg:text-6xl text-white leading-16 font-montreal">Empowering Sustainable Growth Through <span className="font-garamond italic bg-linear-to-b from-yellow-400 via-yellow-200 to-white bg-clip-text text-transparent">Industry Optimization & Low Carbon</span> Transition <span className="m-auto inline-block align-middle w-52 h-1 bg-linear-to-b from-yellow-400 via-yellow-200 to-white"></span></h1>
 
                 <div data-aos="fade-up" data-aos-delay="400" className="mt-10 flex flex-col md:flex-row items-start gap-5">
-                    <Link to={'/sign-up'} data-aos="zoom-in" data-aos-delay="500" className="cursor-pointer flex items-center gap-2 glass px-12 py-2 text-white">
+                    <Link to={'/team-leader/sign-up'} data-aos="zoom-in" data-aos-delay="500" className="cursor-pointer flex items-center gap-2 glass px-12 py-2 text-white">
                         Register Now
 
                         <ArrowRight />

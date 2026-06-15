@@ -67,7 +67,7 @@ const BusinessCaseCompetition = () => {
                 </div>
 
                 <div className="px-5 md:px-20 lg:px-32 mt-20 text-white">
-                    <Link to={'/sign-up'}
+                    <Link to={'/team-leader/sign-up'}
                         data-aos="fade-up"
                         data-aos-delay="100"
                         className="glass cursor-pointer text-center px-7 py-3 flex items-center justify-center gap-5 text-lg font-inter font-light"
@@ -96,7 +96,8 @@ const BusinessCaseCompetition = () => {
                             <p className="mt-5 font-inter font-light">Business Case Competition challenges participants to <span className="font-garamond italic text-[#E7C66B]">analyze a given business problem and develop strategic solutions</span>. Teams will showcase their <span className="font-semibold italic">analytical and communication skills</span> through a pitch deck and a comprehensive paper detailing their proposed solution.</p>
                         </div>
 
-                        <button
+                        <Link
+                            to={'/team-leader/sign-up'}
                             data-aos="zoom-in"
                             data-aos-delay="200"
                             className="cursor-pointer w-max glass flex items-center text-white font-inter font-light text-lg px-7 py-3 mt-5"
@@ -104,7 +105,7 @@ const BusinessCaseCompetition = () => {
                             <p>Register Now</p>
 
                             <ArrowRight />
-                        </button>
+                        </Link>
                     </div>
                 </div>
 

@@ -120,7 +120,7 @@ const PaperandPosterCompetition = () => {
                             <p className="mt-5 font-inter font-light">Paper and Poster Competition is where participants <span className="font-garamond italic text-[#E7C66B]">submit and present their innovations</span>, based on given theme. They will <span className="italic font-semibold">produce a paper</span> detailing their ideas and present them through a presentation on pitching day.</p>
                         </div>
 
-                        <Link to={'/sign-up'}
+                        <Link to={'/team-leader/sign-up'}
                             data-aos="zoom-in"
                             data-aos-delay="200"
                             className="cursor-pointer w-max glass flex items-center text-white font-inter font-light text-lg px-7 py-3 mt-5"

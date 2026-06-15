@@ -22,6 +22,13 @@ import SignInTeamLeader from './pages/TeamLeader/SignInTeamLeader.tsx'
 import SignUpTeamLeader from './pages/TeamLeader/SignUpTeamLeader.tsx'
 import ProtectedRoute from './components/ProtectedRoute.tsx'
 import DashboardTeamLeader from './pages/TeamLeader/DashboardTeamLeader.tsx'
+import SignInUser from './pages/User/SignInUser.tsx'
+import DashboardUser from './pages/User/DashboardUser.tsx'
+import SignUpUser from './pages/User/SignUpUser.tsx'
+import ForgotPasswordUser from './pages/User/ForgotPasswordUser.tsx'
+import ResetPasswordUser from './pages/User/ResetPasswordUser.tsx'
+import ForgotPasswordTeamLeader from './pages/TeamLeader/ForgotPasswordTeamLeader.tsx'
+import ResetPasswordTeamLeader from './pages/TeamLeader/ResetPasswordTeamLeader.tsx'
 
 const router = createBrowserRouter([
   {
@@ -85,25 +92,64 @@ const router = createBrowserRouter([
     element: <GalaDinner />,
   },
   {
-    path: '/sign-in',
-    element: <SignInTeamLeader />,
-  },
-  {
-    path: '/sign-up',
-    element: <SignUpTeamLeader />
-  },
-  // {
-  //   path: '/forgot-password',
-  //   element: <ForgotPassword />
-  // },
-  {
-    element: <ProtectedRoute />,
+    path: "/user",
     children: [
       {
-        path: "/dashboard-team-leader",
-        element: <DashboardTeamLeader />,
+        path: "sign-in",
+        element: <SignInUser />
       },
-    ],
+      {
+        path: "sign-up",
+        element: <SignUpUser />
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPasswordUser />
+      },
+      {
+        path: "reset-password/:token",
+        element: <ResetPasswordUser />
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "dashboard-user",
+            element: <DashboardUser />
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: "/team-leader",
+    children: [
+      {
+        path: 'sign-in',
+        element: <SignInTeamLeader />,
+      },
+      {
+        path: 'sign-up',
+        element: <SignUpTeamLeader />
+      },
+      {
+        path: 'forgot-password',
+        element: <ForgotPasswordTeamLeader />
+      },
+      {
+        path: 'reset-password/:token',
+        element: <ResetPasswordTeamLeader />
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "dashboard-team-leader",
+            element: <DashboardTeamLeader />
+          }
+        ]
+      }
+    ]
   },
   {
     path: '*',
