@@ -44,7 +44,10 @@ const EventTimeline = () => {
                 className="px-5 md:px-20 lg:px-32 -rotate-3 text-white font-light font-inter text-5xl"
                 data-aos="fade-right"
             >
-                Event <p className="italic font-garamond font-semibold gold-white-underline">Timeline</p>
+                Event{" "}
+                <span className="italic font-garamond font-semibold gold-white-underline">
+                    Timeline
+                </span>
             </p>
 
             <div className="mt-10">
