@@ -64,7 +64,7 @@ const Home = () => {
             localStorage.removeItem("team")
             localStorage.removeItem("member")
 
-            navigate("/sign-in")
+            navigate("/team-leader/sign-in")
         }
     }, [])
 
@@ -119,7 +119,7 @@ const Home = () => {
         const getMemberData = async () => {
             try {
                 const response = await fetch(
-                    `${import.meta.env.VITE_API_BASE_URL}/getMemberById/${team.id_team}`,
+                    `${import.meta.env.VITE_API_BASE_URL}/getAllMemberById/${team.id_team}`,
                     {
                         method: "GET",
                         headers: {

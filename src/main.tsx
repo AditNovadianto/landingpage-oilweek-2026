@@ -24,11 +24,16 @@ import ProtectedRoute from './components/ProtectedRoute.tsx'
 import DashboardTeamLeader from './pages/TeamLeader/DashboardTeamLeader.tsx'
 import SignInUser from './pages/User/SignInUser.tsx'
 import DashboardUser from './pages/User/DashboardUser.tsx'
-import SignUpUser from './pages/User/SignUpUser.tsx'
 import ForgotPasswordUser from './pages/User/ForgotPasswordUser.tsx'
 import ResetPasswordUser from './pages/User/ResetPasswordUser.tsx'
 import ForgotPasswordTeamLeader from './pages/TeamLeader/ForgotPasswordTeamLeader.tsx'
 import ResetPasswordTeamLeader from './pages/TeamLeader/ResetPasswordTeamLeader.tsx'
+import DashboardAdminBusinessCase from './pages/AdminBusinessCaseCompetition/DashboardAdminBusinessCase.tsx'
+import DashboardAdminPetrosmart from './pages/AdminPetrosmartCompetition/DashboardAdminPetrosmart.tsx'
+import DashboardAdminPaperAndPoster from './pages/AdminPaperAndPosterCompetition/DashboardAdminPaperAndPoster.tsx'
+import DashboardAdminMudInnovation from './pages/AdminMudInnovationCompetition/DashboardAdminMudInnovation.tsx'
+import DashboardAdminWellStimulation from './pages/AdminWellStimulationCompetition/DashboardAdminWellStimulation.tsx'
+import DashboardAdminCaseStudy from './pages/AdminCaseStudyCompetition/DashboardAdminCaseStudy.tsx'
 
 const router = createBrowserRouter([
   {
@@ -99,10 +104,6 @@ const router = createBrowserRouter([
         element: <SignInUser />
       },
       {
-        path: "sign-up",
-        element: <SignUpUser />
-      },
-      {
         path: "forgot-password",
         element: <ForgotPasswordUser />
       },
@@ -116,7 +117,31 @@ const router = createBrowserRouter([
           {
             path: "dashboard-user",
             element: <DashboardUser />
-          }
+          },
+          {
+            path: "dashboard-admin-business-case",
+            element: <DashboardAdminBusinessCase />
+          },
+          {
+            path: "user/dashboard-admin-petrosmart",
+            element: <DashboardAdminPetrosmart />
+          },
+          {
+            path: "user/dashboard-admin-paper-poster",
+            element: <DashboardAdminPaperAndPoster />
+          },
+          {
+            path: "user/dashboard-admin-mud-innovation",
+            element: <DashboardAdminMudInnovation />
+          },
+          {
+            path: "user/dashboard-admin-well-stimulation",
+            element: <DashboardAdminWellStimulation />
+          },
+          {
+            path: "user/dashboard-case-study",
+            element: <DashboardAdminCaseStudy />
+          },
         ]
       }
     ]

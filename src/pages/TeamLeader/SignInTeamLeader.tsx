@@ -6,6 +6,7 @@ import logoOw from "../../images/Logo-ow.png"
 import Toast from "../../components/Toast" // sesuaikan path
 import useImagePreload from "../../hooks/useImagePreload"
 import Aos from "aos"
+import { Eye, EyeOff } from "lucide-react"
 
 const SignIn = () => {
     const bgLoaded = useImagePreload(bgSignIn)
@@ -19,6 +20,8 @@ const SignIn = () => {
     }, []);
 
     const navigate = useNavigate()
+
+    const [showPassword, setShowPassword] = useState(false)
 
     const [form, setForm] = useState({
         email_team_leader: "",
@@ -83,7 +86,7 @@ const SignIn = () => {
 
             setToast({ message: "Selamat datang kembali! 👋", type: "success" })
 
-            setTimeout(() => navigate("/dashboard-team-leader"), 2000)
+            setTimeout(() => navigate("/team-leader/dashboard-team-leader"), 2000)
         } catch (err) {
             setToast({ message: "Terjadi kesalahan, coba lagi", type: "error" })
         } finally {
@@ -134,14 +137,18 @@ const SignIn = () => {
                     <div className="mt-3" data-aos="fade-up" data-aos-delay="250">
                         <p>Password</p>
 
-                        <input
-                            type="password"
-                            name="password_team_leader"
-                            value={form.password_team_leader}
-                            onChange={handleChange}
-                            className="mt-2 w-full rounded-lg px-3 py-2 bg-white text-black"
-                            placeholder="Enter your Password"
-                        />
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name="password_team_leader"
+                                value={form.password_team_leader}
+                                onChange={handleChange}
+                                className="mt-2 w-full rounded-lg px-3 py-2 bg-white text-black"
+                                placeholder="Enter your Password"
+                            />
+
+                            <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-5 top-4 text-black cursor-pointer">{showPassword ? <Eye /> : <EyeOff />}</button>
+                        </div>
                         {errors.password_team_leader && (
                             <p className="text-red-400 text-xs mt-1 italic">{errors.password_team_leader}</p>
                         )}
@@ -150,7 +157,7 @@ const SignIn = () => {
                     </div>
 
                     <div className="flex justify-end">
-                        <Link to={'/'} className="underline text-base mt-5" data-aos="fade-up" data-aos-delay="300">Forgot your password?</Link>
+                        <Link to={'/team-leader/forgot-password'} className="underline text-base mt-5" data-aos="fade-up" data-aos-delay="300">Forgot your password?</Link>
                     </div>
 
                     <button
@@ -169,7 +176,7 @@ const SignIn = () => {
                         ) : "Sign In"}
                     </button>
 
-                    <p className="mt-5 text-center" data-aos="fade-up" data-aos-delay="400">Don't have an account? <Link to={'/sign-up'} className="text-[#36C2A1]">Sign Up</Link></p>
+                    <p className="mt-5 text-center" data-aos="fade-up" data-aos-delay="400">Don't have an account? <Link to={'/team-leader/sign-up'} className="text-[#36C2A1]">Sign Up</Link></p>
                 </form>
             </div>
         </div>

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import bgSignIn from "../../images/bg-sign-in.png"
 import logo from "../../images/logo-double.png"
 import logoOw from "../../images/Logo-ow.png"
-import { Check } from "lucide-react"
+import { Check, Eye, EyeOff } from "lucide-react"
 import Toast from "../../components/Toast"
 import useImagePreload from "../../hooks/useImagePreload"
 import Aos from "aos"
@@ -62,6 +62,8 @@ const SignUpTeamLeader = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
 
+    const [showPassword, setShowPassword] = useState(false)
+
     const navigate = useNavigate()
 
     const validateStep1 = () => {
@@ -118,14 +120,9 @@ const SignUpTeamLeader = () => {
                 return
             }
 
-            console.log("Registration successful", data)
-
-            sessionStorage.setItem("token", data.token)
-            localStorage.setItem("user", JSON.stringify(data.user))
-
             setToast({ message: "Pendaftaran berhasil! Selamat datang 🎉", type: "success" })
 
-            setTimeout(() => navigate("/dashboard-team-leader"), 2000)
+            setTimeout(() => navigate("/team-leader/sign-in"), 2000)
         } catch (error) {
             setToast({ message: "Terjadi kesalahan, coba lagi", type: "error" })
         } finally {
@@ -260,14 +257,18 @@ const SignUpTeamLeader = () => {
                             <div data-aos="fade-up" data-aos-delay="400">
                                 <p className="text-sm mb-1">Password</p>
 
-                                <input
-                                    name="password_team_leader"
-                                    type="password"
-                                    value={step1.password_team_leader}
-                                    onChange={handleStep1Change}
-                                    className="w-full rounded-lg px-3 py-2 bg-white text-black text-sm"
-                                    placeholder="Masukkan password"
-                                />
+                                <div>
+                                    <input
+                                        name="password_team_leader"
+                                        type={showPassword ? "text" : "password"}
+                                        value={step1.password_team_leader}
+                                        onChange={handleStep1Change}
+                                        className="w-full rounded-lg px-3 py-2 bg-white text-black text-sm"
+                                        placeholder="Masukkan password"
+                                    />
+
+                                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-5 top-7.5 text-black cursor-pointer">{showPassword ? <Eye /> : <EyeOff />}</button>
+                                </div>
 
                                 <p className="text-xs mt-1 italic font-inter font-light text-white/60">
                                     Min. 8 karakter dengan huruf besar, kecil, dan angka
@@ -321,10 +322,10 @@ const SignUpTeamLeader = () => {
                                 Next →
                             </button>
 
-                            <p className="text-center text-sm">
+                            <p className="text-center">
                                 Sudah punya akun?{" "}
 
-                                <Link to="/sign-in" className="text-[#36C2A1]">
+                                <Link to="/team-leader/sign-in" className="text-[#36C2A1]">
                                     Sign In
                                 </Link>
                             </p>
