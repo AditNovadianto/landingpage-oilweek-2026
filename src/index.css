@@ -189,6 +189,41 @@ body {
 }
 
 /* =========================
+   Custom ScrollBar
+========================= */
+@layer utilities {
+  /* Untuk Chrome, Safari, dan Opera */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px; /* Mengatur ketebalan scrollbar vertikal */
+    height: 4px; /* Mengatur ketebalan scrollbar horizontal */
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent; /* Latar belakang track dibuat transparan */
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.2
+    ); /* Warna scrollbar (putih transparan) */
+    border-radius: 20px; /* Membuat sudutnya melingkar/round */
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* Warna saat di-hover */
+  }
+
+  /* Untuk Firefox */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+}
+
+/* =========================
    Floating Animation
 ========================= */
 

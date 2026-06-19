@@ -123,23 +123,23 @@ const router = createBrowserRouter([
             element: <DashboardAdminBusinessCase />
           },
           {
-            path: "user/dashboard-admin-petrosmart",
+            path: "dashboard-admin-petrosmart",
             element: <DashboardAdminPetrosmart />
           },
           {
-            path: "user/dashboard-admin-paper-poster",
+            path: "dashboard-admin-paper-poster",
             element: <DashboardAdminPaperAndPoster />
           },
           {
-            path: "user/dashboard-admin-mud-innovation",
+            path: "dashboard-admin-mud-innovation",
             element: <DashboardAdminMudInnovation />
           },
           {
-            path: "user/dashboard-admin-well-stimulation",
+            path: "dashboard-admin-well-stimulation",
             element: <DashboardAdminWellStimulation />
           },
           {
-            path: "user/dashboard-case-study",
+            path: "dashboard-admin-case-study",
             element: <DashboardAdminCaseStudy />
           },
         ]
