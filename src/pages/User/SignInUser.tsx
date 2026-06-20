@@ -258,11 +258,14 @@ const SignInUser = () => {
                             </button>
                         </div>
 
+
                         {errors.password_user && (
                             <p className="text-red-400 text-xs mt-1 italic">
                                 {errors.password_user}
                             </p>
                         )}
+
+                        <p className="text-xs mt-2 italic font-inter font-light">must be at least 8 characters with uppercase, lowercase, and number</p>
                     </div>
 
                     <div className="flex justify-end">
