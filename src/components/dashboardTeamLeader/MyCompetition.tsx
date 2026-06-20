@@ -60,7 +60,11 @@ interface StageSubmission {
     updatedAt?: string
 }
 
-const MyCompetition = () => {
+interface MyCompetitionProps {
+    setSection: React.Dispatch<React.SetStateAction<string>>
+}
+
+const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
     const navigate = useNavigate()
 
     const [user, setUser] = useState<User | null>(null)
@@ -565,8 +569,8 @@ const MyCompetition = () => {
                         </p>
 
                         <button
-                            onClick={() => navigate("/competitions")}
-                            className="mt-6 rounded-2xl bg-[#EAE0CF] px-6 py-3 text-sm font-semibold text-[#111844] hover:bg-white"
+                            onClick={() => setSection(("competitions"))}
+                            className="cursor-pointer mt-6 rounded-2xl bg-[#EAE0CF] px-6 py-3 text-sm font-semibold text-[#111844] hover:bg-white"
                         >
                             Browse Competitions
                         </button>

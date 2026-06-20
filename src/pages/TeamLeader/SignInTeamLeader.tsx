@@ -84,7 +84,7 @@ const SignIn = () => {
             localStorage.setItem("team", JSON.stringify(data.team))
             localStorage.setItem("member", JSON.stringify(data.member))
 
-            setToast({ message: "Selamat datang kembali! 👋", type: "success" })
+            setToast({ message: `Welcome back, ${data.user.name_team_leader}! 👋`, type: "success" })
 
             setTimeout(() => navigate("/team-leader/dashboard-team-leader"), 2000)
         } catch (err) {

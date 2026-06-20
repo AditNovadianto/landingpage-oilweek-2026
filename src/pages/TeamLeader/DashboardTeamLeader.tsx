@@ -50,7 +50,7 @@ const DashboardTeamLeader = () => {
             }}
         >
             {/* SIDEBAR */}
-            <div className="h-full group relative flex flex-col justify-between min-h-screen w-24 hover:w-72 shrink-0 transition-all duration-300 ease-in-out overflow-hidden bg-white/5 backdrop-blur-2xl border-r border-white/10 px-4 py-8 shadow-2xl">
+            <div className="group relative flex flex-col justify-between min-h-screen w-24 hover:w-72 shrink-0 transition-all duration-300 ease-in-out overflow-hidden bg-white/5 backdrop-blur-2xl border-r border-white/10 px-4 py-8 shadow-2xl overflow-y-auto h-screen scrollbar-thin">
                 <div className="absolute inset-0 bg-linear-to-b from-blue-500/5 via-transparent to-cyan-500/5 pointer-events-none" />
 
                 <div className="relative z-10">
@@ -173,7 +173,7 @@ const DashboardTeamLeader = () => {
                     </div>
                 </div>
 
-                <div className="relative z-10">
+                <div className="relative z-10 mt-10">
                     <button
                         className="flex items-center gap-4 w-full px-4 py-3 rounded-2xl bg-red-500/90 hover:bg-red-600 text-white cursor-pointer transition-all hover:shadow-2xl hover:shadow-red-500/20"
                         onClick={logOutHandler}
@@ -187,11 +187,11 @@ const DashboardTeamLeader = () => {
                 </div>
             </div>
 
-            <div className="w-full overflow-y-auto h-screen">
+            <div className="w-full overflow-y-auto h-screen scrollbar-thin">
                 {section === "home" && <Home />}
                 {section === "profile" && <MyProfile />}
                 {section === "competitions" && <Competitions />}
-                {section === "myCompetitions" && <MyCompetition />}
+                {section === "myCompetitions" && <MyCompetition setSection={setSection} />}
             </div>
         </div>
     )
