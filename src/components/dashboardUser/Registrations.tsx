@@ -399,13 +399,11 @@ const Registrations = () => {
                                     </td>
 
                                     <td className="py-3">
-                                        {registration.name_team_leader ||
-                                            `Leader ID ${registration.id_team_leader}`}
+                                        {teamLeaders.find((teamLeader) => teamLeader.id_team_leader === registration.id_team_leader)?.name_team_leader}
                                     </td>
 
                                     <td className="py-3">
-                                        {registration.name_competition ||
-                                            `Competition ID ${registration.id_competition}`}
+                                        {competitions.find((competition) => competition.id_competition === registration.id_competition)?.name_competition}
                                     </td>
 
                                     <td className="py-3">

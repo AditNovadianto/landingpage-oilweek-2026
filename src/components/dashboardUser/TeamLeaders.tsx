@@ -9,6 +9,7 @@ import {
     CreditCard,
     X,
     ShieldCheck,
+    FileText,
 } from "lucide-react"
 import Toast from "../Toast"
 import { isTokenExpired } from "../../utils/auth"
@@ -47,6 +48,10 @@ interface Member {
     id_team?: number
     twibbon?: string
     following_instagram?: string
+    following_linkedin?: string
+    following_tiktok?: string
+    instagram_story?: string
+    repost_competition_instagram?: string
 }
 
 const TeamLeaders = () => {
@@ -54,9 +59,12 @@ const TeamLeaders = () => {
     const [selectedLeader, setSelectedLeader] = useState<TeamLeader | null>(null)
     const [selectedTeam, setSelectedTeam] = useState<Team | null>(null)
     const [members, setMembers] = useState<Member[]>([])
+    const [selectedMember, setSelectedMember] = useState<Member | null>(null)
+
     const [search, setSearch] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false)
+    const [isMemberFileModalOpen, setIsMemberFileModalOpen] = useState(false)
 
     const [toast, setToast] = useState<{
         message: string
@@ -64,7 +72,6 @@ const TeamLeaders = () => {
     } | null>(null)
 
     const navigate = useNavigate()
-
     const token = sessionStorage.getItem("token")
 
     useEffect(() => {
@@ -76,7 +83,7 @@ const TeamLeaders = () => {
 
             navigate("/user/sign-in")
         }
-    }, [])
+    }, [navigate, token])
 
     const fetchTeamLeaders = async () => {
         try {
@@ -178,6 +185,16 @@ const TeamLeaders = () => {
         await fetchTeamByLeader(leader.id_team_leader)
     }
 
+    const openMemberFilesModal = (member: Member) => {
+        setSelectedMember(member)
+        setIsMemberFileModalOpen(true)
+    }
+
+    const closeMemberFilesModal = () => {
+        setSelectedMember(null)
+        setIsMemberFileModalOpen(false)
+    }
+
     return (
         <div className="text-white space-y-6 px-10 py-7">
             <div>
@@ -239,12 +256,12 @@ const TeamLeaders = () => {
                     <table className="w-full text-sm">
                         <thead>
                             <tr className="border-b border-white/20">
-                                <th className="text-left py-3">No</th>
-                                <th className="text-left py-3">Name</th>
-                                <th className="text-left py-3">Email</th>
-                                <th className="text-left py-3">Major</th>
-                                <th className="text-left py-3">Phone</th>
-                                <th className="text-left py-3">Action</th>
+                                <th className="text-left py-3 px-3">No</th>
+                                <th className="text-left py-3 px-3">Name</th>
+                                <th className="text-left py-3 px-3">Email</th>
+                                <th className="text-left py-3 px-3">Major</th>
+                                <th className="text-left py-3 px-3">Phone</th>
+                                <th className="text-left py-3 px-3">Action</th>
                             </tr>
                         </thead>
 
@@ -254,20 +271,20 @@ const TeamLeaders = () => {
                                     key={leader.id_team_leader}
                                     className="border-b border-white/10"
                                 >
-                                    <td className="py-3">{index + 1}</td>
-                                    <td className="py-3 font-medium">
+                                    <td className="py-3 px-3">{index + 1}</td>
+                                    <td className="py-3 px-3 font-medium min-w-45">
                                         {leader.name_team_leader}
                                     </td>
-                                    <td className="py-3">
+                                    <td className="py-3 px-3 min-w-55">
                                         {leader.email_team_leader}
                                     </td>
-                                    <td className="py-3">
+                                    <td className="py-3 px-3 min-w-40">
                                         {leader.major_team_leader}
                                     </td>
-                                    <td className="py-3">
+                                    <td className="py-3 px-3 min-w-37.5">
                                         {leader.phone_number_team_leader}
                                     </td>
-                                    <td className="py-3">
+                                    <td className="py-3 px-3">
                                         <button
                                             onClick={() =>
                                                 openDetailModal(leader)
@@ -298,7 +315,7 @@ const TeamLeaders = () => {
 
             {isDetailModalOpen && selectedLeader && (
                 <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-5">
-                    <div className="glass p-6 rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto">
+                    <div className="glass p-6 rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-y-auto">
                         <div className="flex items-center justify-between mb-5">
                             <p className="text-xl font-semibold">
                                 Team Leader Detail
@@ -361,7 +378,7 @@ const TeamLeaders = () => {
 
                             <div className="mt-6">
                                 <p className="font-semibold text-lg mb-4">
-                                    Uploaded Files
+                                    Team Leader Uploaded Files
                                 </p>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -410,7 +427,19 @@ const TeamLeaders = () => {
 
                                                 <span>↗</span>
                                             </a>
-                                        ) : null
+                                        ) : (
+                                            <div
+                                                key={index}
+                                                className="bg-white/5 border border-white/10 p-4 rounded-xl"
+                                            >
+                                                <p className="font-medium">
+                                                    {file.label}
+                                                </p>
+                                                <p className="text-gray-500 text-sm mt-1">
+                                                    File not uploaded
+                                                </p>
+                                            </div>
+                                        )
                                     )}
                                 </div>
                             </div>
@@ -460,23 +489,26 @@ const TeamLeaders = () => {
                                 <table className="w-full text-sm">
                                     <thead>
                                         <tr className="border-b border-white/20">
-                                            <th className="text-left py-3">
+                                            <th className="text-left py-3 px-3">
                                                 No
                                             </th>
-                                            <th className="text-left py-3">
+                                            <th className="text-left py-3 px-3">
                                                 Name
                                             </th>
-                                            <th className="text-left py-3">
+                                            <th className="text-left py-3 px-3">
                                                 Email
                                             </th>
-                                            <th className="text-left py-3">
+                                            <th className="text-left py-3 px-3">
                                                 Phone
                                             </th>
-                                            <th className="text-left py-3">
+                                            <th className="text-left py-3 px-3">
                                                 Major
                                             </th>
-                                            <th className="text-left py-3">
+                                            <th className="text-left py-3 px-3">
                                                 Student ID
+                                            </th>
+                                            <th className="text-left py-3 px-3">
+                                                Files
                                             </th>
                                         </tr>
                                     </thead>
@@ -487,25 +519,38 @@ const TeamLeaders = () => {
                                                 key={member.id_member}
                                                 className="border-b border-white/10"
                                             >
-                                                <td className="py-3">
+                                                <td className="py-3 px-3">
                                                     {index + 1}
                                                 </td>
-                                                <td className="py-3">
+                                                <td className="py-3 px-3 min-w-40 font-medium">
                                                     {member.name_member}
                                                 </td>
-                                                <td className="py-3">
+                                                <td className="py-3 px-3 min-w-57.5">
                                                     {member.email_member}
                                                 </td>
-                                                <td className="py-3">
+                                                <td className="py-3 px-3 min-w-37.5">
                                                     {
                                                         member.phone_number_member
                                                     }
                                                 </td>
-                                                <td className="py-3">
+                                                <td className="py-3 px-3 min-w-37.5">
                                                     {member.major_member}
                                                 </td>
-                                                <td className="py-3">
+                                                <td className="py-3 px-3 min-w-40">
                                                     {member.student_id_card}
+                                                </td>
+                                                <td className="py-3 px-3 min-w-32.5">
+                                                    <button
+                                                        onClick={() =>
+                                                            openMemberFilesModal(
+                                                                member
+                                                            )
+                                                        }
+                                                        className="glass px-4 py-2 rounded-xl border border-cyan-400/20 text-cyan-300 hover:border-cyan-400/50 hover:bg-cyan-500/10 transition-all duration-300 cursor-pointer flex items-center gap-2"
+                                                    >
+                                                        <FileText size={15} />
+                                                        View Files
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}
@@ -518,6 +563,89 @@ const TeamLeaders = () => {
                                     </p>
                                 )}
                             </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {isMemberFileModalOpen && selectedMember && (
+                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-9999 px-5">
+                    <div className="glass p-6 rounded-2xl w-full max-w-4xl max-h-[85vh] overflow-y-auto">
+                        <div className="flex items-center justify-between mb-5">
+                            <div>
+                                <p className="text-2xl font-semibold">
+                                    Member Uploaded Files
+                                </p>
+
+                                <p className="text-sm text-gray-400 mt-1">
+                                    {selectedMember.name_member}
+                                </p>
+                            </div>
+
+                            <button
+                                onClick={closeMemberFilesModal}
+                                className="cursor-pointer"
+                            >
+                                <X />
+                            </button>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {[
+                                {
+                                    label: "Student ID Card",
+                                    value: selectedMember.student_id_card,
+                                },
+                                {
+                                    label: "Twibbon",
+                                    value: selectedMember.twibbon,
+                                },
+                                {
+                                    label: "Following Instagram",
+                                    value: selectedMember.following_instagram,
+                                },
+                                {
+                                    label: "Following LinkedIn",
+                                    value: selectedMember.following_linkedin,
+                                },
+                                {
+                                    label: "Following TikTok",
+                                    value: selectedMember.following_tiktok,
+                                },
+                                {
+                                    label: "Instagram Story",
+                                    value: selectedMember.instagram_story,
+                                },
+                                {
+                                    label: "Repost Competition Instagram",
+                                    value:
+                                        selectedMember.repost_competition_instagram,
+                                },
+                            ].map((file, index) => (
+                                <div
+                                    key={index}
+                                    className="bg-white/5 border border-white/10 rounded-xl p-4"
+                                >
+                                    <p className="font-medium text-white">
+                                        {file.label}
+                                    </p>
+
+                                    {file.value ? (
+                                        <a
+                                            href={file.value}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 hover:bg-cyan-500/20 transition-all"
+                                        >
+                                            Open File ↗
+                                        </a>
+                                    ) : (
+                                        <p className="text-gray-500 mt-3 text-sm">
+                                            File not uploaded
+                                        </p>
+                                    )}
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

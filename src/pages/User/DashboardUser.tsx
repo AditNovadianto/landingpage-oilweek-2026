@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import useImagePreload from "../../hooks/useImagePreload"
 import logoOw from "../../images/Logo-ow.png"
 import bg from "../../images/dashboard/bg-dashboard.png"
-import { ClipboardList, House, LogOut, Trophy, User, UserRoundPlus, Users } from "lucide-react"
+import { ClipboardList, FileCheckCorner, House, LogOut, Trophy, User, UserRoundPlus, Users } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import Home from "../../components/dashboardUser/Home"
 import Competitions from "../../components/dashboardUser/Competitions"
@@ -10,6 +10,9 @@ import Registrations from "../../components/dashboardUser/Registrations"
 import MyProfile from "../../components/dashboardUser/MyProfile"
 import TeamLeaders from "../../components/dashboardUser/TeamLeaders"
 import CreateUser from "../../components/dashboardUser/CreateUser"
+import CompetitionStages from "../../components/dashboardUser/CompetitionStages"
+import { GiPodiumWinner } from "react-icons/gi"
+import StageSubmissions from "../../components/dashboardUser/StageSubmissions"
 
 interface UserData {
     name_user?: string
@@ -54,7 +57,7 @@ const DashboardUser = () => {
             }}
         >
             {/* SIDEBAR */}
-            <div className="h-full group relative flex flex-col justify-between min-h-screen w-24 hover:w-72 shrink-0 transition-all duration-300 ease-in-out overflow-hidden bg-white/5 backdrop-blur-2xl border-r border-white/10 px-4 py-8 shadow-2xl">
+            <div className="group relative flex flex-col justify-between min-h-screen w-26 hover:w-72 shrink-0 transition-all duration-300 ease-in-out overflow-hidden bg-white/5 backdrop-blur-2xl border-r border-white/10 px-4 py-8 shadow-2xl overflow-y-auto h-screen scrollbar-thin">
                 <div className="absolute inset-0 bg-linear-to-b from-blue-500/5 via-transparent to-cyan-500/5 pointer-events-none" />
 
                 <div className="relative z-10">
@@ -224,10 +227,56 @@ const DashboardUser = () => {
                                 Create User
                             </p>
                         </button>
+
+                        <button
+                            className={`flex items-center gap-4 w-full px-4 py-3 rounded-2xl cursor-pointer text-white transition-all ease-in-out relative overflow-hidden ${section === "competitionStages"
+                                ? "bg-white/15 shadow-lg border border-white/10"
+                                : "hover:bg-white/10"
+                                }`}
+                            onClick={() => setSection("competitionStages")}
+                        >
+                            {section === "competitionStages" && (
+                                <div className="absolute inset-0 bg-linear-to-r from-blue-500/20 to-cyan-400/10 rounded-2xl" />
+                            )}
+
+                            <GiPodiumWinner
+                                className={`translate-x-1 min-w-5 relative z-10 transition-all ${section === "competitionStages"
+                                    ? "scale-110 text-cyan-300"
+                                    : ""
+                                    }`}
+                            />
+
+                            <p className="opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 whitespace-nowrap truncate relative z-10">
+                                Competition Stage
+                            </p>
+                        </button>
+
+                        <button
+                            className={`flex items-center gap-4 w-full px-4 py-3 rounded-2xl cursor-pointer text-white transition-all ease-in-out relative overflow-hidden ${section === "stageSubmissions"
+                                ? "bg-white/15 shadow-lg border border-white/10"
+                                : "hover:bg-white/10"
+                                }`}
+                            onClick={() => setSection("stageSubmissions")}
+                        >
+                            {section === "stageSubmissions" && (
+                                <div className="absolute inset-0 bg-linear-to-r from-blue-500/20 to-cyan-400/10 rounded-2xl" />
+                            )}
+
+                            <FileCheckCorner
+                                className={`translate-x-1 min-w-5 relative z-10 transition-all ${section === "stageSubmissions"
+                                    ? "scale-110 text-cyan-300"
+                                    : ""
+                                    }`}
+                            />
+
+                            <p className="opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 whitespace-nowrap truncate relative z-10">
+                                Stage Submissions
+                            </p>
+                        </button>
                     </div>
                 </div>
 
-                <div className="relative z-10">
+                <div className="relative z-10 mt-10">
                     <button
                         className="flex items-center gap-4 w-full px-4 py-3 rounded-2xl bg-red-500/90 hover:bg-red-600 text-white cursor-pointer transition-all hover:shadow-2xl hover:shadow-red-500/20 overflow-hidden"
                         onClick={logOutHandler}
@@ -241,13 +290,15 @@ const DashboardUser = () => {
                 </div>
             </div>
 
-            <div className="w-full overflow-y-auto h-screen">
+            <div className="w-full overflow-y-auto h-screen scrollbar-thin">
                 {section === "home" && <Home />}
                 {section === "profile" && <MyProfile />}
                 {section === "competitions" && <Competitions />}
                 {section === "registrations" && <Registrations />}
                 {section === "teamLeaders" && <TeamLeaders />}
                 {section === "createUser" && <CreateUser />}
+                {section === "competitionStages" && <CompetitionStages />}
+                {section === "stageSubmissions" && <StageSubmissions />}
             </div>
         </div>
     )
