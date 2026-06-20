@@ -517,9 +517,58 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
                     <h2 className="text-xl font-semibold text-white">
                         Payment Pending
                     </h2>
+
                     <p className="mt-2 max-w-md text-sm text-gray-400">
                         Your registration is pending payment. Please wait for the payment to be processed to access the competition details and stages.
                     </p>
+
+                    <a
+                        href={registration.payment_proof}
+                        target="_blank" rel="noopener noreferrer"
+                        className="mt-6 rounded-2xl bg-[#EAE0CF] px-6 py-3 text-sm font-semibold text-[#111844] hover:bg-white"
+                    >View Payment Proof</a>
+                </div>
+            </div>
+        )
+    }
+
+    if (!loading && registration && registration.payment_status !== "APPROVED") {
+        return (
+            <div className="min-h-screen px-10 py-7 text-white">
+                <div className="flex flex-col gap-8">
+                    <div>
+                        <p className="font-garamond text-4xl font-semibold text-white underline">
+                            My Competition
+                        </p>
+
+                        <p className="mt-2 text-sm text-gray-400">
+
+                            Track your registration, competition stages, deadline, and submission status.
+                        </p>
+                    </div>
+
+                    <button
+                        onClick={() =>
+                            user?.id_team_leader && getMyCompetition(user.id_team_leader)
+                        }
+                        className="cursor-pointer flex items-center justify-center gap-2 rounded-2xl border border-[#7288AE]/40 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
+                    >
+                        <RefreshCcw className="h-4 w-4" />
+                        Refresh
+                    </button>
+                </div>
+
+                <div className="mt-10 flex min-h-80 flex-col items-center justify-center rounded-3xl border border-dashed border-[#7288AE]/40 bg-[#111844]/40 text-center">
+                    <Trophy className="mb-4 h-14 w-14 text-gray-500" />
+                    <h2 className="text-xl font-semibold text-white">
+                        Payment Rejected
+                    </h2>
+
+                    <p className="mt-2 max-w-md text-sm text-gray-400">
+                        Your payment has not been approved by the committee yet.
+                        Competition stages and submissions will be available after your payment status is APPROVED.
+                    </p>
+
                     <a
                         href={registration.payment_proof}
                         target="_blank" rel="noopener noreferrer"
@@ -663,8 +712,12 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
 
                                         const qualification = getStageQualification(index)
 
+                                        const isPaymentApproved = registration?.payment_status === "APPROVED"
+
                                         const canUpload =
-                                            realStatus === "ONGOING" && qualification.isQualified
+                                            isPaymentApproved &&
+                                            realStatus === "ONGOING" &&
+                                            qualification.isQualified
 
                                         return (
                                             <div
