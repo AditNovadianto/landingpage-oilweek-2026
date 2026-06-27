@@ -1,6 +1,7 @@
 import logoOw from "../../images//Logo-ow.png"
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 import sponsorPertaminaInternasionalEP from "../../images/sponsor-pertamina-internasional-ep.webp"
+import sponsorRockFlowDynamics from "../../images/sponsor-rock-flow-dynamics.png"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { useEffect } from "react";
@@ -144,16 +145,23 @@ const Footer = () => {
             </div>
 
             <div
-                className="mt-10 px-5 md:px-20 lg:px-32 py-10 flex items-center justify-center w-full"
-                data-aos="zoom-in"
-                data-aos-duration="1000"
-                data-aos-easing="ease-out-cubic"
+                className="mt-10 px-5 md:px-20 lg:px-32 py-10 w-full bg-white"
             >
-                <img
-                    src={sponsorPertaminaInternasionalEP}
-                    alt="Sponsor Pertamina Internasional EP"
-                    className="w-62.5"
-                />
+                <p className="font-semibold font-inter text-2xl">Sponsored By</p>
+
+                <div className="mt-10 w-full flex items-center justify-center gap-10">
+                    <img
+                        src={sponsorPertaminaInternasionalEP}
+                        alt="Sponsor Pertamina Internasional EP"
+                        className="w-80"
+                    />
+
+                    <img
+                        src={sponsorRockFlowDynamics}
+                        alt="Sponsor Rock Flow Dynamics"
+                        className="w-72"
+                    />
+                </div>
             </div>
         </>
     )
