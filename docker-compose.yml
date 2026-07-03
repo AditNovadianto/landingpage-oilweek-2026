@@ -1,9 +1,13 @@
-version: "3.9"
-
 services:
-  react-landingpage:
-    build: .
-    container_name: react-landingpage
-    ports:
-      - "80"
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: oilweek-frontend
     restart: unless-stopped
+    networks:
+      - oilweek-network
+
+networks:
+  oilweek-network:
+    external: true
