@@ -125,7 +125,7 @@ const PreEvent = () => {
                     <div
                         data-aos="zoom-in"
                         data-aos-delay="300"
-                        className="scale-[1.25] mt-20"
+                        className="scale-[1.25]"
                     >
                         <img src={images} alt="" />
                     </div>
@@ -136,7 +136,7 @@ const PreEvent = () => {
                     data-aos-delay="100"
                     className="w-full flex flex-col items-end px-5 md:px-20 lg:px-32 mt-20"
                 >
-                    <p className="text-xl font-inter text-white text-end">PIC: <br />Anindya Zhafira (+62 813 1600 3178)</p>
+                    <p className="text-xl font-inter text-white text-end">PIC: <br />Fayola Zafira (+62 812 8465 8471)</p>
                 </div>
             </div>
 

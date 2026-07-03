@@ -135,7 +135,7 @@ const GrandSeminarXSkillFinder = () => {
                     className="mt-32"
                 >
                     <div className="px-5 md:px-20 lg:px-32 rotate-0 md:-rotate-6">
-                        <p className="font-bold text-3xl font-inter text-white">Looking back on Last Year’s: Skill Finder<span className="font-semibold italic font-garamond text-[#E7C66B]">Pre Event</span></p>
+                        <p className="font-bold text-3xl font-inter text-white">Looking back on Last Year’s: Skill Finder</p>
 
                         <p className="font-inter text-white text-2xl mt-5">The Previous Grand Seminar X Skill Finder has been successfully held for the past 2 years, engaging <span className="font-semibold">600+ participants</span> and <span className="font-semibold">7+ professionals</span> through seminars, HR talks, CV reviews, and internship opportunities. Collaborating with top companies in the Oil & Gas industry, the event provided valuable industry insights and supported students’ career readiness and professional development</p>
                     </div>
@@ -143,7 +143,7 @@ const GrandSeminarXSkillFinder = () => {
                     <div
                         data-aos="zoom-in"
                         data-aos-delay="300"
-                        className="scale-[1.25] mt-20"
+                        className="scale-[1.25]"
                     >
                         <img src={images} alt="" />
                     </div>

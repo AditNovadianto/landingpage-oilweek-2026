@@ -44,7 +44,7 @@ const WellStimulationCompetition = () => {
                     className="px-5 md:px-20 lg:px-32 relative inline-block m-auto"
                 >
                     <h1 className="text-6xl text-center font-semibold italic font-garamond text-white">
-                        Business Case
+                        Well Stimulation
                     </h1>
 
                     <div className="h-1.5 w-full bg-linear-to-r from-[#E7C66B] to-[#F6EBD2]"></div>
@@ -81,7 +81,7 @@ const WellStimulationCompetition = () => {
                 <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center gap-10 mt-20">
                     <img
                         data-aos="fade-right"
-                        className="w-[70%] md:w-[50%] m-auto md:m-0 px-0 md:px-20 py-20"
+                        className="w-[90%] md:w-[50%] m-auto md:m-0"
                         src={logo}
                         alt=""
                     />
@@ -93,7 +93,7 @@ const WellStimulationCompetition = () => {
                         <div className="glass px-5 py-7 text-white">
                             <p className="text-2xl font-garamond font-semibold">About <i>Well Stimulation Competition</i></p>
 
-                            <p>The Well Stimulation Competition is a <span className="font-garamond italic text-[#E7C66B]">reservoir and production engineering-focused competition</span> that challenges participants to design and justify stimulation strategies to enhance oil and gas well productivity. This competition simulates practical challenges encountered in reservoir engineering, requiring teams to design appropriate stimulation methods such as hydraulic fracturing, acidizing, or other enhanced recovery techniques. The proposed solutions are evaluated based on <span className="font-semibold">technical effectiveness, operational efficiency, and economic feasibility</span>. Participants are encouraged to demonstrate analytical skills, engineering knowledge, and strategic decision-making.</p>
+                            <p className="text-justify">The Well Stimulation Competition is a <span className="font-garamond italic text-[#E7C66B] font-semibold">reservoir and production engineering-focused competition</span> that challenges participants to design and justify stimulation strategies to enhance oil and gas well productivity. This competition simulates practical challenges encountered in reservoir engineering, requiring teams to design appropriate stimulation methods such as hydraulic fracturing, acidizing, or other enhanced recovery techniques. The proposed solutions are evaluated based on <span className="font-semibold">technical effectiveness, operational efficiency, and economic feasibility</span>. Participants are encouraged to demonstrate analytical skills, engineering knowledge, and strategic decision-making.</p>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@ const WellStimulationCompetition = () => {
                         className="px-5 md:px-20 lg:px-32"
                     >
                         <div className="m-auto md:w-max glass px-10 py-4 rounded-full!">
-                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic">FAQ</span></p>
+                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic font-semibold">FAQ</span></p>
                         </div>
                     </div>
 

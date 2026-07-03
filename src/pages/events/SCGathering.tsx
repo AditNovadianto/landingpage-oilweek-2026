@@ -128,7 +128,7 @@ const SCGathering = () => {
                     <div
                         data-aos="zoom-in"
                         data-aos-delay="300"
-                        className="scale-[1.25] mt-20"
+                        className="scale-[1.25]"
                     >
                         <img src={images} alt="" />
                     </div>
@@ -139,12 +139,12 @@ const SCGathering = () => {
                     data-aos-delay="100"
                     className="w-full flex flex-col items-end px-5 md:px-20 lg:px-32 mt-20"
                 >
-                    <p className="text-xl font-inter text-white text-end">CP : <br />Evelyn Marintan Tiamur Marpaung <br />External Affairs Associate <br />0895801103755
+                    <p className="text-xl font-inter text-white text-end">CP : <br />Evelyn Marintan Tiamur Marpaung <br />External Affairs Associate <br />+62 895801103755
                     </p>
 
-                    <p className="mt-10 text-xl font-inter text-white text-end">Padreo Sebastian Sihombing <br />External Affairs Associate <br />081362233632</p>
+                    <p className="mt-10 text-xl font-inter text-white text-end">Padreo Sebastian Sihombing <br />External Affairs Associate <br />+62 81362233632</p>
 
-                    <p className="mt-10 text-xl font-inter text-white text-end">Gina Ramadhania Wahyu <br />Deputy Director of External Affairs <br />085858066861
+                    <p className="mt-10 text-xl font-inter text-white text-end">Gina Ramadhania Wahyu <br />Deputy Director of External Affairs <br />+62 85858066861
                     </p>
                 </div>
             </div>

@@ -46,7 +46,7 @@ const JobFair = () => {
                     data-aos-delay="300"
                     className="px-5 md:px-20 lg:px-32 mt-14"
                 >
-                    <p className="text-2xl text-center text-white font-inter font-light"><i>Job Fair 2026: Beyond the Horizon</i>, Mapping Your Career connects students and fresh graduates with <span className="font-semibold">top companies</span> in the energy and related industries, offering <span className="font-semibold italic">career exploration, professional networking, and direct industry insights.</span></p>
+                    <p className="text-2xl text-center text-white font-inter font-light w-[85%] m-auto"><i>Job Fair 2026: Beyond the Horizon</i>, Mapping Your Career connects students and fresh graduates with <span className="font-semibold">top companies</span> in the energy and related industries, offering <span className="font-semibold italic">career exploration, professional networking, and direct industry insights.</span></p>
                 </div>
 
                 <div className="px-5 md:px-20 lg:px-32 mt-20 text-white">
@@ -125,7 +125,7 @@ const JobFair = () => {
                     <div
                         data-aos="zoom-in"
                         data-aos-delay="300"
-                        className="scale-[1.5] mt-28 translate-x-62.5"
+                        className="scale-[1.5] mt-20 translate-x-62.5"
                     >
                         <img src={images} alt="" />
                     </div>

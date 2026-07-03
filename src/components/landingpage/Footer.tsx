@@ -109,6 +109,7 @@ const Footer = () => {
                             <li className="list-disc mt-2">Business Case Competition</li>
                             <li className="list-disc mt-2">Mud Innovation Competition</li>
                             <li className="list-disc mt-2">Well Stimulation Competition</li>
+                            <li className="list-disc mt-2">Case Study Competition</li>
                         </ul>
                     </div>
                 </div>
@@ -126,7 +127,7 @@ const Footer = () => {
                         <FaInstagram className="text-white" />
 
                         <p className="text-white font-inter font-light text-sm">
-                            oilweek.ui
+                            oilweek
                         </p>
                     </a>
 

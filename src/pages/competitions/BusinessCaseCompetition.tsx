@@ -78,10 +78,10 @@ const BusinessCaseCompetition = () => {
                     </Link>
                 </div>
 
-                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center gap-10 mt-20">
+                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center gap-10 mt-52">
                     <img
                         data-aos="fade-right"
-                        className="w-[70%] md:w-[50%] m-auto md:m-0 px-20 py-20"
+                        className="w-[70%] md:w-[40%] m-auto md:m-0 px-20 py-20"
                         src={logo}
                         alt=""
                     />
@@ -111,7 +111,7 @@ const BusinessCaseCompetition = () => {
 
                 <div
                     data-aos="zoom-in-up"
-                    className="scale-[1.05] mt-20 md:mt-0"
+                    className="scale-[1.05] mt-20"
                 >
                     <img src={timeline} alt="" />
                 </div>
@@ -122,7 +122,7 @@ const BusinessCaseCompetition = () => {
                         className="px-5 md:px-20 lg:px-32"
                     >
                         <div className="m-auto md:w-max glass px-10 py-4 rounded-full!">
-                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic">FAQ</span></p>
+                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic font-semibold">FAQ</span></p>
                         </div>
                     </div>
 

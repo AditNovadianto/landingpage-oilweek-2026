@@ -128,7 +128,6 @@ const SPECare = () => {
                     <div
                         data-aos="zoom-in"
                         data-aos-delay="300"
-                        className="mt-28"
                     >
                         <img src={images} alt="" />
                     </div>
@@ -139,13 +138,10 @@ const SPECare = () => {
                     data-aos-delay="100"
                     className="w-full flex flex-col items-end px-5 md:px-20 lg:px-32 mt-20"
                 >
-                    <p className="text-xl font-inter text-white text-end">CP : <br />Indah Cindy Oktariyani <br />Person In Charge of Job Fair 2026 <br />+6283155585979
+                    <p className="text-xl font-inter text-white text-end">CP : <br />Balqis <br />Person In Charge of SPECare <br />+62 8121169688
                     </p>
 
-                    <p className="mt-10 text-xl font-inter text-white text-end">Udurma Theodora Daniella Silaban <br />Co-Director of <br />Human Resources and Development 2026 <br />+6282112745158</p>
-
-                    <p className="mt-10 text-xl font-inter text-white text-end">Artanti Waranggani <br />Director of Human Resources and Development 2026 <br />+6285773924238
-                    </p>
+                    <p className="mt-10 text-xl font-inter text-white text-end">Zhariif <br />Person In Charge of SPECare <br />+62 813842823701</p>
                 </div>
             </div>
 

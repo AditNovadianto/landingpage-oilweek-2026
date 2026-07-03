@@ -7,6 +7,8 @@ import { Check, Eye, EyeOff } from "lucide-react"
 import Toast from "../../components/Toast"
 import useImagePreload from "../../hooks/useImagePreload"
 import Aos from "aos"
+import PhoneInput from "react-phone-input-2"
+import "react-phone-input-2/lib/style.css"
 
 interface Step1Data {
     name_team_leader: string
@@ -84,9 +86,30 @@ const SignUpTeamLeader = () => {
         setErrors({ ...errors, [e.target.name]: undefined })
     }
 
+    const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2 MB
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null
-        setStep2({ ...step2, [e.target.name]: file })
+
+        if (!file) return
+
+        // Validasi ukuran file
+        if (file.size > MAX_FILE_SIZE) {
+            setToast({
+                message: `Ukuran gambar "${file.name}" melebihi 2 MB. Silakan upload gambar dengan ukuran maksimal 2 MB.`,
+                type: "error",
+            })
+
+            // Reset input supaya user bisa memilih file lagi
+            e.target.value = ""
+
+            return
+        }
+
+        setStep2((prev) => ({
+            ...prev,
+            [e.target.name]: file,
+        }))
     }
 
     const handleNext = () => {
@@ -166,7 +189,7 @@ const SignUpTeamLeader = () => {
                 <p className="font-semibold text-xl font-inter mt-5 text-center italic" data-aos="fade-up" data-aos-delay="150">Create Your Account</p>
 
                 <p className="italic font-inter font-light mt-2 text-center" data-aos="fade-up" data-aos-delay="200">
-                    Join Oil Week and <span className="font-semibold font-garamond text-[#E7C66B]">Lead the Shift with Us</span>
+                    Join Oil Week and <span className="font-semibold font-garamond text-[#E7C66B]">#LeadtheShift</span> with Us
                 </p>
 
                 {/* Step Indicator */}
@@ -204,7 +227,7 @@ const SignUpTeamLeader = () => {
                         <div className="flex flex-col gap-3">
                             <div className="grid grid-cols-2 gap-3" data-aos="fade-up" data-aos-delay="300">
                                 <div>
-                                    <p className="text-sm mb-1">Nama Lengkap</p>
+                                    <p className="text-sm mb-1">Full Name</p>
 
                                     <input
                                         name="name_team_leader"
@@ -212,15 +235,15 @@ const SignUpTeamLeader = () => {
                                         value={step1.name_team_leader}
                                         onChange={handleStep1Change}
                                         className="w-full rounded-lg px-3 py-2 bg-white text-black text-sm"
-                                        placeholder="John Doe"
                                     />
 
                                     {errors.name_team_leader && (
                                         <p className="text-red-400 text-xs mt-1">{errors.name_team_leader}</p>
                                     )}
                                 </div>
+
                                 <div>
-                                    <p className="text-sm mb-1">Jurusan</p>
+                                    <p className="text-sm mb-1">Major</p>
 
                                     <input
                                         name="major_team_leader"
@@ -228,7 +251,6 @@ const SignUpTeamLeader = () => {
                                         value={step1.major_team_leader}
                                         onChange={handleStep1Change}
                                         className="w-full rounded-lg px-3 py-2 bg-white text-black text-sm"
-                                        placeholder="Informatika"
                                     />
 
                                     {errors.major_team_leader && (
@@ -246,7 +268,6 @@ const SignUpTeamLeader = () => {
                                     value={step1.email_team_leader}
                                     onChange={handleStep1Change}
                                     className="w-full rounded-lg px-3 py-2 bg-white text-black text-sm"
-                                    placeholder="johndoe@gmail.com"
                                 />
 
                                 {errors.email_team_leader && (
@@ -264,14 +285,13 @@ const SignUpTeamLeader = () => {
                                         value={step1.password_team_leader}
                                         onChange={handleStep1Change}
                                         className="w-full rounded-lg px-3 py-2 bg-white text-black text-sm"
-                                        placeholder="Masukkan password"
                                     />
 
                                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-5 top-7.5 text-black cursor-pointer">{showPassword ? <Eye /> : <EyeOff />}</button>
                                 </div>
 
                                 <p className="text-xs mt-1 italic font-inter font-light text-white/60">
-                                    Min. 8 karakter dengan huruf besar, kecil, dan angka
+                                    Minimum 8 characters, including uppercase, lowercase, and a number.
                                 </p>
 
                                 {errors.password_team_leader && (
@@ -279,39 +299,65 @@ const SignUpTeamLeader = () => {
                                 )}
                             </div>
 
-                            <div className="grid grid-cols-2 gap-3" data-aos="fade-up" data-aos-delay="450">
-                                <div>
-                                    <p className="text-sm mb-1">No. HP</p>
+                            <div>
+                                <p className="text-sm mb-1">Phone Number</p>
 
-                                    <input
-                                        name="phone_number_team_leader"
-                                        type="tel"
-                                        value={step1.phone_number_team_leader}
-                                        onChange={handleStep1Change}
-                                        className="w-full rounded-lg px-3 py-2 bg-white text-black text-sm"
-                                        placeholder="0812xxxxxx"
-                                    />
+                                <PhoneInput
+                                    country="id"
+                                    enableSearch
+                                    searchPlaceholder="Search country..."
+                                    value={step1.phone_number_team_leader}
+                                    onChange={(phone) =>
+                                        setStep1({
+                                            ...step1,
+                                            phone_number_team_leader: "+" + phone,
+                                        })
+                                    }
+                                    containerStyle={{
+                                        width: "100%",
+                                    }}
+                                    inputStyle={{
+                                        width: "100%",
+                                        height: "42px",
+                                        borderRadius: "8px",
+                                        border: "none",
+                                        fontSize: "14px",
+                                        color: "#000",
+                                        paddingLeft: "48px",
+                                        boxSizing: "border-box",
+                                    }}
+                                    buttonStyle={{
+                                        border: "none",
+                                        borderRadius: "8px 0 0 8px",
+                                        background: "#fff",
+                                    }}
+                                    dropdownStyle={{
+                                        maxHeight: "250px",
+                                        color: "#000",
+                                    }}
+                                />
 
-                                    {errors.phone_number_team_leader && (
-                                        <p className="text-red-400 text-xs mt-1">{errors.phone_number_team_leader}</p>
-                                    )}
-                                </div>
-                                <div>
-                                    <p className="text-sm mb-1">NIM / Student ID</p>
+                                {errors.phone_number_team_leader && (
+                                    <p className="text-red-400 text-xs mt-1">
+                                        {errors.phone_number_team_leader}
+                                    </p>
+                                )}
+                            </div>
 
-                                    <input
-                                        name="student_id_card"
-                                        type="text"
-                                        value={step1.student_id_card}
-                                        onChange={handleStep1Change}
-                                        className="w-full rounded-lg px-3 py-2 bg-white text-black text-sm"
-                                        placeholder="12322012904"
-                                    />
+                            <div>
+                                <p className="text-sm mb-1">Student ID</p>
 
-                                    {errors.student_id_card && (
-                                        <p className="text-red-400 text-xs mt-1">{errors.student_id_card}</p>
-                                    )}
-                                </div>
+                                <input
+                                    name="student_id_card"
+                                    type="text"
+                                    value={step1.student_id_card}
+                                    onChange={handleStep1Change}
+                                    className="w-full rounded-lg px-3 py-2 bg-white text-black text-sm"
+                                />
+
+                                {errors.student_id_card && (
+                                    <p className="text-red-400 text-xs mt-1">{errors.student_id_card}</p>
+                                )}
                             </div>
 
                             <button
@@ -323,7 +369,7 @@ const SignUpTeamLeader = () => {
                             </button>
 
                             <p className="text-center">
-                                Sudah punya akun?{" "}
+                                Already have an account?{" "}
 
                                 <Link to="/team-leader/sign-in" className="text-[#36C2A1]">
                                     Sign In
@@ -356,6 +402,11 @@ const SignUpTeamLeader = () => {
                                             className="hidden"
                                         />
                                     </label>
+
+                                    <p className="text-xs text-yellow-300 italic">
+                                        Maksimal ukuran setiap gambar adalah <span className="font-semibold">2 MB</span>.
+                                        Format yang disarankan: JPG, PNG, atau WEBP.
+                                    </p>
                                 </div>
                             ))}
 
@@ -375,7 +426,7 @@ const SignUpTeamLeader = () => {
                                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                                             </svg>
-                                            Mendaftar...
+                                            Loading...
                                         </span>
                                     ) : (
                                         "Sign Up"

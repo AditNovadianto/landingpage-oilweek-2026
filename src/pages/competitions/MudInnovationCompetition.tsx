@@ -44,7 +44,7 @@ const MudInnovationCompetition = () => {
                     className="px-5 md:px-20 lg:px-32 relative inline-block m-auto"
                 >
                     <h1 className="text-6xl text-center font-semibold italic font-garamond text-white">
-                        Business Case
+                        Mud Innovation
                     </h1>
 
                     <div className="h-1.5 w-full bg-linear-to-r from-[#E7C66B] to-[#F6EBD2]"></div>
@@ -81,7 +81,7 @@ const MudInnovationCompetition = () => {
                 <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center gap-10 mt-20">
                     <img
                         data-aos="fade-right"
-                        className="w-[70%] md:w-[50%] m-auto md:m-0 px-0 md:px-20 py-20"
+                        className="w-[70%] md:w-[50%] m-auto"
                         src={logo}
                         alt=""
                     />
@@ -93,7 +93,7 @@ const MudInnovationCompetition = () => {
                         <div className="glass px-5 py-7 text-white">
                             <p className="text-2xl font-garamond font-semibold">About <i>Mud Innovation Competition</i></p>
 
-                            <p>The Mud Innovation Competition is a <span className="font-garamond italic text-[#E7C66B]">technical problem-solving and formulation-based competition</span> that challenges participants to design innovative, efficient, and sustainable drilling fluid systems tailored to real-world drilling conditions. Participants are challenged to develop <span className="font-semibold">innovative and effective solutions to real-world drilling problems</span> by designing optimal drilling fluid systems. It serves maintaining well control by balancing formation pressure, transporting drilled cuttings to the surface (hole cleaning), and ensuring wellbore stability by preventing issues such as clay swelling or formation collapse.</p>
+                            <p className="text-justify">The Mud Innovation Competition is a <span className="font-garamond italic text-[#E7C66B] font-semibold">technical problem-solving and formulation-based competition</span> that challenges participants to design innovative, efficient, and sustainable drilling fluid systems tailored to real-world drilling conditions. Participants are challenged to develop <span className="font-semibold">innovative and effective solutions to real-world drilling problems</span> by designing optimal drilling fluid systems. It serves maintaining well control by balancing formation pressure, transporting drilled cuttings to the surface (hole cleaning), and ensuring wellbore stability by preventing issues such as clay swelling or formation collapse.</p>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@ const MudInnovationCompetition = () => {
                         className="px-5 md:px-20 lg:px-32"
                     >
                         <div className="m-auto md:w-max glass px-10 py-4 rounded-full!">
-                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic">FAQ</span></p>
+                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic font-semibold">FAQ</span></p>
                         </div>
                     </div>
 

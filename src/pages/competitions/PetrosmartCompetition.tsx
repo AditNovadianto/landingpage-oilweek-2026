@@ -78,10 +78,10 @@ const PetrosmartCompetition = () => {
                     </Link>
                 </div>
 
-                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center">
+                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center mt-20">
                     <img
                         data-aos="fade-right"
-                        className="w-[70%] md:w-[50%] m-auto md:m-0"
+                        className="w-[70%] md:w-[40%] m-auto md:m-0"
                         src={logo}
                         alt=""
                     />
@@ -93,14 +93,14 @@ const PetrosmartCompetition = () => {
                         <div className="glass px-5 py-7 text-white">
                             <p className="text-2xl font-garamond font-semibold">About <i>Petrosmart Competition</i></p>
 
-                            <p className="mt-5 font-inter font-light">The Oil Week Petrosmart Competition is an <span className="font-garamond italic text-[#E7C66B]">academic quiz competition</span> that brings together university teams in a dynamic battle of knowledge and critical thinking. Participants will compete through a series of fast-paced rounds featuring both technical and non-technical questions related to the oil, gas, and broader energy sectors. Within a limited time allocation, teams are required to answer questions accurately and strategically, with responses evaluated by a panel of judges. This competition is designed to <span className="font-semibold">foster intellectual development, encourage analytical and adaptive thinking, and highlight participants’ understanding</span> of industry-related concepts and practices in a highly competitive environment.</p>
+                            <p className="mt-5 font-inter font-light text-justify">The Oil Week Petrosmart Competition is an <span className="font-garamond italic text-[#E7C66B] font-semibold">academic quiz competition</span> that brings together university teams in a dynamic battle of knowledge and critical thinking. Participants will compete through a series of fast-paced rounds featuring both technical and non-technical questions related to the oil, gas, and broader energy sectors. Within a limited time allocation, teams are required to answer questions accurately and strategically, with responses evaluated by a panel of judges. This competition is designed to <span className="font-semibold">foster intellectual development, encourage analytical and adaptive thinking, and highlight participants’ understanding</span> of industry-related concepts and practices in a highly competitive environment.</p>
                         </div>
                     </div>
                 </div>
 
                 <div
                     data-aos="zoom-in-up"
-                    className="scale-[1.05] mt-20 md:mt-0"
+                    className="scale-[1.05] mt-20"
                 >
                     <img src={timeline} alt="" />
                 </div>
@@ -111,7 +111,7 @@ const PetrosmartCompetition = () => {
                         className="px-5 md:px-20 lg:px-32"
                     >
                         <div className="m-auto md:w-max glass px-10 py-4 rounded-full!">
-                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic">FAQ</span></p>
+                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic font-semibold">FAQ</span></p>
                         </div>
                     </div>
 
@@ -142,16 +142,16 @@ const PetrosmartCompetition = () => {
                         >
                             <p className="font-medium text-xl">Is the competition individual or team-based?</p>
 
-                            <p className="font-inter font-light mt-5">Participants may register individually. However, forming a team of up to three members is strongly encouraged to maximize collaboration and strategic performance throughout the competition.</p>
+                            <p className="font-inter font-light mt-5">Petrosmart Competition is a team-based competition. Participants are strongly encouraged to form a three-member team to maximize collaborative and strategic performance, though a minimum of two members is required</p>
                         </div>
 
                         <div
                             data-aos="fade-left"
                             className="glass px-5 py-7 w-full"
                         >
-                            <p className="font-medium text-xl">Can we change our topic after registering?</p>
+                            <p className="font-medium text-xl">Are there any study materials or references recommended for participants?</p>
 
-                            <p className="font-inter font-light mt-5">Yes. Participants are encouraged to explore resources on oil and gas fundamentals, industry developments, and emerging renewable energy topics through technical glossaries, energy reports, and introductory references.
+                            <p className="font-inter font-light mt-5">Yes! Participants are encouraged to explore key resources, primarily focusing on Schlumberger Oilfield Glossary, The Defining Series, and OnePetro glossaries. The complete and detailed list of references can be found in the official guidebook.
                             </p>
                         </div>
                     </div>

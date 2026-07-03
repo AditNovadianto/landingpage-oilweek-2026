@@ -243,3 +243,32 @@ body {
 .animate-pulse {
   animation: floating 4s ease-in-out infinite;
 }
+
+/* =========================
+   Styling Phone Number Input
+========================= */
+
+.react-tel-input {
+  width: 100%;
+}
+
+.react-tel-input .form-control {
+  width: 100% !important;
+  height: 42px !important;
+  padding-left: 48px !important;
+  box-sizing: border-box !important;
+}
+
+.react-tel-input .flag-dropdown {
+  border: none !important;
+  background: #fff !important;
+}
+
+.react-tel-input .selected-flag {
+  width: 42px !important;
+}
+
+.react-tel-input .country-list {
+  width: 280px;
+  z-index: 99999 !important;
+}

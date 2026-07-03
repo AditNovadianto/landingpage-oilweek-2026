@@ -46,7 +46,7 @@ const GalaDinner = () => {
                     data-aos-delay="300"
                     className="px-5 md:px-20 lg:px-32 mt-14"
                 >
-                    <p className="text-2xl text-center text-white font-inter font-light">The <span className="font-semibold">Gala Dinner</span> marks the <span className="font-semibold">formal conclusion of the Oil Week</span> series in a celebratory and memorable setting.</p>
+                    <p className="text-2xl text-center text-white font-inter font-light w-[85%] m-auto">The <span className="font-semibold">Gala Dinner</span> marks the <span className="font-semibold">formal conclusion of the Oil Week</span> series in a celebratory and memorable setting.</p>
                 </div>
 
                 <div className="px-5 md:px-20 lg:px-32 mt-20 text-white">
@@ -126,7 +126,7 @@ const GalaDinner = () => {
                     <div
                         data-aos="zoom-in"
                         data-aos-delay="300"
-                        className="mt-10"
+                        className="-mt-20"
                     >
                         <img src={images} alt="" />
                     </div>

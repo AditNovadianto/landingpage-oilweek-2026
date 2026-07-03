@@ -46,7 +46,7 @@ const FieldTrip = () => {
                     data-aos-delay="300"
                     className="px-5 md:px-20 lg:px-32 mt-14"
                 >
-                    <p className="text-2xl text-center text-white font-inter font-light"><span className="font-semibold italic">Field Trip 2026</span> is an opportunity to explore <span className="font-semibold italic">real-world oil and gas operations</span> while gaining valuable insights beyond the classroom experience.</p>
+                    <p className="text-2xl text-center text-white font-inter font-light w-[85%] m-auto"><span className="font-semibold italic">Field Trip 2026</span> is an opportunity to explore <span className="font-semibold italic">real-world oil and gas operations</span> while gaining valuable insights beyond the classroom experience.</p>
                 </div>
 
                 <div className="px-5 md:px-20 lg:px-32 mt-20 text-white">
@@ -139,13 +139,10 @@ const FieldTrip = () => {
                     data-aos-delay="100"
                     className="w-full flex flex-col items-end px-5 md:px-20 lg:px-32 mt-20"
                 >
-                    <p className="text-xl font-inter text-white text-end">CP : <br />Indah Cindy Oktariyani <br />Person In Charge of Job Fair 2026 <br />+6283155585979
+                    <p className="text-xl font-inter text-white text-end">CP : <br />Satrio <br />Person In Charge of Field Trip 2026 <br />+62 85711682009
                     </p>
 
-                    <p className="mt-10 text-xl font-inter text-white text-end">Udurma Theodora Daniella Silaban <br />Co-Director of <br />Human Resources and Development 2026 <br />+6282112745158</p>
-
-                    <p className="mt-10 text-xl font-inter text-white text-end">Artanti Waranggani <br />Director of Human Resources and Development 2026 <br />+6285773924238
-                    </p>
+                    <p className="mt-10 text-xl font-inter text-white text-end">Adrian <br />Person In Charge of Field Trip 2026 <br />+62 81289262897</p>
                 </div>
             </div>
 

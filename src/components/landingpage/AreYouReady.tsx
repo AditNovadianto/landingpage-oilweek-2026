@@ -19,7 +19,7 @@ const AreYouReady = () => {
                 className="text-3xl lg:text-5xl font-inter font-light text-white text-center"
                 data-aos="fade-up"
             >
-                Are You <span className="font-bold">Ready</span> to <span className="bg-linear-to-l from-yellow-400 to-yellow-100 bg-clip-text text-transparent font-semibold italic font-garamond">#Lead The Shift</span> <span className="font-bold">?</span>
+                Are You <span className="font-bold">Ready</span> to <span className="bg-linear-to-l from-yellow-400 to-yellow-100 bg-clip-text text-transparent font-semibold italic font-garamond">#LeadTheShift</span> <span className="font-bold">?</span>
             </p>
 
             <p

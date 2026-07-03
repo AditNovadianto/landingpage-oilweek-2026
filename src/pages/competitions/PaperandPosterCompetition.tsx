@@ -102,7 +102,7 @@ const PaperandPosterCompetition = () => {
                     </div>
                 </div>
 
-                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center">
+                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center mt-20">
                     <img
                         data-aos="fade-right"
                         className="w-[70%] md:w-[50%] m-auto md:m-0"
@@ -117,7 +117,7 @@ const PaperandPosterCompetition = () => {
                         <div className="glass px-5 py-7 text-white">
                             <p className="text-2xl font-garamond font-semibold">About <i>Paper and Poster Competition</i></p>
 
-                            <p className="mt-5 font-inter font-light">Paper and Poster Competition is where participants <span className="font-garamond italic text-[#E7C66B]">submit and present their innovations</span>, based on given theme. They will <span className="italic font-semibold">produce a paper</span> detailing their ideas and present them through a presentation on pitching day.</p>
+                            <p className="mt-5 font-inter font-light">Paper and Poster Competition is where participants <span className="font-garamond italic text-[#E7C66B] font-semibold">submit and present their innovations</span>, based on given theme. They will <span className="italic font-semibold">produce a paper</span> detailing their ideas and present them through a presentation on pitching day.</p>
                         </div>
 
                         <Link to={'/team-leader/sign-up'}
@@ -145,7 +145,7 @@ const PaperandPosterCompetition = () => {
                         className="px-5 md:px-20 lg:px-32"
                     >
                         <div className="m-auto md:w-max glass px-10 py-4 rounded-full!">
-                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic">FAQ</span></p>
+                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic font-semibold">FAQ</span></p>
                         </div>
                     </div>
 

@@ -139,10 +139,10 @@ const CompanyVisit = () => {
                     data-aos-delay="100"
                     className="w-full flex flex-col items-end px-5 md:px-20 lg:px-32 mt-20"
                 >
-                    <p className="text-xl font-inter text-white text-end">CP : <br />IFadhilah Rasya Putra <br />External Affairs Associate <br />081215417191
+                    <p className="text-xl font-inter text-white text-end">CP : <br />Fadhilah Rasya Putra <br />External Affairs Associate <br />081215417191
                     </p>
 
-                    <p className="mt-10 text-xl font-inter text-white text-end">ULaura Nathania Simatupang <br />External Affairs Associate <br />081362233632</p>
+                    <p className="mt-10 text-xl font-inter text-white text-end">Laura Nathania Simatupang <br />External Affairs Associate <br />081362233632</p>
 
                     <p className="mt-10 text-xl font-inter text-white text-end">Gina Ramadhania Wahyu <br />Deputy Director of External Affairs <br />085858066861
                     </p>

@@ -44,7 +44,7 @@ const CaseStudyCompetition = () => {
                     className="px-5 md:px-20 lg:px-32 relative inline-block m-auto"
                 >
                     <h1 className="text-6xl text-center font-semibold italic font-garamond text-white">
-                        Business Case
+                        Case Study
                     </h1>
 
                     <div className="h-1.5 w-full bg-linear-to-r from-[#E7C66B] to-[#F6EBD2]"></div>
@@ -81,7 +81,7 @@ const CaseStudyCompetition = () => {
                 <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center gap-10 mt-20">
                     <img
                         data-aos="fade-right"
-                        className="w-[70%] md:w-[50%] m-auto md:m-0 px-0 md:px-20 py-20"
+                        className="w-[70%] md:w-[50%] m-auto md:m-0"
                         src={logo}
                         alt=""
                     />
@@ -93,7 +93,7 @@ const CaseStudyCompetition = () => {
                         <div className="glass px-5 py-7 text-white">
                             <p className="text-2xl font-garamond font-semibold">About <i>Case Study Competition</i></p>
 
-                            <p>The Case Study Competition is a <span className="font-semibold italic">new competition</span> in Oil Week 2026 that challenges participants to solve a <span className="font-garamond italic text-[#E7C66B]">real industry-based problem through an integrated and strategic approach</span>. In this competition, participants will act as engineering consultants to <span className="font-semibold">evaluate the feasibility and development strategy of geologic hydrogen resources in Indonesia</span> by combining technical assessment, economic viability, development planning, and ESG considerations into one comprehensive recommendation for supporting the low-carbon energy transition.</p>
+                            <p className="text-justify">The Case Study Competition is a <span className="font-semibold italic">new competition</span> in Oil Week 2026 that challenges participants to solve a <span className="font-garamond italic text-[#E7C66B] font-semibold">real industry-based problem through an integrated and strategic approach</span>. In this competition, participants will act as engineering consultants to <span className="font-semibold">evaluate the feasibility and development strategy of geologic hydrogen resources in Indonesia</span> by combining technical assessment, economic viability, development planning, and ESG considerations into one comprehensive recommendation for supporting the low-carbon energy transition.</p>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@ const CaseStudyCompetition = () => {
                         className="px-5 md:px-20 lg:px-32"
                     >
                         <div className="m-auto md:w-max glass px-10 py-4 rounded-full!">
-                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic">FAQ</span></p>
+                            <p className="text-center font-light text-2xl">Frequently Asked Question <span className="text-[#E7C66B] italic font-semibold">FAQ</span></p>
                         </div>
                     </div>
 
