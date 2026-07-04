@@ -299,7 +299,7 @@ const SignUpTeamLeader = () => {
                                 )}
                             </div>
 
-                            <div>
+                            <div data-aos="fade-up" data-aos-delay="450">
                                 <p className="text-sm mb-1">Phone Number</p>
 
                                 <PhoneInput
@@ -344,7 +344,7 @@ const SignUpTeamLeader = () => {
                                 )}
                             </div>
 
-                            <div>
+                            <div data-aos="fade-up" data-aos-delay="500">
                                 <p className="text-sm mb-1">Student ID</p>
 
                                 <input

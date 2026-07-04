@@ -75,7 +75,7 @@ const SeriesofCompetition = () => {
                     </div>
 
                     <p className='text-white text-xl mt-4 text-justify'>
-                        Petrosmart Competition is a <span className='bg-linear-to-l from-yellow-400 to-yellow-100 bg-clip-text text-transparent font-semibold italic font-garamond'>quick round smart competition</span> in which teams of <span className='font-semibold italic'>3 people test their knowledge</span> of oil and gas by answering different types of formatted questions. Teams will be evaluated on their understanding on topics such as Geology, Drilling, and Production.
+                        Business Case Competition challenges participants to <span className='bg-linear-to-l from-yellow-400 to-yellow-100 bg-clip-text text-transparent font-semibold italic font-garamond'>analyze a given business problem and develop strategic solutions</span>. Teams will showcase their <span className='font-semibold italic'>analytical and communication skills</span> through a pitch deck and a comprehensive paper detailing their proposed solution.
                     </p>
 
                     <Link to={'/business-case-competition'} className='absolute bottom-5 right-5 cursor-pointer w-max text-white glass px-7 py-3'>
