@@ -190,7 +190,7 @@ const DashboardTeamLeader = () => {
             <div className="w-full overflow-y-auto h-screen scrollbar-thin">
                 {section === "home" && <Home />}
                 {section === "profile" && <MyProfile />}
-                {section === "competitions" && <Competitions />}
+                {section === "competitions" && <Competitions setSection={setSection} />}
                 {section === "myCompetitions" && <MyCompetition setSection={setSection} />}
             </div>
         </div>

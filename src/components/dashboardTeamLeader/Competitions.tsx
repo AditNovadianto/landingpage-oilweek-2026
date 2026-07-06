@@ -22,6 +22,12 @@ interface User {
     id_team_leader?: string
     name_team_leader?: string
     email_team_leader?: string
+    twibbon?: string | null
+    following_instagram?: string | null
+    following_linkedin?: string | null
+    following_tiktok?: string | null
+    instagram_story?: string | null
+    repost_competition_instagram?: string | null
 }
 
 interface Team {
@@ -60,7 +66,11 @@ const getCompetitionLogo = (name: string) => {
     return logoBusinessCase
 }
 
-const Competitions = () => {
+interface MyCompetitionProps {
+    setSection: React.Dispatch<React.SetStateAction<string>>
+}
+
+const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
     const navigate = useNavigate()
 
     const [registrations, setRegistrations] = useState<Registration[]>([])
@@ -88,6 +98,41 @@ const Competitions = () => {
         "image/png",
         "image/webp",
     ]
+
+    const profileFileFields = [
+        {
+            label: "Twibbon",
+            value: user?.twibbon,
+        },
+        {
+            label: "Following Instagram",
+            value: user?.following_instagram,
+        },
+        {
+            label: "Following LinkedIn",
+            value: user?.following_linkedin,
+        },
+        {
+            label: "Following TikTok",
+            value: user?.following_tiktok,
+        },
+        {
+            label: "Instagram Story",
+            value: user?.instagram_story,
+        },
+        {
+            label: "Repost Competition Instagram",
+            value: user?.repost_competition_instagram,
+        },
+    ]
+
+    const isProfileComplete = profileFileFields.every((field) =>
+        Boolean(field.value)
+    )
+
+    const missingProfileFiles = profileFileFields
+        .filter((field) => !field.value)
+        .map((field) => field.label)
 
     useEffect(() => {
         const token = sessionStorage.getItem("token")
@@ -378,6 +423,30 @@ const Competitions = () => {
                     All Competitions
                 </p>
 
+                {!isProfileComplete && (
+                    <div className="rounded-2xl border border-yellow-400/30 bg-yellow-500/10 p-4 text-yellow-100">
+                        <p className="font-semibold">
+                            Complete your profile first
+                        </p>
+
+                        <p className="mt-1 text-sm text-yellow-100/80">
+                            You cannot register for any competition until all
+                            profile upload files are completed.
+                        </p>
+
+                        <p className="mt-2 text-xs text-yellow-100/70">
+                            Missing: {missingProfileFiles.join(", ")}
+                        </p>
+
+                        <button
+                            onClick={() => setSection("profile")}
+                            className="cursor-pointer mt-3 rounded-xl bg-yellow-400 px-4 py-2 text-sm font-semibold text-[#111844] hover:bg-yellow-300"
+                        >
+                            Go to My Profile
+                        </button>
+                    </div>
+                )}
+
                 <div className="relative w-full">
                     <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
 
@@ -469,17 +538,19 @@ const Competitions = () => {
                                             : "bg-[#EAE0CF] text-[#111844] hover:bg-white"
                                             }`}
                                     >
-                                        {!team
-                                            ? "Please create team first"
-                                            : !member || member.length === 0
-                                                ? "Please add member first"
-                                                : registrations.length > 0
-                                                    ? "Cannot register again"
-                                                    : isActive
-                                                        ? "Register Now"
-                                                        : "Registration Closed"}
+                                        {!isProfileComplete
+                                            ? "Complete profile first"
+                                            : !team
+                                                ? "Please create team first"
+                                                : !member || member.length === 0
+                                                    ? "Please add member first"
+                                                    : registrations.length > 0
+                                                        ? "Cannot register again"
+                                                        : isActive
+                                                            ? "Register Now"
+                                                            : "Registration Closed"}
 
-                                        {isActive && team && member && member.length > 0 && registrations.length === 0 && (
+                                        {isActive && team && member && member.length > 0 && registrations.length === 0 && isProfileComplete && (
                                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                                         )}
                                     </button>
