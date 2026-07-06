@@ -27,8 +27,8 @@ const SeriesofCompetition = () => {
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 mt-10 items-stretch'>
                 <div data-aos="fade-up" data-aos-delay="100" className='relative pb-20 glass px-5 py-3 flex flex-col'>
-                    <div className='flex items-center gap-3'>
-                        <img className='w-32' src={logoPetrosmart} alt="Petrosmart Logo" />
+                    <div className='flex items-center gap-3 min-h-34'>
+                        <img className='w-20 m-5' src={logoPetrosmart} alt="Petrosmart Logo" />
 
                         <div className='text-white'>
                             <p className='font-garamond text-3xl italic gold-white-underline'>Petrosmart</p>
@@ -46,8 +46,8 @@ const SeriesofCompetition = () => {
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="200" className='relative pb-20 glass px-5 py-3 flex flex-col'>
-                    <div className='flex items-center gap-3'>
-                        <img className='w-32' src={logoPaperandPoster} alt="Paper & Poster Logo" />
+                    <div className='flex items-center gap-3 min-h-34'>
+                        <img className='w-20 m-5' src={logoPaperandPoster} alt="Paper & Poster Logo" />
 
                         <div className='text-white'>
                             <p className='font-garamond text-3xl italic gold-white-underline'>Paper <span className='font-montreal'>&</span> Poster</p>
@@ -65,7 +65,7 @@ const SeriesofCompetition = () => {
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="300" className='relative pb-20 glass px-5 py-3 flex flex-col'>
-                    <div className='flex items-center gap-3'>
+                    <div className='flex items-center gap-3 min-h-34'>
                         <img className='w-20 m-5' src={logoBusinessCase} alt="Business Case Logo" />
 
                         <div className='text-white'>
@@ -84,7 +84,7 @@ const SeriesofCompetition = () => {
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="400" className='relative pb-20 glass px-5 py-3 flex flex-col'>
-                    <div className='flex items-center gap-3'>
+                    <div className='flex items-center gap-3 min-h-34'>
                         <img className='w-20 m-5' src={logoMudInnovation} alt="Mud Innovation Logo" />
 
                         <div className='text-white'>
@@ -103,7 +103,7 @@ const SeriesofCompetition = () => {
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="500" className='relative pb-20 glass px-5 py-3 flex flex-col'>
-                    <div className='flex items-center gap-3'>
+                    <div className='flex items-center gap-3 min-h-34'>
                         <img className='w-20 m-5' src={logoWellStimulation} alt="Well Stimulation Logo" />
 
                         <div className='text-white'>
@@ -122,8 +122,8 @@ const SeriesofCompetition = () => {
                 </div>
 
                 <div data-aos="fade-up" data-aos-delay="600" className='relative pb-20 glass px-5 py-3 flex flex-col'>
-                    <div className='flex items-center gap-3'>
-                        <img className='w-20 m-6' src={logoCaseStudy} alt="Case Study Logo" />
+                    <div className='flex items-center gap-3 min-h-34'>
+                        <img className='w-20 m-5' src={logoCaseStudy} alt="Case Study Logo" />
 
                         <div className='text-white'>
                             <p className='font-garamond text-3xl italic gold-white-underline'>Case Study</p>

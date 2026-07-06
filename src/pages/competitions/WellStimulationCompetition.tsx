@@ -78,10 +78,10 @@ const WellStimulationCompetition = () => {
                     </Link>
                 </div>
 
-                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center gap-10 mt-20">
+                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center gap-10 mt-20 gap-10">
                     <img
                         data-aos="fade-right"
-                        className="w-[90%] md:w-[50%] m-auto md:m-0"
+                        className="w-[90%] md:w-[25%] m-auto md:m-20"
                         src={logo}
                         alt=""
                     />
@@ -100,7 +100,7 @@ const WellStimulationCompetition = () => {
 
                 <div
                     data-aos="zoom-in-up"
-                    className="scale-[1.05] mt-20 md:mt-0"
+                    className="scale-[1.05] mt-20"
                 >
                     <img src={timeline} alt="" />
                 </div>

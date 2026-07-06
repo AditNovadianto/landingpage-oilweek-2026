@@ -78,10 +78,10 @@ const BusinessCaseCompetition = () => {
                     </Link>
                 </div>
 
-                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center gap-10 mt-52">
+                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center gap-10 mt-20 gap-10">
                     <img
                         data-aos="fade-right"
-                        className="w-[70%] md:w-[40%] m-auto md:m-0 px-20 py-20"
+                        className="w-[70%] md:w-[25%] m-auto md:m-20"
                         src={logo}
                         alt=""
                     />

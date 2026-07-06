@@ -34,6 +34,13 @@ interface Registration {
     id_competition: number
 }
 
+interface Competition {
+    id_competition: number
+    name_competition: string
+    status_competition: "ACTIVE" | "NOT ACTIVE" | string
+    id_platform: number
+}
+
 interface Stage {
     _id: string
     id_competition: number
@@ -70,6 +77,7 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
     const [user, setUser] = useState<User | null>(null)
     const [team, setTeam] = useState<Team | null>(null)
     const [registration, setRegistration] = useState<Registration | null>(null)
+    const [competitions, setCompetitions] = useState<Competition[]>([])
     const [stages, setStages] = useState<Stage[]>([])
     const [submissions, setSubmissions] = useState<StageSubmission[]>([])
     const [loading, setLoading] = useState(true)
@@ -108,6 +116,41 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
 
         if (userData) setUser(JSON.parse(userData))
         if (teamData) setTeam(JSON.parse(teamData))
+    }, [])
+
+    useEffect(() => {
+        const token = sessionStorage.getItem("token")
+
+        const getCompetitionsData = async () => {
+            try {
+                setLoading(true)
+
+                const response = await fetch(
+                    `${import.meta.env.VITE_API_BASE_URL}/getAllCompetitions`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                )
+
+                if (response.status === 202) {
+                    setCompetitions([])
+                    return
+                }
+
+                const data = await response.json()
+                setCompetitions(data.competitions || [])
+            } catch (error) {
+                console.error("Failed to fetch competitions:", error)
+                setCompetitions([])
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        getCompetitionsData()
     }, [])
 
     const formatDate = (date: string) => {
@@ -379,6 +422,44 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
         }
     }
 
+    const visibleStages = useMemo(() => {
+        const idTeam = getCurrentTeamId()
+
+        if (!idTeam) return []
+
+        const teamId = Number(idTeam)
+        const result: Stage[] = []
+
+        for (let i = 0; i < sortedStages.length; i++) {
+            const stage = sortedStages[i]
+            const stageStatus = getStageStatus(stage)
+            const submission = getSubmissionByStage(stage._id)
+            const passedTeams = stage.passed_teams || []
+            const isPassed = passedTeams.includes(teamId)
+
+            // History: stage yang sudah selesai dan team passed tetap tampil
+            if (stageStatus === "ENDED" && isPassed) {
+                result.push(stage)
+                continue
+            }
+
+            // Kalau stage sudah selesai tapi team tidak passed / tidak submit,
+            // tampilkan stage itu sebagai history gagal, lalu stop
+            if (stageStatus === "ENDED" && (!submission || !isPassed)) {
+                result.push(stage)
+                break
+            }
+
+            // Tampilkan hanya stage terdekat yang ongoing/upcoming, lalu stop
+            if (stageStatus === "ONGOING" || stageStatus === "UPCOMING") {
+                result.push(stage)
+                break
+            }
+        }
+
+        return result
+    }, [sortedStages, submissions, team, registration, now])
+
     const handleUploadSubmission = async (stageId: string) => {
         const token = sessionStorage.getItem("token")
         const existingSubmission = getSubmissionByStage(stageId)
@@ -491,7 +572,7 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
             <div className="min-h-screen px-10 py-7 text-white">
                 <div className="flex flex-col gap-8">
                     <div>
-                        <p className="font-garamond text-4xl font-semibold text-white underline">
+                        <p className="font-garamond text-4xl font-semibold text-white">
                             My Competition
                         </p>
 
@@ -636,7 +717,7 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
 
                                         <div>
                                             <h2 className="text-2xl font-semibold">
-                                                Competition #{registration.id_competition}
+                                                {competitions.find((competition) => competition.id_competition === registration.id_competition)?.name_competition}
                                             </h2>
                                             <p className="text-sm text-gray-400">
                                                 Registration ID #{registration.id_registration}
@@ -693,13 +774,13 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                 </h2>
                             </div>
 
-                            {sortedStages.length === 0 ? (
+                            {visibleStages.length === 0 ? (
                                 <p className="text-sm text-gray-400">
                                     No stages available for this competition yet.
                                 </p>
                             ) : (
                                 <div className="flex flex-col gap-6">
-                                    {sortedStages.map((stage, index) => {
+                                    {visibleStages.map((stage, index) => {
                                         const realStatus = getStageStatus(stage)
 
                                         const countdown =
@@ -710,7 +791,11 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                         const submission = getSubmissionByStage(stage._id)
                                         const isUploading = uploadingStageId === stage._id
 
-                                        const qualification = getStageQualification(index)
+                                        const realStageIndex = sortedStages.findIndex(
+                                            (item) => item._id === stage._id
+                                        )
+
+                                        const qualification = getStageQualification(realStageIndex)
 
                                         const isPaymentApproved = registration?.payment_status === "APPROVED"
 
@@ -727,7 +812,7 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                                                     <div className="flex gap-4">
                                                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4B5694]/40 text-sm font-bold text-[#EAE0CF]">
-                                                            {index + 1}
+                                                            {realStageIndex + 1}
                                                         </div>
 
                                                         <div>

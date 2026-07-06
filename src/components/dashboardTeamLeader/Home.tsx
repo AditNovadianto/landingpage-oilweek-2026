@@ -274,14 +274,14 @@ const Home = () => {
 
     return (
         <div className="px-10 py-7">
-            <p className="font-semibold text-white text-4xl underline font-garamond">
+            <p className="font-semibold text-white text-4xl font-garamond">
                 Home
             </p>
 
             <div className="mt-10">
                 {team ? (
                     <div className="glass px-7 py-5 rounded-xl! text-white">
-                        <p className="font-semibold text-2xl font-garamond underline">
+                        <p className="font-semibold text-2xl font-garamond">
                             Team Information
                         </p>
 
@@ -305,7 +305,7 @@ const Home = () => {
                     </div>
                 ) : (
                     <div className="glass px-7 py-5 rounded-xl! text-white">
-                        <p className="font-semibold text-2xl font-garamond underline">
+                        <p className="font-semibold text-2xl font-garamond">
                             Team Information
                         </p>
 
@@ -324,7 +324,7 @@ const Home = () => {
 
                 {member && member.length > 0 ? (
                     <div className="glass mt-7 px-7 py-5 rounded-xl! text-white">
-                        <p className="font-semibold text-2xl font-garamond underline">
+                        <p className="font-semibold text-2xl font-garamond">
                             Team Members
                         </p>
 
@@ -449,7 +449,7 @@ const Home = () => {
                     </div>
                 ) : (
                     <div className="glass mt-7 px-7 py-5 rounded-xl! text-white">
-                        <p className="font-semibold text-2xl font-garamond underline">
+                        <p className="font-semibold text-2xl font-garamond">
                             Team Members
                         </p>
 
@@ -475,7 +475,7 @@ const Home = () => {
                             <X />
                         </button>
 
-                        <p className="text-3xl font-semibold font-garamond underline">
+                        <p className="text-3xl font-semibold font-garamond">
                             Create Team
                         </p>
 
@@ -554,7 +554,7 @@ const Home = () => {
                             <X />
                         </button>
 
-                        <p className="text-3xl font-semibold font-garamond underline">
+                        <p className="text-3xl font-semibold font-garamond">
                             Add Member
                         </p>
 

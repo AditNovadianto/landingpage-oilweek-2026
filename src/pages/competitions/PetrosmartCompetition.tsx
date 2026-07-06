@@ -1,8 +1,8 @@
 import { ArrowRight } from "lucide-react"
 import Footer from "../../components/landingpage/Footer"
-import bg from "../../images/competitions/pc/bg-petrosmart.png"
-import logo from "../../images/competitions/pc/logo-petrosmart.png"
-import timeline from "../../images/competitions/pc/timeline-petrosmart.png"
+import bg from "../../images/competitions/pc/bg-pc.png"
+import logo from "../../images/competitions/pc/logo-pc.png"
+import timeline from "../../images/competitions/pc/timeline-pc.png"
 import Navbar from "../../components/landingpage/Navbar"
 import { useEffect } from "react"
 import Aos from "aos"
@@ -78,10 +78,10 @@ const PetrosmartCompetition = () => {
                     </Link>
                 </div>
 
-                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center mt-20">
+                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center mt-20 gap-10">
                     <img
                         data-aos="fade-right"
-                        className="w-[70%] md:w-[40%] m-auto md:m-0"
+                        className="w-[70%] md:w-[25%] m-auto md:m-20"
                         src={logo}
                         alt=""
                     />

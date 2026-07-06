@@ -1,8 +1,8 @@
 import { ArrowRight } from "lucide-react"
 import Navbar from "../../components/landingpage/Navbar"
-import bg from "../../images/competitions/pcc/bg-ppc.png"
-import logo from "../../images/competitions/pcc/logo-ppc.png"
-import timeline from "../../images/competitions/pcc/timeline-ppc.png"
+import bg from "../../images/competitions/ppc/bg-ppc.png"
+import logo from "../../images/competitions/ppc/logo-ppc.png"
+import timeline from "../../images/competitions/ppc/timeline-ppc.png"
 import Footer from "../../components/landingpage/Footer"
 import { useEffect } from "react"
 import Aos from "aos"
@@ -102,10 +102,10 @@ const PaperandPosterCompetition = () => {
                     </div>
                 </div>
 
-                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center mt-20">
+                <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center mt-20 gap-10">
                     <img
                         data-aos="fade-right"
-                        className="w-[70%] md:w-[50%] m-auto md:m-0"
+                        className="w-[70%] md:w-[25%] m-auto md:m-20"
                         src={logo}
                         alt=""
                     />
@@ -134,7 +134,7 @@ const PaperandPosterCompetition = () => {
 
                 <div
                     data-aos="zoom-in-up"
-                    className="scale-[1.05] mt-20 md:mt-0"
+                    className="scale-[1.05] mt-20"
                 >
                     <img src={timeline} alt="" />
                 </div>

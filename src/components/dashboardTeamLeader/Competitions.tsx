@@ -11,11 +11,23 @@ import {
 } from "lucide-react"
 import { isTokenExpired } from "../../utils/auth"
 import Toast from "../Toast"
+import logoBusinessCase from '../../images/logo-business-case.png'
+import logoCaseStudy from '../../images/logo-case-study.png'
+import logoMudInnovation from '../../images/logo-mud-innovation.png'
+import logoPaperandPoster from '../../images/logo-paper-and-poster.png'
+import logoPetrosmart from '../../images/logo-petrosmart.png'
+import logoWellStimulation from '../../images/logo-well-stimulation.png'
 
 interface User {
     id_team_leader?: string
     name_team_leader?: string
     email_team_leader?: string
+}
+
+interface Team {
+    id_team?: string
+    team_name?: string
+    institution?: string
 }
 
 interface Competition {
@@ -35,12 +47,27 @@ interface Registration {
     id_competition: number
 }
 
+const getCompetitionLogo = (name: string) => {
+    const normalizedName = name.toLowerCase()
+
+    if (normalizedName.includes("business")) return logoBusinessCase
+    if (normalizedName.includes("case study")) return logoCaseStudy
+    if (normalizedName.includes("mud")) return logoMudInnovation
+    if (normalizedName.includes("paper") || normalizedName.includes("poster")) return logoPaperandPoster
+    if (normalizedName.includes("petrosmart")) return logoPetrosmart
+    if (normalizedName.includes("well")) return logoWellStimulation
+
+    return logoBusinessCase
+}
+
 const Competitions = () => {
     const navigate = useNavigate()
 
     const [registrations, setRegistrations] = useState<Registration[]>([])
 
     const [user, setUser] = useState<User | null>(null)
+    const [team, setTeam] = useState<Team | null>(null)
+    const [member, setMember] = useState<any[] | null>(null)
     const [competitions, setCompetitions] = useState<Competition[]>([])
     const [search, setSearch] = useState("")
     const [loading, setLoading] = useState(true)
@@ -52,6 +79,15 @@ const Competitions = () => {
         useState<Competition | null>(null)
     const [paymentProof, setPaymentProof] = useState<File | null>(null)
     const [submitLoading, setSubmitLoading] = useState(false)
+
+    const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2 MB
+
+    const ALLOWED_IMAGE_TYPES = [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "image/webp",
+    ]
 
     useEffect(() => {
         const token = sessionStorage.getItem("token")
@@ -75,6 +111,70 @@ const Competitions = () => {
             setUser(null)
         }
     }, [])
+
+    useEffect(() => {
+        if (!user?.id_team_leader) return
+
+        const token = sessionStorage.getItem("token")
+
+        const getTeamData = async () => {
+            try {
+                const response = await fetch(
+                    `${import.meta.env.VITE_API_BASE_URL}/getTeamById/${user.id_team_leader}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                )
+
+                if (response.status === 202) {
+                    setTeam(null)
+                } else {
+                    const teamData = await response.json()
+
+                    setTeam(teamData.team)
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        getTeamData()
+    }, [user])
+
+    useEffect(() => {
+        if (!team?.id_team) return
+
+        const token = sessionStorage.getItem("token")
+
+        const getMemberData = async () => {
+            try {
+                const response = await fetch(
+                    `${import.meta.env.VITE_API_BASE_URL}/getAllMemberById/${team.id_team}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                )
+
+                if (response.status === 202) {
+                    setMember(null)
+                } else {
+                    const memberData = await response.json()
+
+                    setMember(memberData.members)
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        getMemberData()
+    }, [team])
 
     const getMyCompetition = async (idTeamLeader: string | number) => {
         const token = sessionStorage.getItem("token")
@@ -177,6 +277,38 @@ const Competitions = () => {
         setPaymentProof(null)
     }
 
+    const handlePaymentProofChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const file = e.target.files?.[0]
+
+        if (!file) return
+
+        if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+            setToast({
+                message:
+                    "Format file tidak didukung. Silakan upload gambar JPG, JPEG, PNG, atau WEBP.",
+                type: "error",
+            })
+
+            e.target.value = ""
+            return
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+            setToast({
+                message:
+                    "Ukuran gambar maksimal 2 MB. Silakan upload gambar dengan ukuran yang lebih kecil.",
+                type: "error",
+            })
+
+            e.target.value = ""
+            return
+        }
+
+        setPaymentProof(file)
+    }
+
     const handleSubmitRegistration = async () => {
         const token = sessionStorage.getItem("token")
 
@@ -242,7 +374,7 @@ const Competitions = () => {
     return (
         <div className="min-h-screen px-10 py-7 text-white">
             <div className="flex flex-col gap-8">
-                <p className="font-semibold text-white text-4xl underline font-garamond">
+                <p className="font-semibold text-white text-4xl font-garamond">
                     All Competitions
                 </p>
 
@@ -291,8 +423,12 @@ const Competitions = () => {
                                     className="group rounded-3xl border border-[#7288AE]/25 bg-[#111844]/80 p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[#EAE0CF]/60"
                                 >
                                     <div className="flex items-start justify-between gap-4">
-                                        <div className="rounded-2xl bg-[#4B5694]/40 p-3">
-                                            <Trophy className="h-8 w-8 text-[#EAE0CF]" />
+                                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#4B5694]/40 p-3">
+                                            <img
+                                                src={getCompetitionLogo(competition.name_competition)}
+                                                alt={`${competition.name_competition} logo`}
+                                                className="h-full w-full object-contain"
+                                            />
                                         </div>
 
                                         <div
@@ -323,30 +459,27 @@ const Competitions = () => {
                                         </p>
                                     </div>
 
-                                    <div className="mt-5 rounded-2xl bg-[#4B5694]/20 p-4">
-                                        <p className="text-xs text-gray-400">
-                                            Competition ID
-                                        </p>
-                                        <p className="mt-1 font-medium text-white">
-                                            #{competition.id_competition}
-                                        </p>
-                                    </div>
-
                                     <button
-                                        disabled={!isActive || registrations.length > 0}
+                                        disabled={!isActive || registrations.length > 0 || !team || !member || member.length === 0}
                                         onClick={() =>
                                             openRegistrationModal(competition)
                                         }
-                                        className={`cursor-pointer mt-6 flex w-full items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold transition-all ${!isActive || registrations.length > 0
+                                        className={`cursor-pointer mt-6 flex w-full items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold transition-all ${!isActive || registrations.length > 0 || !team || !member || member.length === 0
                                             ? "cursor-not-allowed bg-gray-700/60 text-gray-400"
                                             : "bg-[#EAE0CF] text-[#111844] hover:bg-white"
                                             }`}
                                     >
-                                        {registrations.length > 0
-                                            ? "Cannot Register Again"
-                                            : isActive ? "Register Now" : "Registration Closed"}
+                                        {!team
+                                            ? "Please create team first"
+                                            : !member || member.length === 0
+                                                ? "Please add member first"
+                                                : registrations.length > 0
+                                                    ? "Cannot register again"
+                                                    : isActive
+                                                        ? "Register Now"
+                                                        : "Registration Closed"}
 
-                                        {isActive && (
+                                        {isActive && team && member && member.length > 0 && registrations.length === 0 && (
                                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                                         )}
                                     </button>
@@ -482,18 +615,14 @@ const Competitions = () => {
                                     </p>
 
                                     <p className="mt-1 text-xs text-gray-400">
-                                        JPG, PNG, or PDF file
+                                        JPG, JPEG, PNG, atau WEBP (maks. 2 MB)
                                     </p>
 
                                     <input
                                         type="file"
-                                        accept="image/*,.pdf"
+                                        accept=".jpg,.jpeg,.png,.webp"
                                         className="hidden"
-                                        onChange={(e) =>
-                                            setPaymentProof(
-                                                e.target.files?.[0] || null
-                                            )
-                                        }
+                                        onChange={handlePaymentProofChange}
                                     />
                                 </label>
                             </div>

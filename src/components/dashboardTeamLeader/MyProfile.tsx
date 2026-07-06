@@ -48,12 +48,12 @@ const MyProfile = () => {
 
     return (
         <div className="px-10 py-7">
-            <p className="font-semibold text-white text-4xl underline font-garamond">
+            <p className="font-semibold text-white text-4xl font-garamond">
                 My Profile
             </p>
 
             <div className="glass mt-7 px-7 py-5 rounded-xl! text-white">
-                <p className="font-semibold text-2xl font-garamond underline">
+                <p className="font-semibold text-2xl font-garamond">
                     Team Leader Information
                 </p>
 
