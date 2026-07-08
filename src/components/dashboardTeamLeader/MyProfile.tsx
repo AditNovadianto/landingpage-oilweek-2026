@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { isTokenExpired } from "../../utils/auth"
+import Toast from "../Toast"
 
 interface User {
     id_team_leader?: string
@@ -42,6 +43,14 @@ const MyProfile = () => {
 
     const [loading, setLoading] = useState(false)
 
+    const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
+
+    const closeToast = useCallback(() => {
+        setToast(null)
+    }, [])
+
+    const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2MB
+
     useEffect(() => {
         const token = sessionStorage.getItem("token")
 
@@ -70,6 +79,30 @@ const MyProfile = () => {
         key: keyof FileState
     ) => {
         const selectedFile = e.target.files?.[0] || null
+
+        if (!selectedFile) {
+            setFiles((prev) => ({
+                ...prev,
+                [key]: null,
+            }))
+            return
+        }
+
+        if (selectedFile.size > MAX_FILE_SIZE) {
+            setToast({
+                message: "Maximum file size: 2MB. Accepted formats: image, pdf.",
+                type: "error",
+            })
+
+            e.target.value = ""
+
+            setFiles((prev) => ({
+                ...prev,
+                [key]: null,
+            }))
+
+            return
+        }
 
         setFiles((prev) => ({
             ...prev,
@@ -145,7 +178,7 @@ const MyProfile = () => {
             const selectedValidFiles = Array.from(formData.entries())
 
             if (selectedValidFiles.length === 0) {
-                alert("Pilih minimal 1 file yang belum pernah diupload.")
+                setToast({ message: "Tidak ada file baru yang dipilih atau semua file sudah diupload sebelumnya.", type: "error" })
                 return
             }
 
@@ -180,10 +213,10 @@ const MyProfile = () => {
                 repost_competition_instagram: null,
             })
 
-            alert("Upload berhasil!")
+            setToast({ message: "Upload berhasil!", type: "success" })
         } catch (err) {
             console.error(err)
-            alert("Upload gagal")
+            setToast({ message: "Upload gagal", type: "error" })
         } finally {
             setLoading(false)
         }
@@ -299,24 +332,24 @@ const MyProfile = () => {
                                         </a>
                                     ) : (
                                         <div className="mt-3">
-                                            <input
-                                                type="file"
-                                                accept="image/*,.pdf"
-                                                className="text-sm w-full cursor-pointer w-full bg-gray-700/50 p-5 rounded-lg"
-                                                onChange={(e) =>
-                                                    handleFileChange(
-                                                        e,
-                                                        field.key
-                                                    )
-                                                }
-                                            />
+                                            <label className="mt-3 flex items-center justify-between gap-3 w-full bg-gray-700/50 p-5 rounded-lg cursor-pointer hover:bg-gray-700 transition-all">
+                                                <span className="text-sm text-gray-300 truncate">
+                                                    {files[field.key]?.name || "No file Choosen"}
+                                                </span>
 
-                                            {files[field.key] && (
-                                                <p className="text-cyan-300 text-sm mt-2">
-                                                    Selected:{" "}
-                                                    {files[field.key]?.name}
-                                                </p>
-                                            )}
+                                                <input
+                                                    type="file"
+                                                    accept="image/*,.pdf"
+                                                    className="hidden"
+                                                    onChange={(e) =>
+                                                        handleFileChange(e, field.key)
+                                                    }
+                                                />
+                                            </label>
+
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                Maximum file size: 2MB. Accepted formats: image, pdf.
+                                            </p>
                                         </div>
                                     )}
                                 </div>
@@ -337,6 +370,14 @@ const MyProfile = () => {
                             : "Upload Files"}
                 </button>
             </div>
+
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={closeToast}
+                />
+            )}
         </div>
     )
 }

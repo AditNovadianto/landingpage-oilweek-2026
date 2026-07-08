@@ -46,11 +46,11 @@ const SignIn = () => {
         let valid = true
 
         if (!form.email_team_leader) {
-            newErrors.email_team_leader = "Email wajib diisi"
+            newErrors.email_team_leader = "Email is required"
             valid = false
         }
         if (!form.password_team_leader) {
-            newErrors.password_team_leader = "Password wajib diisi"
+            newErrors.password_team_leader = "Password is required"
             valid = false
         }
 

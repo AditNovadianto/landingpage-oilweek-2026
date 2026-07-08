@@ -55,6 +55,8 @@ const Home = () => {
     const [loadingCreateTeam, setLoadingCreateTeam] = useState(false)
     const [loadingCreateMember, setLoadingCreateMember] = useState(false)
 
+    const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2MB
+
     useEffect(() => {
         const token = sessionStorage.getItem("token")
 
@@ -165,13 +167,36 @@ const Home = () => {
         e: React.ChangeEvent<HTMLInputElement>
     ) => {
         const { name, files } = e.target
+        const selectedFile = files?.[0] || null
 
-        if (files && files[0]) {
+        if (!selectedFile) {
             setMemberFiles((prev) => ({
                 ...prev,
-                [name]: files[0],
+                [name]: null,
             }))
+            return
         }
+
+        if (selectedFile.size > MAX_FILE_SIZE) {
+            setToast({
+                message: "Maximum file size: 2MB. Accepted formats: image, pdf.",
+                type: "error",
+            })
+
+            e.target.value = ""
+
+            setMemberFiles((prev) => ({
+                ...prev,
+                [name]: null,
+            }))
+
+            return
+        }
+
+        setMemberFiles((prev) => ({
+            ...prev,
+            [name]: selectedFile,
+        }))
     }
 
     const handleCreateTeam = async (e: React.FormEvent) => {
@@ -623,13 +648,27 @@ const Home = () => {
                                             {fileName.replace(/_/g, " ")}
                                         </p>
 
-                                        <input
-                                            type="file"
-                                            name={fileName}
-                                            onChange={handleFileChange}
-                                            className="w-full border border-white/20 rounded-xl bg-white/10 px-4 py-3 cursor-pointer"
-                                            required
-                                        />
+                                        <label className="flex items-center justify-between gap-3 w-full border border-white/20 rounded-xl bg-white/10 px-4 py-3 cursor-pointer hover:bg-white/15 transition-all">
+                                            <span className="text-sm text-gray-300 truncate">
+                                                {
+                                                    memberFiles[fileName as keyof typeof memberFiles]?.name ||
+                                                    "No file Choosen"
+                                                }
+                                            </span>
+
+                                            <input
+                                                type="file"
+                                                name={fileName}
+                                                accept="image/*,.pdf"
+                                                onChange={handleFileChange}
+                                                className="hidden"
+                                                required
+                                            />
+                                        </label>
+
+                                        <p className="text-xs text-gray-400 mt-1">
+                                            Maximum file size: 2MB. Accepted formats: image, pdf.
+                                        </p>
                                     </div>
                                 ))}
                             </div>

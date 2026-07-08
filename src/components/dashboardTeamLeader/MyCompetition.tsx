@@ -618,7 +618,7 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
             <div className="min-h-screen px-10 py-7 text-white">
                 <div className="flex flex-col gap-8">
                     <div>
-                        <p className="font-garamond text-4xl font-semibold text-white underline">
+                        <p className="font-garamond text-4xl font-semibold text-white">
                             My Competition
                         </p>
 
@@ -665,7 +665,7 @@ const MyCompetition: React.FC<MyCompetitionProps> = ({ setSection }) => {
             <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div>
-                        <p className="font-garamond text-4xl font-semibold text-white underline">
+                        <p className="font-garamond text-4xl font-semibold text-white">
                             My Competition
                         </p>
                         <p className="mt-2 text-sm text-gray-400">

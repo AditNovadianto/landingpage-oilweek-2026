@@ -53,7 +53,7 @@ const ForgotPasswordTeamLeader = () => {
         let valid = true
 
         if (!form.email_team_leader) {
-            newErrors.email_team_leader = "Email wajib diisi"
+            newErrors.email_team_leader = "Email is required"
             valid = false
         }
 

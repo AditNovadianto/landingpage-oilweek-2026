@@ -63,12 +63,12 @@ const ResetPasswordUser = () => {
         let valid = true
 
         if (!form.new_password) {
-            newErrors.new_password = "Password baru wajib diisi"
+            newErrors.new_password = "New password is required"
             valid = false
         }
 
         if (!form.confirm_password) {
-            newErrors.confirm_password = "Konfirmasi password wajib diisi"
+            newErrors.confirm_password = "Confirm password is required"
             valid = false
         }
 
@@ -77,7 +77,7 @@ const ResetPasswordUser = () => {
             form.confirm_password &&
             form.new_password !== form.confirm_password
         ) {
-            newErrors.confirm_password = "Konfirmasi password tidak sama"
+            newErrors.confirm_password = "Confirm password does not match"
             valid = false
         }
 
@@ -264,8 +264,8 @@ const ResetPasswordUser = () => {
                         type="submit"
                         disabled={isLoading}
                         className={`w-full glass px-5 py-3 text-center mt-5 transition-all ${isLoading
-                                ? "opacity-60 cursor-not-allowed"
-                                : "cursor-pointer"
+                            ? "opacity-60 cursor-not-allowed"
+                            : "cursor-pointer"
                             }`}
                     >
                         {isLoading ? "Resetting Password..." : "Reset Password"}

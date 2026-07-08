@@ -61,12 +61,12 @@ const SignInUser = () => {
         let valid = true
 
         if (!form.email_user) {
-            newErrors.email_user = "Email wajib diisi"
+            newErrors.email_user = "Email is required"
             valid = false
         }
 
         if (!form.password_user) {
-            newErrors.password_user = "Password wajib diisi"
+            newErrors.password_user = "Password is required"
             valid = false
         }
 

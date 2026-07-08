@@ -63,12 +63,12 @@ const ResetPasswordTeamLeader = () => {
         let valid = true
 
         if (!form.new_password) {
-            newErrors.new_password = "Password baru wajib diisi"
+            newErrors.new_password = "New password is required"
             valid = false
         }
 
         if (!form.confirm_password) {
-            newErrors.confirm_password = "Konfirmasi password wajib diisi"
+            newErrors.confirm_password = "Confirm password is required"
             valid = false
         }
 

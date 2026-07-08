@@ -53,26 +53,26 @@ const SignUpTeamLeader = () => {
         const newErrors: Partial<SignUpData> = {}
 
         if (!formData.name_team_leader.trim()) {
-            newErrors.name_team_leader = "Nama wajib diisi"
+            newErrors.name_team_leader = "Name is required"
         }
 
         if (!formData.major_team_leader.trim()) {
-            newErrors.major_team_leader = "Jurusan wajib diisi"
+            newErrors.major_team_leader = "Major is required"
         }
 
         if (!formData.email_team_leader.trim()) {
-            newErrors.email_team_leader = "Email wajib diisi"
+            newErrors.email_team_leader = "Email is required"
         }
 
         if (
             formData.email_team_leader &&
             !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email_team_leader)
         ) {
-            newErrors.email_team_leader = "Format email tidak valid"
+            newErrors.email_team_leader = "Invalid email format"
         }
 
         if (!formData.password_team_leader.trim()) {
-            newErrors.password_team_leader = "Password wajib diisi"
+            newErrors.password_team_leader = "Password is required"
         }
 
         if (
@@ -82,15 +82,15 @@ const SignUpTeamLeader = () => {
             )
         ) {
             newErrors.password_team_leader =
-                "Password minimal 8 karakter dengan huruf besar, huruf kecil, dan angka"
+                "Password must be at least 8 characters with uppercase, lowercase, and a number"
         }
 
         if (!formData.phone_number_team_leader.trim()) {
-            newErrors.phone_number_team_leader = "Nomor HP wajib diisi"
+            newErrors.phone_number_team_leader = "Phone number is required"
         }
 
         if (!formData.student_id_card.trim()) {
-            newErrors.student_id_card = "Student ID wajib diisi"
+            newErrors.student_id_card = "Student ID is required"
         }
 
         setErrors(newErrors)

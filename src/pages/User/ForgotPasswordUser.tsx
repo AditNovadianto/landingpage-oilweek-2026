@@ -53,7 +53,7 @@ const ForgotPasswordUser = () => {
         let valid = true
 
         if (!form.email_user) {
-            newErrors.email_user = "Email wajib diisi"
+            newErrors.email_user = "Email is required"
             valid = false
         }
 
