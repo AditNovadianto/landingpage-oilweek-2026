@@ -114,7 +114,7 @@ const CompetitionStages = () => {
         const offset = parsedDate.getTimezoneOffset()
         const localDate = new Date(parsedDate.getTime() - offset * 60000)
 
-        return localDate.toISOString().slice(0, 16)
+        return localDate.toISOString().slice(0, 19)
     }
 
     const toISOStringWithTimezone = (value: string) => {
@@ -711,6 +711,7 @@ const CompetitionStages = () => {
                                     name="start_stage"
                                     value={stageForm.start_stage}
                                     onChange={handleStageChange}
+                                    step={1}
                                     className="mt-2 w-full rounded-lg px-3 py-2 bg-white text-black"
                                     required
                                 />
@@ -723,6 +724,7 @@ const CompetitionStages = () => {
                                     name="end_stage"
                                     value={stageForm.end_stage}
                                     onChange={handleStageChange}
+                                    step={1}
                                     className="mt-2 w-full rounded-lg px-3 py-2 bg-white text-black"
                                     required
                                 />
@@ -756,8 +758,8 @@ const CompetitionStages = () => {
                                 type="submit"
                                 disabled={isLoading}
                                 className={`w-full glass px-5 py-3 text-center mt-6 rounded-xl ${isLoading
-                                        ? "opacity-60 cursor-not-allowed"
-                                        : "cursor-pointer"
+                                    ? "opacity-60 cursor-not-allowed"
+                                    : "cursor-pointer"
                                     }`}
                             >
                                 {isLoading
@@ -841,8 +843,8 @@ const CompetitionStages = () => {
                                     <label
                                         key={team.id_team}
                                         className={`p-4 rounded-xl border cursor-pointer transition-all ${isSelected
-                                                ? "bg-cyan-500/10 border-cyan-400/40"
-                                                : "bg-white/5 border-white/10"
+                                            ? "bg-cyan-500/10 border-cyan-400/40"
+                                            : "bg-white/5 border-white/10"
                                             }`}
                                     >
                                         <div className="flex items-center gap-3">
@@ -890,8 +892,8 @@ const CompetitionStages = () => {
                             onClick={handleUpdatePassedTeams}
                             disabled={isLoading}
                             className={`w-full glass px-5 py-3 text-center mt-6 rounded-xl ${isLoading
-                                    ? "opacity-60 cursor-not-allowed"
-                                    : "cursor-pointer"
+                                ? "opacity-60 cursor-not-allowed"
+                                : "cursor-pointer"
                                 }`}
                         >
                             {isLoading ? "Saving..." : "Save Passed Teams"}

@@ -463,7 +463,7 @@ const Home = () => {
                             ))}
                         </div>
 
-                        {member.length < 3 && (
+                        {member.length < 2 && (
                             <button
                                 onClick={() => setShowModalCreateMember(true)}
                                 className="cursor-pointer mt-5 w-full px-5 py-3 rounded-xl bg-linear-to-t from-[#091025] to-[#032155]"

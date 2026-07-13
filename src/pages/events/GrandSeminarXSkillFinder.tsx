@@ -149,16 +149,28 @@ const GrandSeminarXSkillFinder = () => {
                     </div>
                 </div>
 
-                <div
-                    data-aos="fade-up"
-                    data-aos-delay="100"
-                    className="w-full flex flex-col items-end px-5 md:px-20 lg:px-32 mt-20"
-                >
-                    <p className="text-xl font-inter text-white text-end">Ahmad Andri Kautsar <br />PIC of Skill Finder <br />+6282280557972</p>
+                <div className="flex w-full items-start justify-end gap-10 px-5 md:px-20 lg:px-32 mt-20">
+                    <div
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                        className="flex flex-col items-end"
+                    >
+                        <p className="text-xl font-inter text-white text-end">Fatih Abqary Zhafran <br />Manager of Skill Finder <br />+62 81281939060</p>
 
-                    <p className="mt-10 text-xl font-inter text-white text-end">Fatih Abqary Zhafran <br />Co-Director of HRD SPE UI SC 2026 <br />+62 81281939060</p>
+                        <p className="mt-10 text-xl font-inter text-white text-end">Ahmad Andri Kautsar <br />PIC of Skill Finder <br />+6282280557972</p>
+                    </div>
 
-                    <p className="mt-10 text-xl font-inter text-white text-end">Artanti Waranggani <br />Director of HRD SPE UI SC 2026 <br />+62 85773924238</p>
+                    <div
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                        className="flex flex-col items-end"
+                    >
+                        <p className="text-xl font-inter text-white text-end">Hilmi Zahid Maulana <br />Manager of Grand Seminar <br /> +62 8233638554</p>
+
+                        <p className="mt-10 text-xl font-inter text-white text-end">Rakha Atmandita Addien <br />PIC of Grand Seminar <br /> +62 8118883745</p>
+
+                        <p className="mt-10 text-xl font-inter text-white text-end">Theresia Aquila Nostra Lintang Anindya <br />PIC of Grand Seminar <br /> +62 88210083840</p>
+                    </div>
                 </div>
             </div>
 
