@@ -46,7 +46,7 @@ const Home = () => {
     const [memberFiles, setMemberFiles] = useState({
         twibbon: null as File | null,
         following_instagram: null as File | null,
-        following_linkedin: null as File | null,
+        // following_linkedin: null as File | null,
         following_tiktok: null as File | null,
         instagram_story: null as File | null,
         repost_competition_instagram: null as File | null,
@@ -415,10 +415,10 @@ const Home = () => {
                                                     label: "Following Instagram",
                                                     value: m.following_instagram,
                                                 },
-                                                {
-                                                    label: "Following LinkedIn",
-                                                    value: m.following_linkedin,
-                                                },
+                                                // {
+                                                //     label: "Following LinkedIn",
+                                                //     value: m.following_linkedin,
+                                                // },
                                                 {
                                                     label: "Following TikTok",
                                                     value: m.following_tiktok,
@@ -638,7 +638,7 @@ const Home = () => {
                                 {[
                                     "twibbon",
                                     "following_instagram",
-                                    "following_linkedin",
+                                    // "following_linkedin",
                                     "following_tiktok",
                                     "instagram_story",
                                     "repost_competition_instagram",
