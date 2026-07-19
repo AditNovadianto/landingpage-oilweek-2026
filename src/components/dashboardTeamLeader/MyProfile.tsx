@@ -12,7 +12,7 @@ interface User {
     student_id_card?: string
     twibbon?: string | null
     following_instagram?: string | null
-    following_linkedin?: string | null
+    // following_linkedin?: string | null
     following_tiktok?: string | null
     instagram_story?: string | null
     repost_competition_instagram?: string | null
@@ -21,7 +21,7 @@ interface User {
 interface FileState {
     twibbon: File | null
     following_instagram: File | null
-    following_linkedin: File | null
+    // following_linkedin: File | null
     following_tiktok: File | null
     instagram_story: File | null
     repost_competition_instagram: File | null
@@ -35,7 +35,7 @@ const MyProfile = () => {
     const [files, setFiles] = useState<FileState>({
         twibbon: null,
         following_instagram: null,
-        following_linkedin: null,
+        // following_linkedin: null,
         following_tiktok: null,
         instagram_story: null,
         repost_competition_instagram: null,
@@ -113,31 +113,41 @@ const MyProfile = () => {
     const fileFields = [
         {
             label: "Twibbon",
+            description: "Upload your OilWeek 2026 twibbon.",
+            link: "bit.ly/TwibbonOilWeek2026",
             key: "twibbon" as keyof FileState,
             value: user?.twibbon,
         },
         {
-            label: "Following Instagram",
+            label: "Following Instagram @oilweek",
+            description: "Follow our official Instagram account.",
+            link: "https://www.instagram.com/oilweek",
             key: "following_instagram" as keyof FileState,
             value: user?.following_instagram,
         },
+        // {
+        //     label: "Following LinkedIn",
+        //     key: "following_linkedin" as keyof FileState,
+        //     value: user?.following_linkedin,
+        // },
         {
-            label: "Following LinkedIn",
-            key: "following_linkedin" as keyof FileState,
-            value: user?.following_linkedin,
-        },
-        {
-            label: "Following TikTok",
+            label: "Following TikTok @oilweek",
+            description: "Follow our official TikTok account.",
+            link: "https://www.tiktok.com/@oilweek",
             key: "following_tiktok" as keyof FileState,
             value: user?.following_tiktok,
         },
         {
-            label: "Instagram Story",
+            label: "Like Competition's Post",
+            description: "Upload proof that you liked OilWeek competition post.",
+            link: "https://www.instagram.com/oilweek",
             key: "instagram_story" as keyof FileState,
             value: user?.instagram_story,
         },
         {
-            label: "Repost Competition",
+            label: "Repost Competition's Post on Instagram Story",
+            description: "Repost the official OilWeek competition post.",
+            link: "https://www.instagram.com/oilweek",
             key: "repost_competition_instagram" as keyof FileState,
             value: user?.repost_competition_instagram,
         },
@@ -207,7 +217,7 @@ const MyProfile = () => {
             setFiles({
                 twibbon: null,
                 following_instagram: null,
-                following_linkedin: null,
+                // following_linkedin: null,
                 following_tiktok: null,
                 instagram_story: null,
                 repost_competition_instagram: null,
@@ -296,6 +306,25 @@ const MyProfile = () => {
                                             <p className="font-medium">
                                                 {field.label}
                                             </p>
+
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                {field.description}
+                                            </p>
+
+                                            {field.link && (
+                                                <a
+                                                    href={
+                                                        field.link.startsWith("http")
+                                                            ? field.link
+                                                            : `https://${field.link}`
+                                                    }
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-block mt-2 text-cyan-300 text-xs underline hover:text-cyan-200"
+                                                >
+                                                    Visit Link →
+                                                </a>
+                                            )}
 
                                             <p
                                                 className={`text-sm mt-1 ${alreadyUploaded

@@ -8,6 +8,11 @@ import {
     ArrowRight,
     X,
     Upload,
+    CreditCard,
+    Landmark,
+    CalendarDays,
+    BadgeDollarSign,
+    Wallet,
 } from "lucide-react"
 import { isTokenExpired } from "../../utils/auth"
 import Toast from "../Toast"
@@ -24,7 +29,7 @@ interface User {
     email_team_leader?: string
     twibbon?: string | null
     following_instagram?: string | null
-    following_linkedin?: string | null
+    // following_linkedin?: string | null
     following_tiktok?: string | null
     instagram_story?: string | null
     repost_competition_instagram?: string | null
@@ -51,6 +56,52 @@ interface Registration {
     payment_status: string
     id_team_leader: number
     id_competition: number
+}
+
+const getPaymentDetail = (competitionName: string) => {
+    const name = competitionName.toLowerCase()
+
+    if (
+        name.includes("bcc") ||
+        name.includes("business case")
+    ) {
+        return {
+            type: "BCC",
+            periods: [
+                {
+                    label: "Early Registration",
+                    date: "20 - 25 July",
+                    price: "Rp30.000 / $2"
+                },
+                {
+                    label: "Normal Registration",
+                    date: "26 July - 11 September",
+                    price: "Rp50.000 / $3"
+                },
+                {
+                    label: "Semi Final",
+                    date: "23 - 28 September",
+                    price: "Rp150.000 / $8"
+                }
+            ]
+        }
+    }
+
+    return {
+        type: "General Competition",
+        periods: [
+            {
+                label: "Early Registration",
+                date: "20 - 25 July",
+                price: "Rp175.000 / $10"
+            },
+            {
+                label: "Normal Registration",
+                date: "26 July - 11 September",
+                price: "Rp200.000 / $12"
+            }
+        ]
+    }
 }
 
 const getCompetitionLogo = (name: string) => {
@@ -108,10 +159,10 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
             label: "Following Instagram",
             value: user?.following_instagram,
         },
-        {
-            label: "Following LinkedIn",
-            value: user?.following_linkedin,
-        },
+        // {
+        //     label: "Following LinkedIn",
+        //     value: user?.following_linkedin,
+        // },
         {
             label: "Following TikTok",
             value: user?.following_tiktok,
@@ -529,11 +580,11 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                     </div>
 
                                     <button
-                                        disabled={!isActive || registrations.length > 0 || !team || !member || member.length === 0}
+                                        disabled={!isProfileComplete || !isActive || registrations.length > 0 || !team || !member || member.length === 0}
                                         onClick={() =>
                                             openRegistrationModal(competition)
                                         }
-                                        className={`cursor-pointer mt-6 flex w-full items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold transition-all ${!isActive || registrations.length > 0 || !team || !member || member.length === 0
+                                        className={`cursor-pointer mt-6 flex w-full items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold transition-all ${!isProfileComplete || !isActive || registrations.length > 0 || !team || !member || member.length === 0
                                             ? "cursor-not-allowed bg-gray-700/60 text-gray-400"
                                             : "bg-[#EAE0CF] text-[#111844] hover:bg-white"
                                             }`}
@@ -668,6 +719,101 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                         disabled
                                         className="mt-2 w-full rounded-2xl border border-[#7288AE]/30 bg-[#0B102F] px-4 py-3 text-sm text-white outline-none"
                                     />
+                                </div>
+                            </div>
+
+                            <div className="mb-4 rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-3">
+                                <div className="flex items-center gap-2">
+                                    <BadgeDollarSign className="h-5 w-5 text-yellow-400" />
+
+                                    <p className="text-sm font-medium text-yellow-300">
+                                        Registration fee depends on the registration period.
+                                        Please transfer according to the current registration schedule.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="rounded-2xl border border-[#7288AE]/30 bg-[#0B102F] p-4">
+                                <div className="mb-4 flex items-center gap-2">
+                                    <CreditCard className="h-5 w-5 text-[#EAE0CF]" />
+                                    <h3 className="font-semibold text-white">
+                                        Payment Detail
+                                    </h3>
+                                </div>
+
+                                <div className="mt-3 space-y-3">
+                                    {getPaymentDetail(selectedCompetition.name_competition)
+                                        .periods.map((payment, index) => (
+                                            <div
+                                                key={index}
+                                                className="rounded-xl bg-white/5 p-3"
+                                            >
+                                                <div className="flex justify-between">
+                                                    <div className="flex items-center gap-2">
+                                                        <CalendarDays className="h-4 w-4 text-blue-400" />
+
+                                                        <p className="text-sm font-medium text-white">
+                                                            {payment.label}
+                                                        </p>
+                                                    </div>
+
+                                                    <p className="text-sm font-semibold text-[#EAE0CF]">
+                                                        {payment.price}
+                                                    </p>
+                                                </div>
+
+                                                <p className="mt-1 text-xs text-gray-400">
+                                                    {payment.date}
+                                                </p>
+                                            </div>
+                                        ))}
+                                </div>
+                            </div>
+
+                            <div className="rounded-2xl border border-[#7288AE]/30 bg-[#0B102F] p-4">
+                                <h3 className="text-sm font-semibold text-white">
+                                    Payment Method
+                                </h3>
+
+                                <div className="mt-3 space-y-3 text-sm text-gray-300">
+
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex items-center gap-2">
+                                            <Landmark className="h-5 w-5 text-[#60A5FA]" />
+
+                                            <p className="font-medium text-white">
+                                                Bank Transfer
+                                            </p>
+                                        </div>
+
+                                        <p>
+                                            0079 6934 9574
+                                        </p>
+
+                                        <p>
+                                            BLU by BCA (BCA Digital)
+                                        </p>
+
+                                        <p>
+                                            Migalif Yuari Chikyu
+                                        </p>
+                                    </div>
+
+
+                                    <div className="border-t border-white/10 pt-3">
+                                        <div className="flex items-center gap-2">
+                                            <Wallet className="h-5 w-5 text-[#FBBF24]" />
+
+                                            <p className="font-medium text-white">
+                                                PayPal
+                                            </p>
+                                        </div>
+
+                                        <p>
+                                            paypal.me/faiqradhitya
+                                        </p>
+                                    </div>
+
                                 </div>
                             </div>
 

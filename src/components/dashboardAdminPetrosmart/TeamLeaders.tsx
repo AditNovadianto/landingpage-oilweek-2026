@@ -37,7 +37,7 @@ interface TeamLeader {
     student_id_card: string
     twibbon?: string
     following_instagram?: string
-    following_linkedin?: string
+    // following_linkedin?: string
     following_tiktok?: string
     instagram_story?: string
     repost_competition_instagram?: string
@@ -62,7 +62,7 @@ interface Member {
     id_team?: number
     twibbon?: string
     following_instagram?: string
-    following_linkedin?: string
+    // following_linkedin?: string
     following_tiktok?: string
     instagram_story?: string
     repost_competition_instagram?: string
@@ -469,11 +469,11 @@ const TeamLeaders = () => {
                                             value:
                                                 selectedLeader.following_instagram,
                                         },
-                                        {
-                                            label: "Following LinkedIn",
-                                            value:
-                                                selectedLeader.following_linkedin,
-                                        },
+                                        // {
+                                        //     label: "Following LinkedIn",
+                                        //     value:
+                                        //         selectedLeader.following_linkedin,
+                                        // },
                                         {
                                             label: "Following TikTok",
                                             value:
@@ -673,11 +673,11 @@ const TeamLeaders = () => {
                                     value:
                                         selectedMember.following_instagram,
                                 },
-                                {
-                                    label: "Following LinkedIn",
-                                    value:
-                                        selectedMember.following_linkedin,
-                                },
+                                // {
+                                //     label: "Following LinkedIn",
+                                //     value:
+                                //         selectedMember.following_linkedin,
+                                // },
                                 {
                                     label: "Following TikTok",
                                     value:
