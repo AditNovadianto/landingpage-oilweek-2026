@@ -301,7 +301,7 @@ const MyProfile = () => {
                                     key={field.key}
                                     className="bg-white/5 border border-white/10 p-4 rounded-xl"
                                 >
-                                    <div className="flex items-center justify-between gap-3">
+                                    <div className="flex items-start justify-between gap-3">
                                         <div>
                                             <p className="font-medium">
                                                 {field.label}
@@ -320,9 +320,23 @@ const MyProfile = () => {
                                                     }
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-block mt-2 text-cyan-300 text-xs underline hover:text-cyan-200"
+                                                    className="
+                                                        my-4 flex w-fit items-center gap-2
+                                                        rounded-lg
+                                                        bg-gradient-to-r from-cyan-500 to-blue-600
+                                                        px-4 py-2.5
+                                                        text-sm font-semibold text-white
+                                                        shadow-lg shadow-cyan-500/20
+                                                        transition-all duration-200
+                                                        hover:-translate-y-0.5
+                                                        hover:from-cyan-400 hover:to-blue-500
+                                                        hover:shadow-cyan-500/40
+                                                        focus:outline-none
+                                                        focus:ring-2 focus:ring-cyan-300
+                                                    "
                                                 >
-                                                    Visit Link →
+                                                    Open Required Link
+                                                    <span aria-hidden="true">↗</span>
                                                 </a>
                                             )}
 

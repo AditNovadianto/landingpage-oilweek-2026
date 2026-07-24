@@ -66,16 +66,23 @@ const PetrosmartCompetition = () => {
                     <p className="text-2xl text-center text-white font-inter font-light"><i>Shaping Smart Energy Minds by Integrating Oil & Gas Operations with Renewable Energy and Industry Optimization Strategies</i></p>
                 </div>
 
-                <div className="px-5 md:px-20 lg:px-32 mt-20 text-white">
+                <div className="px-5 md:px-20 lg:px-32 flex items-center gap-5 mt-20 text-white" data-aos="fade-up" data-aos-delay="100">
                     <Link to={'/team-leader/sign-up'}
-                        data-aos="fade-up"
-                        data-aos-delay="100"
                         className="glass cursor-pointer text-center px-7 py-3 flex items-center justify-center gap-5 text-lg font-inter font-light"
                     >
                         <p>Register Now</p>
 
                         <ArrowRight />
                     </Link>
+
+                    <a href="https://drive.google.com/file/d/1eXCtuHAq6OldD1m5w1BL5lpYiJQeHrcu/view?usp=drivesdk"
+                        target="_blank"
+                        className="glass cursor-pointer text-center px-7 py-3 flex items-center justify-center gap-5 text-lg font-inter font-light"
+                    >
+                        <p>View Guidebook</p>
+
+                        <ArrowRight />
+                    </a>
                 </div>
 
                 <div className="px-5 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-center mt-20 gap-10">

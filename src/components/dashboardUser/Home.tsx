@@ -22,7 +22,7 @@ interface TeamLeader {
 
 interface Team {
     id_team: number
-    name_team?: string
+    team_name?: string
     id_team_leader?: number
 }
 
@@ -34,7 +34,7 @@ interface Member {
 
 interface Registration {
     id_registration: number
-    id_team?: number
+    id_team_leader?: number
     id_competition?: number
 }
 
@@ -108,15 +108,28 @@ const Home = () => {
     const memberByTeam = useMemo(() => {
         return teams.map((team) => {
             const totalMember = members.filter(
-                (member) => member.id_team === team.id_team
+                (member) => Number(member.id_team) === Number(team.id_team)
             ).length
+
+            const teamRegistration = registrations.find(
+                (registration) =>
+                    Number(registration.id_team_leader) ===
+                    Number(team.id_team_leader)
+            )
+
+            const competition = competitions.find(
+                (competition) =>
+                    Number(competition.id_competition) ===
+                    Number(teamRegistration?.id_competition)
+            )
 
             return {
                 ...team,
                 totalMember,
+                competitionName: competition?.name_competition || "-",
             }
         })
-    }, [teams, members])
+    }, [teams, members, registrations, competitions])
 
     const maxMember = Math.max(...memberByTeam.map((team) => team.totalMember), 1)
 
@@ -155,6 +168,8 @@ const Home = () => {
             </div>
         )
     }
+
+    console.log(memberByTeam)
 
     return (
         <div className="text-white space-y-6 px-10 py-7">
@@ -213,7 +228,7 @@ const Home = () => {
                             memberByTeam.map((team) => (
                                 <div key={team.id_team}>
                                     <div className="flex justify-between text-sm mb-2">
-                                        <p>{team.name_team || `Team ${team.id_team}`}</p>
+                                        <p>{team.team_name || `Team ${team.id_team}`}</p>
                                         <p>{team.totalMember} Member</p>
                                     </div>
 
@@ -290,6 +305,7 @@ const Home = () => {
                             <tr className="border-b border-white/20">
                                 <th className="text-left py-3">No</th>
                                 <th className="text-left py-3">Team</th>
+                                <th className="text-left py-3">Competition</th>
                                 <th className="text-left py-3">Total Member</th>
                                 <th className="text-left py-3">Status</th>
                             </tr>
@@ -303,7 +319,16 @@ const Home = () => {
                                 >
                                     <td className="py-3">{index + 1}</td>
                                     <td className="py-3">
-                                        {team.name_team || `Team ${team.id_team}`}
+                                        {team.team_name || `Team ${team.id_team}`}
+                                    </td>
+                                    <td className="py-3">
+                                        {team.competitionName !== "-" ? (
+                                            <span className="px-3 py-1 rounded-full text-xs bg-blue-500/20 text-blue-300">
+                                                {team.competitionName}
+                                            </span>
+                                        ) : (
+                                            <span className="opacity-60">-</span>
+                                        )}
                                     </td>
                                     <td className="py-3">
                                         {team.totalMember} Member

@@ -29,6 +29,15 @@ const Home = () => {
 
     const [showModalCreateMember, setShowModalCreateMember] = useState(false)
 
+    const [showModalDeleteMember, setShowModalDeleteMember] = useState(false)
+
+    const [selectedMember, setSelectedMember] = useState<{
+        id_member: string
+        name_member: string
+    } | null>(null)
+
+    const [deletingMemberId, setDeletingMemberId] = useState<string | null>(null)
+
     const [teamFormData, setTeamFormData] = useState({
         team_name: "",
         institution: "",
@@ -54,6 +63,49 @@ const Home = () => {
 
     const [loadingCreateTeam, setLoadingCreateTeam] = useState(false)
     const [loadingCreateMember, setLoadingCreateMember] = useState(false)
+
+    const memberFileFields = [
+        {
+            name: "twibbon",
+            label: "Twibbon OilWeek 2026",
+            description:
+                "Open the Twibbon template, create your Twibbon, then upload the result below.",
+            link: "https://bit.ly/TwibbonOilWeek2026",
+            linkLabel: "Open Twibbon Template",
+        },
+        {
+            name: "following_instagram",
+            label: "Follow Instagram @oilweek",
+            description:
+                "Follow the official OilWeek Instagram account, then upload a screenshot as proof.",
+            link: "https://www.instagram.com/oilweek",
+            linkLabel: "Open OilWeek Instagram",
+        },
+        {
+            name: "following_tiktok",
+            label: "Follow TikTok @oilweek",
+            description:
+                "Follow the official OilWeek TikTok account, then upload a screenshot as proof.",
+            link: "https://www.tiktok.com/@oilweek",
+            linkLabel: "Open OilWeek TikTok",
+        },
+        {
+            name: "instagram_story",
+            label: "Like Competition Post",
+            description:
+                "Open the official competition post, like the post, then upload a screenshot as proof.",
+            link: "https://www.instagram.com/oilweek",
+            linkLabel: "Open Competition Post",
+        },
+        {
+            name: "repost_competition_instagram",
+            label: "Repost Competition Post",
+            description:
+                "Repost the official competition post to your Instagram Story, then upload a screenshot as proof.",
+            link: "https://www.instagram.com/oilweek",
+            linkLabel: "Open Post to Repost",
+        },
+    ] as const
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2MB
 
@@ -294,6 +346,97 @@ const Home = () => {
         }
     }
 
+    const handleDeleteMember = async () => {
+        if (!selectedMember) return
+
+        try {
+            const token = sessionStorage.getItem("token")
+
+            if (!token || isTokenExpired(token)) {
+                sessionStorage.clear()
+                localStorage.clear()
+
+                navigate("/team-leader/sign-in")
+                return
+            }
+
+            setDeletingMemberId(selectedMember.id_member)
+
+            const response = await fetch(
+                `${import.meta.env.VITE_API_BASE_URL}/deleteMember/${selectedMember.id_member}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+
+            const data = await response.json().catch(() => null)
+
+            if (!response.ok) {
+                throw new Error(
+                    data?.message ||
+                    data?.error ||
+                    "Failed to delete member"
+                )
+            }
+
+            setMember((previousMembers) => {
+                if (!previousMembers) return null
+
+                const updatedMembers = previousMembers.filter(
+                    (memberItem) =>
+                        String(memberItem.id_member) !==
+                        String(selectedMember.id_member)
+                )
+
+                return updatedMembers.length > 0
+                    ? updatedMembers
+                    : null
+            })
+
+            setToast({
+                message: `${selectedMember.name_member} deleted successfully!`,
+                type: "success",
+            })
+
+            setShowModalDeleteMember(false)
+            setSelectedMember(null)
+        } catch (error) {
+            console.error("Delete member error:", error)
+
+            setToast({
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Gagal menghapus member. Silakan coba lagi.",
+                type: "error",
+            })
+        } finally {
+            setDeletingMemberId(null)
+        }
+    }
+
+    const openDeleteMemberModal = (
+        idMember: string,
+        memberName: string
+    ) => {
+        setSelectedMember({
+            id_member: idMember,
+            name_member: memberName,
+        })
+
+        setShowModalDeleteMember(true)
+    }
+
+    const closeDeleteMemberModal = () => {
+        if (deletingMemberId) return
+
+        setShowModalDeleteMember(false)
+        setSelectedMember(null)
+    }
+
     console.log("team: ", team)
     console.log("member: ", member)
 
@@ -360,7 +503,8 @@ const Home = () => {
                                     className="glass p-6 rounded-2xl border border-white/10 hover:border-cyan-400/30 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10"
                                 >
                                     {/* HEADER */}
-                                    <div className="flex items-center justify-between">
+                                    {/* HEADER */}
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                         <div>
                                             <p className="text-2xl font-semibold text-white">
                                                 {m.name_member}
@@ -371,8 +515,37 @@ const Home = () => {
                                             </p>
                                         </div>
 
-                                        <div className="px-4 py-2 rounded-xl bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-sm">
-                                            {m.major_member}
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            <div className="px-4 py-2 rounded-xl bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-sm">
+                                                {m.major_member}
+                                            </div>
+
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    openDeleteMemberModal(
+                                                        String(m.id_member),
+                                                        m.name_member
+                                                    )
+                                                }
+                                                disabled={deletingMemberId === String(m.id_member)}
+                                                className="
+                                                    cursor-pointer
+                                                    px-4 py-2
+                                                    rounded-xl
+                                                    bg-red-500/10
+                                                    border border-red-400/30
+                                                    text-red-300
+                                                    text-sm font-medium
+                                                    hover:bg-red-500/20
+                                                    hover:border-red-400/50
+                                                    transition-all
+                                                    disabled:opacity-50
+                                                    disabled:cursor-not-allowed
+                                                "
+                                            >
+                                                Delete Member
+                                            </button>
                                         </div>
                                     </div>
 
@@ -632,45 +805,163 @@ const Home = () => {
                                 required
                             />
 
-                            <div className="space-y-3">
-                                <p className="font-semibold">Upload Files</p>
+                            <div className="space-y-5">
+                                <div>
+                                    <p className="text-xl font-semibold">
+                                        Registration Requirements
+                                    </p>
 
-                                {[
-                                    "twibbon",
-                                    "following_instagram",
-                                    // "following_linkedin",
-                                    "following_tiktok",
-                                    "instagram_story",
-                                    "repost_competition_instagram",
-                                ].map((fileName) => (
-                                    <div key={fileName}>
-                                        <p className="mb-2 capitalize">
-                                            {fileName.replace(/_/g, " ")}
-                                        </p>
+                                    <p className="mt-1 text-sm text-gray-400">
+                                        Complete each requirement using the provided link, then upload
+                                        the screenshot or document as proof.
+                                    </p>
+                                </div>
 
-                                        <label className="flex items-center justify-between gap-3 w-full border border-white/20 rounded-xl bg-white/10 px-4 py-3 cursor-pointer hover:bg-white/15 transition-all">
-                                            <span className="text-sm text-gray-300 truncate">
-                                                {
-                                                    memberFiles[fileName as keyof typeof memberFiles]?.name ||
-                                                    "No file Choosen"
-                                                }
-                                            </span>
+                                {memberFileFields.map((field, index) => {
+                                    const selectedFile =
+                                        memberFiles[field.name as keyof typeof memberFiles]
 
-                                            <input
-                                                type="file"
-                                                name={fileName}
-                                                accept="image/*,.pdf"
-                                                onChange={handleFileChange}
-                                                className="hidden"
-                                                required
-                                            />
-                                        </label>
+                                    return (
+                                        <div
+                                            key={field.name}
+                                            className="
+                                                rounded-2xl
+                                                border border-white/10
+                                                bg-white/5
+                                                p-5
+                                            "
+                                        >
+                                            <div className="flex items-start gap-4">
+                                                <div
+                                                    className="
+                                                    flex h-9 w-9 shrink-0
+                                                    items-center justify-center
+                                                    rounded-full
+                                                    border border-cyan-400/20
+                                                    bg-cyan-500/10
+                                                    text-sm font-semibold
+                                                    text-cyan-300
+                                                "
+                                                >
+                                                    {index + 1}
+                                                </div>
 
-                                        <p className="text-xs text-gray-400 mt-1">
-                                            Maximum file size: 2MB. Accepted formats: image, pdf.
-                                        </p>
-                                    </div>
-                                ))}
+                                                <div className="flex-1">
+                                                    <p className="font-semibold text-white">
+                                                        {field.label}
+                                                    </p>
+
+                                                    <p className="mt-1 text-sm leading-6 text-gray-400">
+                                                        {field.description}
+                                                    </p>
+
+                                                    <a
+                                                        href={field.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="
+                                                            mt-4
+                                                            flex w-full
+                                                            items-center justify-center gap-2
+                                                            rounded-xl
+                                                            bg-gradient-to-r
+                                                            from-cyan-500 to-blue-600
+                                                            px-4 py-3
+                                                            text-sm font-semibold
+                                                            text-white
+                                                            shadow-lg shadow-cyan-500/10
+                                                            transition-all duration-200
+                                                            hover:-translate-y-0.5
+                                                            hover:from-cyan-400
+                                                            hover:to-blue-500
+                                                            hover:shadow-cyan-500/20
+                                                        "
+                                                    >
+                                                        {field.linkLabel}
+
+                                                        <span aria-hidden="true">
+                                                            ↗
+                                                        </span>
+                                                    </a>
+
+                                                    <div
+                                                        className="
+                                                            mt-4
+                                                            rounded-xl
+                                                            border border-blue-400/20
+                                                            bg-blue-500/10
+                                                            p-3
+                                                        "
+                                                    >
+                                                        <p className="text-xs font-medium text-blue-200">
+                                                            Step 1: Open the link and complete the
+                                                            requirement
+                                                        </p>
+
+                                                        <p className="mt-1 text-xs text-gray-300">
+                                                            Step 2: Upload the proof using the field
+                                                            below
+                                                        </p>
+                                                    </div>
+
+                                                    <label
+                                                        className="
+                                                            mt-4
+                                                            flex w-full cursor-pointer
+                                                            items-center justify-between gap-3
+                                                            rounded-xl
+                                                            border border-white/20
+                                                            bg-white/10
+                                                            px-4 py-4
+                                                            transition-all
+                                                            hover:border-cyan-400/30
+                                                            hover:bg-white/15
+                                                        "
+                                                    >
+                                                        <span className="truncate text-sm text-gray-300">
+                                                            {selectedFile?.name || "Choose proof file"}
+                                                        </span>
+
+                                                        <span
+                                                            className="
+                                                                shrink-0
+                                                                rounded-lg
+                                                                bg-white/10
+                                                                px-3 py-2
+                                                                text-xs font-medium
+                                                                text-white
+                                                            "
+                                                        >
+                                                            Browse
+                                                        </span>
+
+                                                        <input
+                                                            type="file"
+                                                            name={field.name}
+                                                            accept="image/*,.pdf"
+                                                            onChange={handleFileChange}
+                                                            className="hidden"
+                                                            required
+                                                        />
+                                                    </label>
+
+                                                    <div className="mt-2 flex items-center justify-between gap-3">
+                                                        <p className="text-xs text-gray-400">
+                                                            Maximum file size: 2MB. Accepted formats:
+                                                            image and PDF.
+                                                        </p>
+
+                                                        {selectedFile && (
+                                                            <p className="shrink-0 text-xs font-medium text-green-300">
+                                                                Selected
+                                                            </p>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
                             </div>
 
                             <button
@@ -688,6 +979,130 @@ const Home = () => {
                                 )}
                             </button>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {showModalDeleteMember && selectedMember && (
+                <div
+                    className="
+                        fixed inset-0 z-50
+                        flex items-center justify-center
+                        bg-black/70
+                        px-5
+                    "
+                    onClick={closeDeleteMemberModal}
+                >
+                    <div
+                        className="
+                            glass
+                            relative
+                            w-full max-w-md
+                            rounded-2xl
+                            border border-white/10
+                            p-7
+                            text-white
+                            shadow-2xl
+                        "
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            type="button"
+                            onClick={closeDeleteMemberModal}
+                            disabled={Boolean(deletingMemberId)}
+                            className="
+                                cursor-pointer
+                                absolute top-5 right-5
+                                text-gray-400
+                                hover:text-white
+                                transition-all
+                                disabled:opacity-50
+                                disabled:cursor-not-allowed
+                            "
+                        >
+                            <X size={22} />
+                        </button>
+
+                        <p className="text-2xl font-semibold font-garamond">
+                            Delete Member
+                        </p>
+
+                        <p className="mt-3 text-sm leading-6 text-gray-300">
+                            Are you sure you want to delete{" "}
+                            <span className="font-semibold text-white">
+                                {selectedMember.name_member}
+                            </span>
+                            ?
+                        </p>
+
+                        <div className="mt-4 rounded-xl border border-red-400/20 bg-red-500/10 p-4">
+                            <p className="text-sm text-red-200">
+                                This action cannot be undone. All member data and uploaded
+                                files may be permanently deleted.
+                            </p>
+                        </div>
+
+                        <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row">
+                            <button
+                                type="button"
+                                onClick={closeDeleteMemberModal}
+                                disabled={Boolean(deletingMemberId)}
+                                className="
+                                    cursor-pointer
+                                    flex-1
+                                    rounded-xl
+                                    border border-white/20
+                                    bg-white/5
+                                    px-5 py-3
+                                    text-sm font-semibold
+                                    text-white
+                                    hover:bg-white/10
+                                    transition-all
+                                    disabled:opacity-50
+                                    disabled:cursor-not-allowed
+                                "
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={handleDeleteMember}
+                                disabled={Boolean(deletingMemberId)}
+                                className="
+                                    cursor-pointer
+                                    flex-1
+                                    rounded-xl
+                                    bg-red-600
+                                    px-5 py-3
+                                    text-sm font-semibold
+                                    text-white
+                                    hover:bg-red-700
+                                    transition-all
+                                    disabled:opacity-50
+                                    disabled:cursor-not-allowed
+                                "
+                            >
+                                {deletingMemberId ? (
+                                    <div className="flex items-center justify-center gap-2">
+                                        <div
+                                            className="
+                                    h-4 w-4
+                                    animate-spin
+                                    rounded-full
+                                    border-2
+                                    border-white/30
+                                    border-t-white
+                                "
+                                        />
+
+                                        Deleting...
+                                    </div>
+                                ) : (
+                                    "Yes, Delete Member"
+                                )}
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

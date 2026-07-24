@@ -1,7 +1,8 @@
 import logoOw from "../../images//Logo-ow.png"
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 import sponsorPertaminaInternasionalEP from "../../images/sponsor-pertamina-internasional-ep.webp"
-import sponsorRockFlowDynamics from "../../images/sponsor-rock-flow-dynamics.png"
+import sponsorRockFlowDynamics from "../../images/sponsor-rock-flow-dynamics.webp"
+import partnerAscope from "../../images/partner-ascope.png"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { useEffect } from "react";
@@ -146,22 +147,36 @@ const Footer = () => {
             </div>
 
             <div
-                className="mt-10 px-5 md:px-20 lg:px-32 py-10 w-full bg-white"
+                className="mt-10 px-5 md:px-20 lg:px-32 py-10 w-full bg-white flex items-start justify-between gap-10 flex-col md:flex-row"
             >
-                <p className="font-semibold font-inter text-2xl">Sponsored By</p>
+                <div>
+                    <p className="font-semibold font-inter text-2xl">Sponsored By</p>
 
-                <div className="mt-10 w-full flex items-center justify-center gap-10">
-                    <img
-                        src={sponsorPertaminaInternasionalEP}
-                        alt="Sponsor Pertamina Internasional EP"
-                        className="w-80"
-                    />
+                    <div className="mt-10 w-full flex flex-col md:flex-row items-center justify-center gap-10">
+                        <img
+                            src={sponsorPertaminaInternasionalEP}
+                            alt="Sponsor Pertamina Internasional EP"
+                            className="w-80"
+                        />
 
-                    <img
-                        src={sponsorRockFlowDynamics}
-                        alt="Sponsor Rock Flow Dynamics"
-                        className="w-72"
-                    />
+                        <img
+                            src={sponsorRockFlowDynamics}
+                            alt="Sponsor Rock Flow Dynamics"
+                            className="w-72"
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <p className="font-semibold font-inter text-2xl">Association Partner</p>
+
+                    <div className="mt-10 w-full flex flex-col md:flex-row items-center justify-center gap-10">
+                        <img
+                            src={partnerAscope}
+                            alt="Partner Ascope"
+                            className="w-72"
+                        />
+                    </div>
                 </div>
             </div>
         </>
