@@ -664,6 +664,7 @@ const TeamLeaders = () => {
                                 {
                                     label: "Student ID Card",
                                     value: selectedMember.student_id_card,
+                                    type: "text",
                                 },
                                 {
                                     label: "Twibbon",
@@ -738,6 +739,7 @@ const FileGrid = ({
     files: {
         label: string
         value?: string
+        type?: "file" | "text"
     }[]
 }) => {
     return (
@@ -747,9 +749,17 @@ const FileGrid = ({
                     key={index}
                     className="bg-white/5 border border-white/10 rounded-xl p-4"
                 >
-                    <p className="font-medium text-white">{file.label}</p>
+                    <p className="font-medium text-white">
+                        {file.label}
+                    </p>
 
-                    {file.value ? (
+                    {file.type === "text" ? (
+                        <div className="mt-3">
+                            <p className="text-gray-300 break-all">
+                                {file.value || "-"}
+                            </p>
+                        </div>
+                    ) : file.value ? (
                         <a
                             href={file.value}
                             target="_blank"

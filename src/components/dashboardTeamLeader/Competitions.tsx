@@ -58,6 +58,15 @@ interface Registration {
     id_competition: number
 }
 
+interface RedeemedDiscount {
+    discount_code: string
+    discount_type: "PERCENTAGE" | "FIXED"
+    discount_value: number
+    transaction_amount: number
+    discount_amount: number
+    final_amount: number
+}
+
 const getPaymentDetail = (competitionName: string) => {
     const name = competitionName.toLowerCase()
 
@@ -104,6 +113,61 @@ const getPaymentDetail = (competitionName: string) => {
     }
 }
 
+const getCurrentRegistrationAmount = (competitionName: string) => {
+    const name = competitionName.toLowerCase()
+    const now = new Date()
+
+    const earlyStart = new Date("2026-07-20T00:00:00")
+    const earlyEnd = new Date("2026-07-25T23:59:59")
+
+    const normalStart = new Date("2026-07-26T00:00:00")
+    const normalEnd = new Date("2026-09-11T23:59:59")
+
+    const semiFinalStart = new Date("2026-09-23T00:00:00")
+    const semiFinalEnd = new Date("2026-09-28T23:59:59")
+
+    const isBusinessCase =
+        name.includes("bcc") ||
+        name.includes("business case")
+
+    if (isBusinessCase) {
+        if (now >= earlyStart && now <= earlyEnd) {
+            return 30000
+        }
+
+        if (now >= normalStart && now <= normalEnd) {
+            return 50000
+        }
+
+        if (
+            now >= semiFinalStart &&
+            now <= semiFinalEnd
+        ) {
+            return 150000
+        }
+
+        return null
+    }
+
+    if (now >= earlyStart && now <= earlyEnd) {
+        return 175000
+    }
+
+    if (now >= normalStart && now <= normalEnd) {
+        return 200000
+    }
+
+    return null
+}
+
+const formatRupiah = (amount: number) => {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0,
+    }).format(amount)
+}
+
 const getCompetitionLogo = (name: string) => {
     const normalizedName = name.toLowerCase()
 
@@ -140,6 +204,23 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
         useState<Competition | null>(null)
     const [paymentProof, setPaymentProof] = useState<File | null>(null)
     const [submitLoading, setSubmitLoading] = useState(false)
+
+    const [discountCode, setDiscountCode] = useState("")
+    const [redeemLoading, setRedeemLoading] =
+        useState(false)
+
+    const [redeemedDiscount, setRedeemedDiscount] =
+        useState<RedeemedDiscount | null>(null)
+
+    const registrationAmount = selectedCompetition
+        ? getCurrentRegistrationAmount(
+            selectedCompetition.name_competition
+        )
+        : null
+
+    const finalRegistrationAmount =
+        redeemedDiscount?.final_amount ??
+        registrationAmount
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2 MB
 
@@ -361,9 +442,15 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
             .includes(search.toLowerCase())
     )
 
-    const openRegistrationModal = (competition: Competition) => {
+    const openRegistrationModal = (
+        competition: Competition
+    ) => {
         setSelectedCompetition(competition)
         setPaymentProof(null)
+
+        setDiscountCode("")
+        setRedeemedDiscount(null)
+
         setIsModalOpen(true)
     }
 
@@ -371,6 +458,9 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
         setIsModalOpen(false)
         setSelectedCompetition(null)
         setPaymentProof(null)
+
+        setDiscountCode("")
+        setRedeemedDiscount(null)
     }
 
     const handlePaymentProofChange = (
@@ -403,6 +493,95 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
         }
 
         setPaymentProof(file)
+    }
+
+    const handleRedeemDiscountCode = async () => {
+        const token = sessionStorage.getItem("token")
+
+        if (!discountCode.trim()) {
+            setToast({
+                message: "Please enter discount code",
+                type: "error",
+            })
+            return
+        }
+
+        if (!user?.id_team_leader) {
+            setToast({
+                message: "Team leader data not found",
+                type: "error",
+            })
+            return
+        }
+
+        if (registrationAmount === null) {
+            setToast({
+                message:
+                    "Registration fee is not available for the current period",
+                type: "error",
+            })
+            return
+        }
+
+        try {
+            setRedeemLoading(true)
+
+            const response = await fetch(
+                `${import.meta.env.VITE_API_BASE_URL
+                }/redeemDiscountCode`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        code: discountCode.trim(),
+                        id_team_leader: Number(
+                            user.id_team_leader
+                        ),
+                        transaction_amount:
+                            registrationAmount,
+                    }),
+                }
+            )
+
+            const result = await response.json()
+
+            if (!response.ok) {
+                setRedeemedDiscount(null)
+
+                setToast({
+                    message:
+                        result.message ||
+                        "Failed to redeem discount code",
+                    type: "error",
+                })
+
+                return
+            }
+
+            setRedeemedDiscount(result.data)
+
+            setToast({
+                message:
+                    "Discount code redeemed successfully!",
+                type: "success",
+            })
+        } catch (error) {
+            console.error(
+                "Failed to redeem discount code:",
+                error
+            )
+
+            setToast({
+                message:
+                    "Something went wrong. Please try again.",
+                type: "error",
+            })
+        } finally {
+            setRedeemLoading(false)
+        }
     }
 
     const handleSubmitRegistration = async () => {
@@ -768,6 +947,136 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                             </div>
                                         ))}
                                 </div>
+                            </div>
+
+                            <div className="rounded-2xl border border-[#7288AE]/30 bg-[#0B102F] p-4">
+                                <div className="flex items-center gap-2">
+                                    <BadgeDollarSign className="h-5 w-5 text-[#EAE0CF]" />
+
+                                    <h3 className="font-semibold text-white">
+                                        Discount Code
+                                    </h3>
+                                </div>
+
+                                <p className="mt-1 text-xs text-gray-400">
+                                    Enter your discount code to get a
+                                    registration discount.
+                                </p>
+
+                                <div className="mt-4 flex gap-2">
+                                    <input
+                                        type="text"
+                                        value={discountCode}
+                                        disabled={Boolean(redeemedDiscount)}
+                                        onChange={(e) =>
+                                            setDiscountCode(
+                                                e.target.value.toUpperCase()
+                                            )
+                                        }
+                                        placeholder="Enter discount code"
+                                        className="min-w-0 flex-1 rounded-xl border border-[#7288AE]/30 bg-[#111844] px-4 py-3 text-sm uppercase text-white outline-none placeholder:normal-case placeholder:text-gray-500 focus:border-[#EAE0CF] disabled:cursor-not-allowed disabled:opacity-60"
+                                    />
+
+                                    <button
+                                        type="button"
+                                        onClick={handleRedeemDiscountCode}
+                                        disabled={
+                                            redeemLoading ||
+                                            Boolean(redeemedDiscount) ||
+                                            !discountCode.trim()
+                                        }
+                                        className="cursor-pointer rounded-xl bg-[#EAE0CF] px-5 py-3 text-sm font-semibold text-[#111844] transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+                                    >
+                                        {redeemLoading
+                                            ? "Applying..."
+                                            : redeemedDiscount
+                                                ? "Applied"
+                                                : "Apply Code"}
+                                    </button>
+                                </div>
+
+                                {registrationAmount !== null && (
+                                    <div className="mt-4 space-y-2 rounded-xl bg-white/5 p-3">
+                                        <div className="flex items-center justify-between text-sm">
+                                            <span className="text-gray-400">
+                                                Registration Fee
+                                            </span>
+
+                                            <span
+                                                className={
+                                                    redeemedDiscount
+                                                        ? "text-gray-500 line-through"
+                                                        : "font-medium text-white"
+                                                }
+                                            >
+                                                {formatRupiah(
+                                                    registrationAmount
+                                                )}
+                                            </span>
+                                        </div>
+
+                                        {redeemedDiscount && (
+                                            <>
+                                                <div className="flex items-center justify-between text-sm">
+                                                    <span className="text-green-300">
+                                                        Discount (
+                                                        {
+                                                            redeemedDiscount.discount_code
+                                                        }
+                                                        )
+                                                    </span>
+
+                                                    <span className="font-medium text-green-300">
+                                                        -
+                                                        {formatRupiah(
+                                                            redeemedDiscount.discount_amount
+                                                        )}
+                                                    </span>
+                                                </div>
+
+                                                <div className="border-t border-white/10 pt-2">
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="font-semibold text-white">
+                                                            Total Payment
+                                                        </span>
+
+                                                        <span className="text-lg font-bold text-[#EAE0CF]">
+                                                            {formatRupiah(
+                                                                redeemedDiscount.final_amount
+                                                            )}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div className="mt-2 flex items-center gap-2 rounded-lg bg-green-500/10 px-3 py-2">
+                                                    <CircleCheck className="h-4 w-4 shrink-0 text-green-400" />
+
+                                                    <p className="text-xs text-green-300">
+                                                        Discount code successfully
+                                                        applied.
+                                                    </p>
+                                                </div>
+                                            </>
+                                        )}
+
+                                        {!redeemedDiscount && (
+                                            <div className="border-t border-white/10 pt-2">
+                                                <div className="flex items-center justify-between">
+                                                    <span className="font-semibold text-white">
+                                                        Total Payment
+                                                    </span>
+
+                                                    <span className="text-lg font-bold text-[#EAE0CF]">
+                                                        {formatRupiah(
+                                                            finalRegistrationAmount ??
+                                                            0
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="rounded-2xl border border-[#7288AE]/30 bg-[#0B102F] p-4">

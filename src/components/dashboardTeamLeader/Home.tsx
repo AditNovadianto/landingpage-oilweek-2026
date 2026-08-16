@@ -1,48 +1,53 @@
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { X } from "lucide-react"
-import { isTokenExpired } from "../../utils/auth"
-import Toast from "../Toast"
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { X } from "lucide-react";
+import { isTokenExpired } from "../../utils/auth";
+import Toast from "../Toast";
 
 interface User {
-    id_team_leader?: string
-    name_team_leader?: string
-    email_team_leader?: string
+    id_team_leader?: string;
+    name_team_leader?: string;
+    email_team_leader?: string;
 }
 
 interface Team {
-    id_team?: string
-    team_name?: string
-    institution?: string
+    id_team?: string;
+    team_name?: string;
+    institution?: string;
 }
 
 const Home = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const [user, setUser] = useState<User | null>(null)
-    const [team, setTeam] = useState<Team | null>(null)
-    const [member, setMember] = useState<any[] | null>(null)
+    const [user, setUser] = useState<User | null>(null);
+    const [team, setTeam] = useState<Team | null>(null);
+    const [member, setMember] = useState<any[] | null>(null);
 
-    const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
+    const [toast, setToast] = useState<{
+        message: string;
+        type: "success" | "error";
+    } | null>(null);
 
-    const [showModalCreateTeam, setShowModalCreateTeam] = useState(false)
+    const [showModalCreateTeam, setShowModalCreateTeam] = useState(false);
 
-    const [showModalCreateMember, setShowModalCreateMember] = useState(false)
+    const [showModalCreateMember, setShowModalCreateMember] = useState(false);
 
-    const [showModalDeleteMember, setShowModalDeleteMember] = useState(false)
+    const [showModalDeleteMember, setShowModalDeleteMember] = useState(false);
 
     const [selectedMember, setSelectedMember] = useState<{
-        id_member: string
-        name_member: string
-    } | null>(null)
+        id_member: string;
+        name_member: string;
+    } | null>(null);
 
-    const [deletingMemberId, setDeletingMemberId] = useState<string | null>(null)
+    const [deletingMemberId, setDeletingMemberId] = useState<string | null>(
+        null,
+    );
 
     const [teamFormData, setTeamFormData] = useState({
         team_name: "",
         institution: "",
-        international_team: "NO"
-    })
+        international_team: "NO",
+    });
 
     const [memberFormData, setMemberFormData] = useState({
         name_member: "",
@@ -50,7 +55,7 @@ const Home = () => {
         email_member: "",
         major_member: "",
         student_id_card: "",
-    })
+    });
 
     const [memberFiles, setMemberFiles] = useState({
         twibbon: null as File | null,
@@ -59,10 +64,10 @@ const Home = () => {
         following_tiktok: null as File | null,
         instagram_story: null as File | null,
         repost_competition_instagram: null as File | null,
-    })
+    });
 
-    const [loadingCreateTeam, setLoadingCreateTeam] = useState(false)
-    const [loadingCreateMember, setLoadingCreateMember] = useState(false)
+    const [loadingCreateTeam, setLoadingCreateTeam] = useState(false);
+    const [loadingCreateMember, setLoadingCreateMember] = useState(false);
 
     const memberFileFields = [
         {
@@ -105,38 +110,38 @@ const Home = () => {
             link: "https://www.instagram.com/oilweek",
             linkLabel: "Open Post to Repost",
         },
-    ] as const
+    ] as const;
 
-    const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2MB
+    const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
     useEffect(() => {
-        const token = sessionStorage.getItem("token")
+        const token = sessionStorage.getItem("token");
 
         if (isTokenExpired(String(token))) {
-            sessionStorage.removeItem("token")
-            localStorage.removeItem("user")
-            localStorage.removeItem("team")
-            localStorage.removeItem("member")
+            sessionStorage.removeItem("token");
+            localStorage.removeItem("user");
+            localStorage.removeItem("team");
+            localStorage.removeItem("member");
 
-            navigate("/team-leader/sign-in")
+            navigate("/team-leader/sign-in");
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
-        const user = localStorage.getItem("user")
-        const userObj = JSON.parse(user || "{}")
+        const user = localStorage.getItem("user");
+        const userObj = JSON.parse(user || "{}");
 
         if (user) {
-            setUser(userObj)
+            setUser(userObj);
         } else {
-            setUser(null)
+            setUser(null);
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
-        if (!user?.id_team_leader) return
+        if (!user?.id_team_leader) return;
 
-        const token = sessionStorage.getItem("token")
+        const token = sessionStorage.getItem("token");
 
         const getTeamData = async () => {
             try {
@@ -147,28 +152,28 @@ const Home = () => {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
-                    }
-                )
+                    },
+                );
 
                 if (response.status === 202) {
-                    setTeam(null)
+                    setTeam(null);
                 } else {
-                    const teamData = await response.json()
+                    const teamData = await response.json();
 
-                    setTeam(teamData.team)
+                    setTeam(teamData.team);
                 }
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
-        }
+        };
 
-        getTeamData()
-    }, [user, showModalCreateTeam])
+        getTeamData();
+    }, [user, showModalCreateTeam]);
 
     useEffect(() => {
-        if (!team?.id_team) return
+        if (!team?.id_team) return;
 
-        const token = sessionStorage.getItem("token")
+        const token = sessionStorage.getItem("token");
 
         const getMemberData = async () => {
             try {
@@ -179,85 +184,85 @@ const Home = () => {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
-                    }
-                )
+                    },
+                );
 
                 if (response.status === 202) {
-                    setMember(null)
+                    setMember(null);
                 } else {
-                    const memberData = await response.json()
+                    const memberData = await response.json();
 
-                    setMember(memberData.members)
+                    setMember(memberData.members);
                 }
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
-        }
+        };
 
-        getMemberData()
-    }, [team, showModalCreateMember])
+        getMemberData();
+    }, [team, showModalCreateMember]);
 
     const handleTeamFormChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     ) => {
         setTeamFormData({
             ...teamFormData,
             [e.target.name]: e.target.value,
-        })
-    }
+        });
+    };
 
-    const handleMemberChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleMemberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMemberFormData({
             ...memberFormData,
             [e.target.name]: e.target.value,
-        })
-    }
+        });
+    };
 
-    const handleFileChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const { name, files } = e.target
-        const selectedFile = files?.[0] || null
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, files } = e.target;
+        const selectedFile = files?.[0] || null;
 
         if (!selectedFile) {
             setMemberFiles((prev) => ({
                 ...prev,
                 [name]: null,
-            }))
-            return
+            }));
+            return;
         }
 
         if (selectedFile.size > MAX_FILE_SIZE) {
             setToast({
-                message: "Maximum file size: 2MB. Accepted formats: image, pdf.",
+                message:
+                    "Maximum file size: 2MB. Accepted formats: image, pdf.",
                 type: "error",
-            })
+            });
 
-            e.target.value = ""
+            e.target.value = "";
 
             setMemberFiles((prev) => ({
                 ...prev,
                 [name]: null,
-            }))
+            }));
 
-            return
+            return;
         }
 
         setMemberFiles((prev) => ({
             ...prev,
             [name]: selectedFile,
-        }))
-    }
+        }));
+    };
 
     const handleCreateTeam = async (e: React.FormEvent) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        setLoadingCreateTeam(true)
+        // Mencegah submit kedua saat request masih berjalan
+        if (loadingCreateTeam) return;
+
+        setLoadingCreateTeam(true);
 
         try {
-            const token = sessionStorage.getItem("token")
+            const token = sessionStorage.getItem("token");
 
             const response = await fetch(
                 `${import.meta.env.VITE_API_BASE_URL}/createTeam`,
@@ -271,51 +276,70 @@ const Home = () => {
                         ...teamFormData,
                         id_team_leader: user?.id_team_leader,
                     }),
-                }
-            )
+                },
+            );
 
-            const data = await response.json()
+            const data = await response.json();
 
-            console.log(data)
-
-            if (response.ok) {
-                setToast({ message: "Team created successfully!", type: "success" })
-
-                setTimeout(() => setShowModalCreateTeam(false), 2000)
+            if (!response.ok) {
+                throw new Error(
+                    data?.message || data?.error || "Failed to create team",
+                );
             }
+
+            setToast({
+                message: "Team created successfully!",
+                type: "success",
+            });
+
+            setTimeout(() => {
+                setShowModalCreateTeam(false);
+            }, 2000);
         } catch (error) {
-            console.error(error)
+            console.error(error);
 
-            setToast({ message: "Gagal membuat tim. Silakan coba lagi.", type: "error" })
+            setToast({
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Gagal membuat tim. Silakan coba lagi.",
+                type: "error",
+            });
 
-            setTimeout(() => setToast(null), 2000)
+            setTimeout(() => setToast(null), 2000);
         } finally {
-            setLoadingCreateTeam(false)
+            setLoadingCreateTeam(false);
         }
-    }
+    };
 
     const handleCreateMember = async (e: React.FormEvent) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        setLoadingCreateMember(true)
+        // Mencegah request kedua ketika proses masih berjalan
+        if (loadingCreateMember) return;
+
+        setLoadingCreateMember(true);
 
         try {
-            const token = sessionStorage.getItem("token")
+            const token = sessionStorage.getItem("token");
 
-            const formData = new FormData()
+            const formData = new FormData();
 
-            formData.append("name_member", memberFormData.name_member)
-            formData.append("phone_number_member", memberFormData.phone_number_member)
-            formData.append("email_member", memberFormData.email_member)
-            formData.append("major_member", memberFormData.major_member)
-            formData.append("student_id_card", memberFormData.student_id_card)
-            formData.append("id_team", String(team?.id_team))
+            formData.append("name_member", memberFormData.name_member);
+            formData.append(
+                "phone_number_member",
+                memberFormData.phone_number_member,
+            );
+            formData.append("email_member", memberFormData.email_member);
+            formData.append("major_member", memberFormData.major_member);
+            formData.append("student_id_card", memberFormData.student_id_card);
+            formData.append("id_team", String(team?.id_team));
 
             Object.entries(memberFiles).forEach(([key, value]) => {
                 if (value) {
-                    formData.append(key, value)
+                    formData.append(key, value);
                 }
-            })
+            });
 
             const response = await fetch(
                 `${import.meta.env.VITE_API_BASE_URL}/createMember`,
@@ -325,42 +349,57 @@ const Home = () => {
                         Authorization: `Bearer ${token}`,
                     },
                     body: formData,
-                }
-            )
+                },
+            );
 
-            const data = await response.json()
+            const data = await response.json();
 
-            console.log(data)
-
-            if (response.ok) {
-                setToast({ message: "Member added successfully!", type: "success" })
-
-                setTimeout(() => setShowModalCreateMember(false), 2000)
+            if (!response.ok) {
+                throw new Error(
+                    data?.message || data?.error || "Failed to add member",
+                );
             }
+
+            setToast({
+                message: "Member added successfully!",
+                type: "success",
+            });
+
+            setTimeout(() => {
+                setShowModalCreateMember(false);
+            }, 2000);
         } catch (error) {
-            console.error(error)
-            setToast({ message: "Gagal menambahkan member. Silakan coba lagi.", type: "error" })
-            setTimeout(() => setToast(null), 2000)
+            console.error(error);
+
+            setToast({
+                message:
+                    error instanceof Error
+                        ? error.message
+                        : "Gagal menambahkan member. Silakan coba lagi.",
+                type: "error",
+            });
+
+            setTimeout(() => setToast(null), 2000);
         } finally {
-            setLoadingCreateMember(false)
+            setLoadingCreateMember(false);
         }
-    }
+    };
 
     const handleDeleteMember = async () => {
-        if (!selectedMember) return
+        if (!selectedMember) return;
 
         try {
-            const token = sessionStorage.getItem("token")
+            const token = sessionStorage.getItem("token");
 
             if (!token || isTokenExpired(token)) {
-                sessionStorage.clear()
-                localStorage.clear()
+                sessionStorage.clear();
+                localStorage.clear();
 
-                navigate("/team-leader/sign-in")
-                return
+                navigate("/team-leader/sign-in");
+                return;
             }
 
-            setDeletingMemberId(selectedMember.id_member)
+            setDeletingMemberId(selectedMember.id_member);
 
             const response = await fetch(
                 `${import.meta.env.VITE_API_BASE_URL}/deleteMember/${selectedMember.id_member}`,
@@ -369,42 +408,38 @@ const Home = () => {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
-                }
-            )
+                },
+            );
 
-            const data = await response.json().catch(() => null)
+            const data = await response.json().catch(() => null);
 
             if (!response.ok) {
                 throw new Error(
-                    data?.message ||
-                    data?.error ||
-                    "Failed to delete member"
-                )
+                    data?.message || data?.error || "Failed to delete member",
+                );
             }
 
             setMember((previousMembers) => {
-                if (!previousMembers) return null
+                if (!previousMembers) return null;
 
                 const updatedMembers = previousMembers.filter(
                     (memberItem) =>
                         String(memberItem.id_member) !==
-                        String(selectedMember.id_member)
-                )
+                        String(selectedMember.id_member),
+                );
 
-                return updatedMembers.length > 0
-                    ? updatedMembers
-                    : null
-            })
+                return updatedMembers.length > 0 ? updatedMembers : null;
+            });
 
             setToast({
                 message: `${selectedMember.name_member} deleted successfully!`,
                 type: "success",
-            })
+            });
 
-            setShowModalDeleteMember(false)
-            setSelectedMember(null)
+            setShowModalDeleteMember(false);
+            setSelectedMember(null);
         } catch (error) {
-            console.error("Delete member error:", error)
+            console.error("Delete member error:", error);
 
             setToast({
                 message:
@@ -412,33 +447,30 @@ const Home = () => {
                         ? error.message
                         : "Gagal menghapus member. Silakan coba lagi.",
                 type: "error",
-            })
+            });
         } finally {
-            setDeletingMemberId(null)
+            setDeletingMemberId(null);
         }
-    }
+    };
 
-    const openDeleteMemberModal = (
-        idMember: string,
-        memberName: string
-    ) => {
+    const openDeleteMemberModal = (idMember: string, memberName: string) => {
         setSelectedMember({
             id_member: idMember,
             name_member: memberName,
-        })
+        });
 
-        setShowModalDeleteMember(true)
-    }
+        setShowModalDeleteMember(true);
+    };
 
     const closeDeleteMemberModal = () => {
-        if (deletingMemberId) return
+        if (deletingMemberId) return;
 
-        setShowModalDeleteMember(false)
-        setSelectedMember(null)
-    }
+        setShowModalDeleteMember(false);
+        setSelectedMember(null);
+    };
 
-    console.log("team: ", team)
-    console.log("member: ", member)
+    console.log("team: ", team);
+    console.log("member: ", member);
 
     return (
         <div className="px-10 py-7">
@@ -468,7 +500,9 @@ const Home = () => {
                         <div className="mt-3">
                             <p>Total Members:</p>
 
-                            <p className="font-semibold">{member?.length || 0}</p>
+                            <p className="font-semibold">
+                                {member?.length || 0}
+                            </p>
                         </div>
                     </div>
                 ) : (
@@ -525,10 +559,13 @@ const Home = () => {
                                                 onClick={() =>
                                                     openDeleteMemberModal(
                                                         String(m.id_member),
-                                                        m.name_member
+                                                        m.name_member,
                                                     )
                                                 }
-                                                disabled={deletingMemberId === String(m.id_member)}
+                                                disabled={
+                                                    deletingMemberId ===
+                                                    String(m.id_member)
+                                                }
                                                 className="
                                                     cursor-pointer
                                                     px-4 py-2
@@ -623,9 +660,7 @@ const Home = () => {
                                                         </p>
                                                     </div>
 
-                                                    <div
-                                                        className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center group-hover:scale-110 transition-all duration-300"
-                                                    >
+                                                    <div className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center group-hover:scale-110 transition-all duration-300">
                                                         ⬇
                                                     </div>
                                                 </a>
@@ -651,7 +686,9 @@ const Home = () => {
                             Team Members
                         </p>
 
-                        <p className="text-white mt-5">No members in your team yet.</p>
+                        <p className="text-white mt-5">
+                            No members in your team yet.
+                        </p>
 
                         <button
                             onClick={() => setShowModalCreateMember(true)}
@@ -667,8 +704,15 @@ const Home = () => {
                 <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
                     <div className="glass w-full max-w-lg rounded-2xl p-7 text-white relative">
                         <button
+                            type="button"
                             onClick={() => setShowModalCreateTeam(false)}
-                            className="cursor-pointer absolute top-5 right-5"
+                            disabled={loadingCreateTeam}
+                            className="
+                                absolute top-5 right-5
+                                cursor-pointer
+                                disabled:cursor-not-allowed
+                                disabled:opacity-50
+                            "
                         >
                             <X />
                         </button>
@@ -718,19 +762,31 @@ const Home = () => {
                                     onChange={handleTeamFormChange}
                                     className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 outline-none"
                                 >
-                                    <option value="NO" className="text-black">NO</option>
-                                    <option value="YES" className="text-black">YES</option>
+                                    <option value="NO" className="text-black">
+                                        NO
+                                    </option>
+                                    <option value="YES" className="text-black">
+                                        YES
+                                    </option>
                                 </select>
                             </div>
 
                             <button
                                 type="submit"
-                                className="cursor-pointer w-full py-3 rounded-xl bg-linear-to-t from-[#091025] to-[#032155] font-semibold"
+                                disabled={loadingCreateTeam}
+                                className="
+                                    w-full py-3 rounded-xl
+                                    bg-linear-to-t from-[#091025] to-[#032155]
+                                    font-semibold
+                                    transition-all
+                                    cursor-pointer
+                                    disabled:cursor-not-allowed
+                                    disabled:opacity-50
+                                "
                             >
                                 {loadingCreateTeam ? (
                                     <div className="flex items-center justify-center gap-2">
                                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-
                                         Creating Team...
                                     </div>
                                 ) : (
@@ -746,8 +802,15 @@ const Home = () => {
                 <div className="fixed inset-0 bg-black/60 flex justify-center z-50 overflow-y-auto p-5">
                     <div className="glass w-full h-max max-w-2xl rounded-2xl p-7 text-white relative">
                         <button
+                            type="button"
                             onClick={() => setShowModalCreateMember(false)}
-                            className="cursor-pointer absolute top-5 right-5"
+                            disabled={loadingCreateMember}
+                            className="
+                                absolute top-5 right-5
+                                cursor-pointer
+                                disabled:cursor-not-allowed
+                                disabled:opacity-50
+                            "
                         >
                             <X />
                         </button>
@@ -812,14 +875,17 @@ const Home = () => {
                                     </p>
 
                                     <p className="mt-1 text-sm text-gray-400">
-                                        Complete each requirement using the provided link, then upload
-                                        the screenshot or document as proof.
+                                        Complete each requirement using the
+                                        provided link, then upload the
+                                        screenshot or document as proof.
                                     </p>
                                 </div>
 
                                 {memberFileFields.map((field, index) => {
                                     const selectedFile =
-                                        memberFiles[field.name as keyof typeof memberFiles]
+                                        memberFiles[
+                                            field.name as keyof typeof memberFiles
+                                        ];
 
                                     return (
                                         <div
@@ -864,7 +930,7 @@ const Home = () => {
                                                             flex w-full
                                                             items-center justify-center gap-2
                                                             rounded-xl
-                                                            bg-gradient-to-r
+                                                            bg-linear-to-r
                                                             from-cyan-500 to-blue-600
                                                             px-4 py-3
                                                             text-sm font-semibold
@@ -894,13 +960,15 @@ const Home = () => {
                                                         "
                                                     >
                                                         <p className="text-xs font-medium text-blue-200">
-                                                            Step 1: Open the link and complete the
-                                                            requirement
+                                                            Step 1: Open the
+                                                            link and complete
+                                                            the requirement
                                                         </p>
 
                                                         <p className="mt-1 text-xs text-gray-300">
-                                                            Step 2: Upload the proof using the field
-                                                            below
+                                                            Step 2: Upload the
+                                                            proof using the
+                                                            field below
                                                         </p>
                                                     </div>
 
@@ -919,7 +987,8 @@ const Home = () => {
                                                         "
                                                     >
                                                         <span className="truncate text-sm text-gray-300">
-                                                            {selectedFile?.name || "Choose proof file"}
+                                                            {selectedFile?.name ||
+                                                                "Choose proof file"}
                                                         </span>
 
                                                         <span
@@ -939,7 +1008,9 @@ const Home = () => {
                                                             type="file"
                                                             name={field.name}
                                                             accept="image/*,.pdf"
-                                                            onChange={handleFileChange}
+                                                            onChange={
+                                                                handleFileChange
+                                                            }
                                                             className="hidden"
                                                             required
                                                         />
@@ -947,8 +1018,10 @@ const Home = () => {
 
                                                     <div className="mt-2 flex items-center justify-between gap-3">
                                                         <p className="text-xs text-gray-400">
-                                                            Maximum file size: 2MB. Accepted formats:
-                                                            image and PDF.
+                                                            Maximum file size:
+                                                            2MB. Accepted
+                                                            formats: image and
+                                                            PDF.
                                                         </p>
 
                                                         {selectedFile && (
@@ -960,18 +1033,26 @@ const Home = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    )
+                                    );
                                 })}
                             </div>
 
                             <button
                                 type="submit"
-                                className="cursor-pointer w-full py-3 rounded-xl bg-linear-to-t from-[#091025] to-[#032155] font-semibold"
+                                disabled={loadingCreateMember}
+                                className="
+                                    w-full py-3 rounded-xl
+                                    bg-linear-to-t from-[#091025] to-[#032155]
+                                    font-semibold
+                                    transition-all
+                                    cursor-pointer
+                                    disabled:cursor-not-allowed
+                                    disabled:opacity-50
+                                "
                             >
                                 {loadingCreateMember ? (
                                     <div className="flex items-center justify-center gap-2">
                                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-
                                         Creating Member...
                                     </div>
                                 ) : (
@@ -1037,8 +1118,8 @@ const Home = () => {
 
                         <div className="mt-4 rounded-xl border border-red-400/20 bg-red-500/10 p-4">
                             <p className="text-sm text-red-200">
-                                This action cannot be undone. All member data and uploaded
-                                files may be permanently deleted.
+                                This action cannot be undone. All member data
+                                and uploaded files may be permanently deleted.
                             </p>
                         </div>
 
@@ -1095,7 +1176,6 @@ const Home = () => {
                                     border-t-white
                                 "
                                         />
-
                                         Deleting...
                                     </div>
                                 ) : (
@@ -1115,7 +1195,7 @@ const Home = () => {
                 />
             )}
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

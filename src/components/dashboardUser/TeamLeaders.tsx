@@ -591,11 +591,19 @@ const TeamLeaders = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {/* Student ID Card ditampilkan sebagai value biasa */}
+                            <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                                <p className="font-medium text-white">
+                                    Student ID Card
+                                </p>
+
+                                <p className="text-gray-300 mt-3 break-all">
+                                    {selectedMember.student_id_card || "-"}
+                                </p>
+                            </div>
+
+                            {/* Hanya data berikut yang diperlakukan sebagai file/link */}
                             {[
-                                {
-                                    label: "Student ID Card",
-                                    value: selectedMember.student_id_card,
-                                },
                                 {
                                     label: "Twibbon",
                                     value: selectedMember.twibbon,
@@ -604,10 +612,6 @@ const TeamLeaders = () => {
                                     label: "Following Instagram",
                                     value: selectedMember.following_instagram,
                                 },
-                                // {
-                                //     label: "Following LinkedIn",
-                                //     value: selectedMember.following_linkedin,
-                                // },
                                 {
                                     label: "Following TikTok",
                                     value: selectedMember.following_tiktok,
@@ -618,8 +622,7 @@ const TeamLeaders = () => {
                                 },
                                 {
                                     label: "Repost Competition Instagram",
-                                    value:
-                                        selectedMember.repost_competition_instagram,
+                                    value: selectedMember.repost_competition_instagram,
                                 },
                             ].map((file, index) => (
                                 <div

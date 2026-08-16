@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import useImagePreload from "../../hooks/useImagePreload"
 import logoOw from "../../images/Logo-ow.png"
 import bg from "../../images/dashboard/bg-dashboard.png"
-import { ClipboardList, FileCheckCorner, House, LogOut, Trophy, User, UserRoundPlus, Users } from "lucide-react"
+import { ClipboardList, FileCheckCorner, House, LogOut, Percent, Trophy, User, UserRoundPlus, Users } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import Home from "../../components/dashboardUser/Home"
 import Competitions from "../../components/dashboardUser/Competitions"
@@ -13,6 +13,7 @@ import CreateUser from "../../components/dashboardUser/CreateUser"
 import CompetitionStages from "../../components/dashboardUser/CompetitionStages"
 import { GiPodiumWinner } from "react-icons/gi"
 import StageSubmissions from "../../components/dashboardUser/StageSubmissions"
+import DiscountCodes from "../../components/dashboardUser/DiscountCodes"
 
 interface UserData {
     name_user?: string
@@ -273,6 +274,29 @@ const DashboardUser = () => {
                                 Stage Submissions
                             </p>
                         </button>
+
+                        <button
+                            className={`flex items-center gap-4 w-full px-4 py-3 rounded-2xl cursor-pointer text-white transition-all ease-in-out relative overflow-hidden ${section === "registrations"
+                                ? "bg-white/15 shadow-lg border border-white/10"
+                                : "hover:bg-white/10"
+                                }`}
+                            onClick={() => setSection("discountCodes")}
+                        >
+                            {section === "discountCodes" && (
+                                <div className="absolute inset-0 bg-linear-to-r from-blue-500/20 to-cyan-400/10 rounded-2xl" />
+                            )}
+
+                            <Percent
+                                className={`translate-x-1 min-w-5 relative z-10 transition-all ${section === "discountCodes"
+                                    ? "scale-110 text-cyan-300"
+                                    : ""
+                                    }`}
+                            />
+
+                            <p className="opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 whitespace-nowrap truncate relative z-10">
+                                Discount Codes
+                            </p>
+                        </button>
                     </div>
                 </div>
 
@@ -299,6 +323,7 @@ const DashboardUser = () => {
                 {section === "createUser" && <CreateUser />}
                 {section === "competitionStages" && <CompetitionStages />}
                 {section === "stageSubmissions" && <StageSubmissions />}
+                {section === "discountCodes" && <DiscountCodes />}
             </div>
         </div>
     )
