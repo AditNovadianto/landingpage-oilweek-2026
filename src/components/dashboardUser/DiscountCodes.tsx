@@ -1303,9 +1303,13 @@ const DiscountFormFields = ({
                     name="code"
                     value={form.code}
                     onChange={(e) => {
+                        const value = e.target.value
+                            .replace(/\s/g, "")
+                            .toUpperCase()
+
                         setForm((prev) => ({
                             ...prev,
-                            code: e.target.value.toUpperCase(),
+                            code: value,
                         }))
 
                         setErrors((prev) => ({
