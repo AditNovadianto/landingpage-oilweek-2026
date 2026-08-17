@@ -359,11 +359,23 @@ const DiscountCodes = () => {
         })
     }
 
+    const toJakartaISOString = (dateTimeLocal: string) => {
+        if (!dateTimeLocal) {
+            return ""
+        }
+
+        return new Date(
+            `${dateTimeLocal}:00+07:00`
+        ).toISOString()
+    }
+
     const buildPayload = (
         currentForm: DiscountCodeForm
     ) => {
         return {
-            code: currentForm.code.trim().toUpperCase(),
+            code: currentForm.code
+                .trim()
+                .toUpperCase(),
 
             discount_type:
                 currentForm.discount_type,
@@ -372,9 +384,13 @@ const DiscountCodes = () => {
                 currentForm.discount_value
             ),
 
-            start_date: currentForm.start_date,
+            start_date: toJakartaISOString(
+                currentForm.start_date
+            ),
 
-            end_date: currentForm.end_date,
+            end_date: toJakartaISOString(
+                currentForm.end_date
+            ),
 
             usage_limit: currentForm.usage_limit
                 ? Number(currentForm.usage_limit)
@@ -660,13 +676,15 @@ const DiscountCodes = () => {
 
     const formatDate = (date: string) => {
         return new Intl.DateTimeFormat(
-            "id-ID",
+            "en-GB",
             {
+                timeZone: "Asia/Jakarta",
                 day: "2-digit",
                 month: "short",
                 year: "numeric",
                 hour: "2-digit",
                 minute: "2-digit",
+                hour12: true,
             }
         ).format(new Date(date))
     }
@@ -1659,14 +1677,31 @@ const DiscountFormFields = ({
 const toDateTimeLocal = (date: string) => {
     const value = new Date(date)
 
-    const timezoneOffset =
-        value.getTimezoneOffset() * 60000
+    const parts = new Intl.DateTimeFormat(
+        "en-CA",
+        {
+            timeZone: "Asia/Jakarta",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hourCycle: "h23",
+        }
+    ).formatToParts(value)
 
-    return new Date(
-        value.getTime() - timezoneOffset
-    )
-        .toISOString()
-        .slice(0, 16)
+    const getPart = (type: string) =>
+        parts.find(
+            (part) => part.type === type
+        )?.value ?? ""
+
+    const year = getPart("year")
+    const month = getPart("month")
+    const day = getPart("day")
+    const hour = getPart("hour")
+    const minute = getPart("minute")
+
+    return `${year}-${month}-${day}T${hour}:${minute}`
 }
 
 export default DiscountCodes

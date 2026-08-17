@@ -968,11 +968,13 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                         type="text"
                                         value={discountCode}
                                         disabled={Boolean(redeemedDiscount)}
-                                        onChange={(e) =>
-                                            setDiscountCode(
-                                                e.target.value.toUpperCase()
-                                            )
-                                        }
+                                        onChange={(e) => {
+                                            const value = e.target.value
+                                                .replace(/\s/g, "")
+                                                .toUpperCase()
+
+                                            setDiscountCode(value)
+                                        }}
                                         placeholder="Enter discount code"
                                         className="min-w-0 flex-1 rounded-xl border border-[#7288AE]/30 bg-[#111844] px-4 py-3 text-sm uppercase text-white outline-none placeholder:normal-case placeholder:text-gray-500 focus:border-[#EAE0CF] disabled:cursor-not-allowed disabled:opacity-60"
                                     />
