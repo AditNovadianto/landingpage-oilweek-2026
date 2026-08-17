@@ -1074,6 +1074,7 @@ const DiscountCodes = () => {
                                     setErrors={
                                         setEditErrors
                                     }
+                                    isEdit={true}
                                 />
 
                                 <div className="mt-3 flex justify-end gap-3 md:col-span-2">
@@ -1284,6 +1285,183 @@ interface DiscountFormFieldsProps {
             usage_limit: string
         }>
     >
+
+    isEdit?: boolean
+}
+
+interface DateTime12HourInputProps {
+    name: "start_date" | "end_date"
+    value: string
+    onChange: (value: string) => void
+}
+
+const DateTime12HourInput = ({
+    value,
+    onChange,
+}: DateTime12HourInputProps) => {
+    const parseValue = () => {
+        if (!value) {
+            return {
+                date: "",
+                hour: "12",
+                minute: "00",
+                period: "AM" as "AM" | "PM",
+            }
+        }
+
+        const [date, time = "00:00"] =
+            value.split("T")
+
+        const [hourString, minute = "00"] =
+            time.split(":")
+
+        const hour24 = Number(hourString)
+
+        const period: "AM" | "PM" =
+            hour24 >= 12 ? "PM" : "AM"
+
+        const hour12 =
+            hour24 % 12 === 0
+                ? 12
+                : hour24 % 12
+
+        return {
+            date,
+            hour: String(hour12),
+            minute,
+            period,
+        }
+    }
+
+    const current = parseValue()
+
+    const updateValue = ({
+        date = current.date,
+        hour = current.hour,
+        minute = current.minute,
+        period = current.period,
+    }: {
+        date?: string
+        hour?: string
+        minute?: string
+        period?: "AM" | "PM"
+    }) => {
+        if (!date) {
+            onChange("")
+            return
+        }
+
+        let hour24 = Number(hour)
+
+        if (period === "AM") {
+            if (hour24 === 12) {
+                hour24 = 0
+            }
+        } else {
+            if (hour24 !== 12) {
+                hour24 += 12
+            }
+        }
+
+        const formattedHour =
+            String(hour24).padStart(2, "0")
+
+        onChange(
+            `${date}T${formattedHour}:${minute}`
+        )
+    }
+
+    return (
+        <div className="mt-2 grid grid-cols-[1fr_auto_auto_auto] gap-2">
+            {/* DATE */}
+            <input
+                type="date"
+                value={current.date}
+                onChange={(e) =>
+                    updateValue({
+                        date: e.target.value,
+                    })
+                }
+                className="min-w-0 rounded-lg bg-white px-3 py-2 text-black"
+            />
+
+            {/* HOUR */}
+            <select
+                value={current.hour}
+                onChange={(e) =>
+                    updateValue({
+                        hour: e.target.value,
+                    })
+                }
+                className="rounded-lg bg-white px-3 py-2 text-black"
+            >
+                {Array.from(
+                    { length: 12 },
+                    (_, index) => index + 1
+                ).map((hour) => (
+                    <option
+                        key={hour}
+                        value={String(hour)}
+                    >
+                        {String(hour).padStart(
+                            2,
+                            "0"
+                        )}
+                    </option>
+                ))}
+            </select>
+
+            {/* MINUTE */}
+            <select
+                value={current.minute}
+                onChange={(e) =>
+                    updateValue({
+                        minute: e.target.value,
+                    })
+                }
+                className="rounded-lg bg-white px-3 py-2 text-black"
+            >
+                {Array.from(
+                    { length: 60 },
+                    (_, index) => index
+                ).map((minute) => {
+                    const formattedMinute =
+                        String(minute).padStart(
+                            2,
+                            "0"
+                        )
+
+                    return (
+                        <option
+                            key={minute}
+                            value={
+                                formattedMinute
+                            }
+                        >
+                            {formattedMinute}
+                        </option>
+                    )
+                })}
+            </select>
+
+            {/* AM / PM */}
+            <select
+                value={current.period}
+                onChange={(e) =>
+                    updateValue({
+                        period: e.target
+                            .value as
+                            | "AM"
+                            | "PM",
+                    })
+                }
+                className="rounded-lg bg-white px-3 py-2 font-medium text-black"
+            >
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+        </div>
+    )
 }
 
 const DiscountFormFields = ({
@@ -1292,6 +1470,7 @@ const DiscountFormFields = ({
     handleChange,
     setForm,
     setErrors,
+    isEdit = false
 }: DiscountFormFieldsProps) => {
     return (
         <>
@@ -1398,40 +1577,64 @@ const DiscountFormFields = ({
                 )}
             </div>
 
-            <div>
-                <p>Start Date</p>
+            <div
+                className={
+                    isEdit
+                        ? "space-y-5 md:col-span-2"
+                        : "contents"
+                }
+            >
+                <div>
+                    <p>Start Date</p>
 
-                <input
-                    type="datetime-local"
-                    name="start_date"
-                    value={form.start_date}
-                    onChange={handleChange}
-                    className="mt-2 w-full rounded-lg bg-white px-3 py-2 text-black"
-                />
+                    <DateTime12HourInput
+                        name="start_date"
+                        value={form.start_date}
+                        onChange={(value) => {
+                            setForm((prev) => ({
+                                ...prev,
+                                start_date: value,
+                            }))
 
-                {errors.start_date && (
-                    <p className="mt-1 text-xs italic text-red-400">
-                        {errors.start_date}
-                    </p>
-                )}
-            </div>
+                            setErrors((prev) => ({
+                                ...prev,
+                                start_date: "",
+                            }))
+                        }}
+                    />
 
-            <div>
-                <p>End Date</p>
+                    {errors.start_date && (
+                        <p className="mt-1 text-xs italic text-red-400">
+                            {errors.start_date}
+                        </p>
+                    )}
+                </div>
 
-                <input
-                    type="datetime-local"
-                    name="end_date"
-                    value={form.end_date}
-                    onChange={handleChange}
-                    className="mt-2 w-full rounded-lg bg-white px-3 py-2 text-black"
-                />
+                <div>
+                    <p>End Date</p>
 
-                {errors.end_date && (
-                    <p className="mt-1 text-xs italic text-red-400">
-                        {errors.end_date}
-                    </p>
-                )}
+                    <DateTime12HourInput
+                        name="end_date"
+                        value={form.end_date}
+                        onChange={(value) => {
+                            setForm((prev) => ({
+                                ...prev,
+                                end_date: value,
+                            }))
+
+                            setErrors((prev) => ({
+                                ...prev,
+                                end_date: "",
+                            }))
+                        }}
+                    />
+
+                    {errors.end_date && (
+                        <p className="mt-1 text-xs italic text-red-400">
+                            {errors.end_date}
+                        </p>
+                    )}
+                </div>
             </div>
 
             <div className="md:col-span-2">
