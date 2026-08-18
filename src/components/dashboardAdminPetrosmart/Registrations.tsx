@@ -47,6 +47,28 @@ interface Team {
     id_team_leader?: number
 }
 
+interface DiscountRedemption {
+    id_team_leader: number
+    id_registration: number
+    transaction_amount: number
+    discount_amount: number
+    final_amount: number
+    redeemed_at: string
+}
+
+interface DiscountCode {
+    _id: string
+    code: string
+    discount_type: "PERCENTAGE" | "FIXED"
+    discount_value: number
+    start_date: string
+    end_date: string
+    usage_limit: number | null
+    used_count: number
+    redeemed_by: DiscountRedemption[]
+    is_active: boolean
+}
+
 const Registrations = () => {
     const [registrations, setRegistrations] = useState<Registration[]>([])
     const [competitions, setCompetitions] = useState<Competition[]>([])
@@ -61,6 +83,8 @@ const Registrations = () => {
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false)
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
     const [paymentStatus, setPaymentStatus] = useState("PENDING")
+
+    const [discountCodes, setDiscountCodes] = useState<DiscountCode[]>([])
 
     const [toast, setToast] = useState<{
         message: string
@@ -137,30 +161,44 @@ const Registrations = () => {
                 Authorization: `Bearer ${token}`,
             }
 
-            const [registrationRes, competitionRes, teamLeaderRes, teamRes] =
-                await Promise.all([
-                    fetch(
-                        `${import.meta.env.VITE_API_BASE_URL}/getAllRegistrations`,
-                        { headers }
-                    ),
-                    fetch(
-                        `${import.meta.env.VITE_API_BASE_URL}/getAllCompetitions`,
-                        { headers }
-                    ),
-                    fetch(
-                        `${import.meta.env.VITE_API_BASE_URL}/getAllTeamLeaders`,
-                        { headers }
-                    ),
-                    fetch(
-                        `${import.meta.env.VITE_API_BASE_URL}/getAllTeams`,
-                        { headers }
-                    ),
-                ])
+            const [
+                registrationRes,
+                competitionRes,
+                teamLeaderRes,
+                teamRes,
+                discountRes,
+            ] = await Promise.all([
+                fetch(
+                    `${import.meta.env.VITE_API_BASE_URL}/getAllRegistrations`,
+                    { headers }
+                ),
+
+                fetch(
+                    `${import.meta.env.VITE_API_BASE_URL}/getAllCompetitions`,
+                    { headers }
+                ),
+
+                fetch(
+                    `${import.meta.env.VITE_API_BASE_URL}/getAllTeamLeaders`,
+                    { headers }
+                ),
+
+                fetch(
+                    `${import.meta.env.VITE_API_BASE_URL}/getAllTeams`,
+                    { headers }
+                ),
+
+                fetch(
+                    `${import.meta.env.VITE_API_BASE_URL}/getDiscountCodes`,
+                    { headers }
+                ),
+            ])
 
             const registrationData = await registrationRes.json()
             const competitionData = await competitionRes.json()
             const teamLeaderData = await teamLeaderRes.json()
             const teamData = await teamRes.json()
+            const discountData = await discountRes.json()
 
             setRegistrations(
                 normalizeArray<Registration>(
@@ -175,6 +213,9 @@ const Registrations = () => {
                 normalizeArray<TeamLeader>(teamLeaderData, "teamLeaders")
             )
             setTeams(normalizeArray<Team>(teamData, "teams"))
+            setDiscountCodes(
+                normalizeArray<DiscountCode>(discountData, "discountCodes")
+            )
         } catch (error) {
             console.error(error)
             setToast({
@@ -318,6 +359,73 @@ const Registrations = () => {
         }
     }
 
+    const getDiscountByRegistrationId = (
+        registrationId: number,
+        teamLeaderId: number
+    ) => {
+        for (const discount of discountCodes) {
+            const redemption =
+                discount.redeemed_by?.find(
+                    (item) =>
+                        Number(
+                            item.id_registration
+                        ) ===
+                        Number(registrationId) &&
+                        Number(
+                            item.id_team_leader
+                        ) ===
+                        Number(teamLeaderId)
+                )
+
+            if (redemption) {
+                return {
+                    discount,
+                    redemption,
+                }
+            }
+        }
+
+        return null
+    }
+
+    const formatRupiah = (
+        amount: number
+    ) => {
+        return new Intl.NumberFormat(
+            "id-ID",
+            {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0,
+            }
+        ).format(amount)
+    }
+
+    const formatDate = (
+        date: string
+    ) => {
+        return new Intl.DateTimeFormat(
+            "en-GB",
+            {
+                timeZone: "Asia/Jakarta",
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+            }
+        ).format(new Date(date))
+    }
+
+    const selectedRegistrationDiscount =
+        selectedRegistration
+            ? getDiscountByRegistrationId(
+                selectedRegistration.id_registration,
+                selectedRegistration.id_team_leader
+            )
+            : null
+
     return (
         <div className="text-white space-y-6 px-10 py-7">
             <div>
@@ -426,9 +534,9 @@ const Registrations = () => {
                                         <td className="py-3">
                                             <span
                                                 className={`px-3 py-1 rounded-full text-xs ${registration.status_registration ===
-                                                        "ACTIVE"
-                                                        ? "bg-green-500/20 text-green-300"
-                                                        : "bg-red-500/20 text-red-300"
+                                                    "ACTIVE"
+                                                    ? "bg-green-500/20 text-green-300"
+                                                    : "bg-red-500/20 text-red-300"
                                                     }`}
                                             >
                                                 {
@@ -440,12 +548,12 @@ const Registrations = () => {
                                         <td className="py-3">
                                             <span
                                                 className={`px-3 py-1 rounded-full text-xs ${registration.payment_status ===
-                                                        "APPROVED"
-                                                        ? "bg-green-500/20 text-green-300"
-                                                        : registration.payment_status ===
-                                                            "REJECTED"
-                                                            ? "bg-red-500/20 text-red-300"
-                                                            : "bg-yellow-500/20 text-yellow-300"
+                                                    "APPROVED"
+                                                    ? "bg-green-500/20 text-green-300"
+                                                    : registration.payment_status ===
+                                                        "REJECTED"
+                                                        ? "bg-red-500/20 text-red-300"
+                                                        : "bg-yellow-500/20 text-yellow-300"
                                                     }`}
                                             >
                                                 {registration.payment_status}
@@ -566,6 +674,119 @@ const Registrations = () => {
                                 label="Payment Status"
                                 value={selectedRegistration.payment_status}
                             />
+
+                            <div className="mt-6">
+                                <p className="mb-3 font-semibold">
+                                    Discount Information
+                                </p>
+
+                                {selectedRegistrationDiscount ? (
+                                    <div className="rounded-2xl border border-green-500/20 bg-green-500/10 p-4">
+                                        <div className="mb-4 flex items-center justify-between gap-3">
+                                            <div>
+                                                <p className="text-xs text-gray-400">
+                                                    Discount Status
+                                                </p>
+
+                                                <p className="mt-1 font-semibold text-green-300">
+                                                    Discount Applied
+                                                </p>
+                                            </div>
+
+                                            <span className="rounded-lg bg-green-500/15 px-3 py-1 font-mono text-sm font-semibold text-green-300">
+                                                {
+                                                    selectedRegistrationDiscount
+                                                        .discount.code
+                                                }
+                                            </span>
+                                        </div>
+
+                                        <div className="space-y-3 text-sm">
+                                            <DetailRow
+                                                label="Discount Type"
+                                                value={
+                                                    selectedRegistrationDiscount
+                                                        .discount
+                                                        .discount_type ===
+                                                        "PERCENTAGE"
+                                                        ? "Percentage"
+                                                        : "Fixed Amount"
+                                                }
+                                            />
+
+                                            <DetailRow
+                                                label="Discount Value"
+                                                value={
+                                                    selectedRegistrationDiscount
+                                                        .discount
+                                                        .discount_type ===
+                                                        "PERCENTAGE"
+                                                        ? `${selectedRegistrationDiscount.discount.discount_value}%`
+                                                        : formatRupiah(
+                                                            selectedRegistrationDiscount
+                                                                .discount
+                                                                .discount_value
+                                                        )
+                                                }
+                                            />
+
+                                            <DetailRow
+                                                label="Original Amount"
+                                                value={formatRupiah(
+                                                    selectedRegistrationDiscount
+                                                        .redemption
+                                                        .transaction_amount
+                                                )}
+                                            />
+
+                                            <DetailRow
+                                                label="Discount Amount"
+                                                value={`-${formatRupiah(
+                                                    selectedRegistrationDiscount
+                                                        .redemption
+                                                        .discount_amount
+                                                )}`}
+                                            />
+
+                                            <DetailRow
+                                                label="Final Amount"
+                                                value={formatRupiah(
+                                                    selectedRegistrationDiscount
+                                                        .redemption
+                                                        .final_amount
+                                                )}
+                                            />
+
+                                            <DetailRow
+                                                label="Redeemed At"
+                                                value={formatDate(
+                                                    selectedRegistrationDiscount
+                                                        .redemption
+                                                        .redeemed_at
+                                                )}
+                                            />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                        <div className="flex items-center justify-between gap-3">
+                                            <div>
+                                                <p className="text-xs text-gray-400">
+                                                    Discount Status
+                                                </p>
+
+                                                <p className="mt-1 font-semibold text-gray-300">
+                                                    No Discount Used
+                                                </p>
+                                            </div>
+
+                                            <span className="rounded-full bg-gray-500/15 px-3 py-1 text-xs font-semibold text-gray-300">
+                                                Not Applied
+                                            </span>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         {selectedRegistration.payment_proof && (
@@ -652,8 +873,8 @@ const Registrations = () => {
                                 type="submit"
                                 disabled={isLoading}
                                 className={`w-full glass px-5 py-3 text-center mt-6 rounded-xl ${isLoading
-                                        ? "opacity-60 cursor-not-allowed"
-                                        : "cursor-pointer"
+                                    ? "opacity-60 cursor-not-allowed"
+                                    : "cursor-pointer"
                                     }`}
                             >
                                 {isLoading

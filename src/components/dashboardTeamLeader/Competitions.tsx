@@ -58,7 +58,7 @@ interface Registration {
     id_competition: number
 }
 
-interface RedeemedDiscount {
+interface DiscountInquiry {
     discount_code: string
     discount_type: "PERCENTAGE" | "FIXED"
     discount_value: number
@@ -209,8 +209,11 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
     const [redeemLoading, setRedeemLoading] =
         useState(false)
 
-    const [redeemedDiscount, setRedeemedDiscount] =
-        useState<RedeemedDiscount | null>(null)
+    const [discountInquiry, setDiscountInquiry] =
+        useState<DiscountInquiry | null>(null)
+
+    const [createdRegistrationId, setCreatedRegistrationId] =
+        useState<number | null>(null)
 
     const registrationAmount = selectedCompetition
         ? getCurrentRegistrationAmount(
@@ -219,7 +222,7 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
         : null
 
     const finalRegistrationAmount =
-        redeemedDiscount?.final_amount ??
+        discountInquiry?.final_amount ??
         registrationAmount
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2 MB
@@ -449,7 +452,9 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
         setPaymentProof(null)
 
         setDiscountCode("")
-        setRedeemedDiscount(null)
+        setDiscountInquiry(null)
+
+        setCreatedRegistrationId(null)
 
         setIsModalOpen(true)
     }
@@ -460,7 +465,9 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
         setPaymentProof(null)
 
         setDiscountCode("")
-        setRedeemedDiscount(null)
+        setDiscountInquiry(null)
+
+        setCreatedRegistrationId(null)
     }
 
     const handlePaymentProofChange = (
@@ -495,7 +502,7 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
         setPaymentProof(file)
     }
 
-    const handleRedeemDiscountCode = async () => {
+    const handleInquiryDiscountCode = async () => {
         const token = sessionStorage.getItem("token")
 
         if (!discountCode.trim()) {
@@ -527,8 +534,7 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
             setRedeemLoading(true)
 
             const response = await fetch(
-                `${import.meta.env.VITE_API_BASE_URL
-                }/redeemDiscountCode`,
+                `${import.meta.env.VITE_API_BASE_URL}/inquiryDiscountCode`,
                 {
                     method: "POST",
                     headers: {
@@ -536,10 +542,14 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
                         Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({
-                        code: discountCode.trim(),
+                        code: discountCode
+                            .trim()
+                            .toUpperCase(),
+
                         id_team_leader: Number(
                             user.id_team_leader
                         ),
+
                         transaction_amount:
                             registrationAmount,
                     }),
@@ -549,30 +559,32 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
             const result = await response.json()
 
             if (!response.ok) {
-                setRedeemedDiscount(null)
+                setDiscountInquiry(null)
 
                 setToast({
                     message:
                         result.message ||
-                        "Failed to redeem discount code",
+                        "Discount code is invalid",
                     type: "error",
                 })
 
                 return
             }
 
-            setRedeemedDiscount(result.data)
+            setDiscountInquiry(result.data)
 
             setToast({
                 message:
-                    "Discount code redeemed successfully!",
+                    "Discount code applied successfully!",
                 type: "success",
             })
         } catch (error) {
             console.error(
-                "Failed to redeem discount code:",
+                "Failed to check discount code:",
                 error
             )
+
+            setDiscountInquiry(null)
 
             setToast({
                 message:
@@ -588,57 +600,210 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
         const token = sessionStorage.getItem("token")
 
         if (!selectedCompetition) {
-            setToast({ message: "Competition not found", type: "error" })
+            setToast({
+                message: "Competition not found",
+                type: "error",
+            })
             return
         }
 
         if (!user?.id_team_leader) {
-            setToast({ message: "Team leader data not found", type: "error" })
+            setToast({
+                message: "Team leader data not found",
+                type: "error",
+            })
             return
         }
 
         if (!paymentProof) {
-            setToast({ message: "Please upload payment proof", type: "error" })
+            setToast({
+                message: "Please upload payment proof",
+                type: "error",
+            })
+            return
+        }
+
+        if (registrationAmount === null) {
+            setToast({
+                message:
+                    "Registration fee is not available for the current period",
+                type: "error",
+            })
             return
         }
 
         try {
             setSubmitLoading(true)
 
-            const formData = new FormData()
-            formData.append("category_registration", "COMPETITION")
-            formData.append("status_registration", "ACTIVE")
-            formData.append("payment_status", "PENDING")
-            formData.append("id_team_leader", String(user.id_team_leader))
-            formData.append(
-                "id_competition",
-                String(selectedCompetition.id_competition)
-            )
-            formData.append("payment_proof", paymentProof)
+            let registrationId =
+                createdRegistrationId
 
-            const response = await fetch(
-                `${import.meta.env.VITE_API_BASE_URL}/createRegistration`,
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: formData,
+            // ==========================================
+            // 1. CREATE REGISTRATION HANYA SEKALI
+            // ==========================================
+
+            if (!registrationId) {
+                const formData = new FormData()
+
+                formData.append(
+                    "category_registration",
+                    "COMPETITION"
+                )
+
+                formData.append(
+                    "status_registration",
+                    "ACTIVE"
+                )
+
+                formData.append(
+                    "payment_status",
+                    "PENDING"
+                )
+
+                formData.append(
+                    "id_team_leader",
+                    String(user.id_team_leader)
+                )
+
+                formData.append(
+                    "id_competition",
+                    String(
+                        selectedCompetition.id_competition
+                    )
+                )
+
+                formData.append(
+                    "payment_proof",
+                    paymentProof
+                )
+
+                const registrationResponse =
+                    await fetch(
+                        `${import.meta.env.VITE_API_BASE_URL}/createRegistration`,
+                        {
+                            method: "POST",
+                            headers: {
+                                Authorization:
+                                    `Bearer ${token}`,
+                            },
+                            body: formData,
+                        }
+                    )
+
+                const registrationResult =
+                    await registrationResponse.json()
+
+                if (!registrationResponse.ok) {
+                    setToast({
+                        message:
+                            registrationResult.message ||
+                            registrationResult.error ||
+                            "Failed to register competition",
+                        type: "error",
+                    })
+
+                    return
                 }
-            )
 
-            const result = await response.json()
+                registrationId =
+                    Number(registrationResult.id)
 
-            if (!response.ok) {
-                setToast({ message: result.message || "Failed to register competition", type: "error" })
-                return
+                if (
+                    !registrationId ||
+                    Number.isNaN(registrationId)
+                ) {
+                    setToast({
+                        message:
+                            "Registration created but registration ID was not returned",
+                        type: "error",
+                    })
+
+                    return
+                }
+
+                setCreatedRegistrationId(
+                    registrationId
+                )
             }
 
-            setToast({ message: "Registration submitted successfully!", type: "success" })
+            // ==========================================
+            // 2. FINAL REDEEM
+            // ==========================================
+
+            if (discountInquiry) {
+                const redeemResponse =
+                    await fetch(
+                        `${import.meta.env.VITE_API_BASE_URL}/redeemDiscountCode`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json",
+
+                                Authorization:
+                                    `Bearer ${token}`,
+                            },
+
+                            body: JSON.stringify({
+                                code:
+                                    discountInquiry.discount_code,
+
+                                id_team_leader:
+                                    Number(
+                                        user.id_team_leader
+                                    ),
+
+                                id_registration:
+                                    registrationId,
+
+                                transaction_amount:
+                                    registrationAmount,
+                            }),
+                        }
+                    )
+
+                const redeemResult =
+                    await redeemResponse.json()
+
+                if (!redeemResponse.ok) {
+                    setToast({
+                        message:
+                            redeemResult.message ||
+                            "Registration was created, but discount redemption failed. Please retry.",
+                        type: "error",
+                    })
+
+                    return
+                }
+            }
+
+            // ==========================================
+            // 3. SUCCESS
+            // ==========================================
+
+            setToast({
+                message:
+                    "Registration submitted successfully!",
+                type: "success",
+            })
+
             closeModal()
+
+            await getMyCompetition(
+                user.id_team_leader
+            )
         } catch (error) {
-            console.error("Failed to submit registration:", error)
-            setToast({ message: "Something went wrong. Please try again.", type: "error" })
+            console.error(
+                "Failed to submit registration:",
+                error
+            )
+
+            setToast({
+                message:
+                    "Something went wrong. Please try again.",
+                type: "error",
+            })
         } finally {
             setSubmitLoading(false)
         }
@@ -967,7 +1132,7 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                     <input
                                         type="text"
                                         value={discountCode}
-                                        disabled={Boolean(redeemedDiscount)}
+                                        disabled={Boolean(discountInquiry)}
                                         onChange={(e) => {
                                             const value = e.target.value
                                                 .replace(/\s/g, "")
@@ -981,17 +1146,17 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
 
                                     <button
                                         type="button"
-                                        onClick={handleRedeemDiscountCode}
+                                        onClick={handleInquiryDiscountCode}
                                         disabled={
                                             redeemLoading ||
-                                            Boolean(redeemedDiscount) ||
+                                            Boolean(discountInquiry) ||
                                             !discountCode.trim()
                                         }
                                         className="cursor-pointer rounded-xl bg-[#EAE0CF] px-5 py-3 text-sm font-semibold text-[#111844] transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
                                     >
                                         {redeemLoading
-                                            ? "Applying..."
-                                            : redeemedDiscount
+                                            ? "Checking..."
+                                            : discountInquiry
                                                 ? "Applied"
                                                 : "Apply Code"}
                                     </button>
@@ -1006,7 +1171,7 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
 
                                             <span
                                                 className={
-                                                    redeemedDiscount
+                                                    discountInquiry
                                                         ? "text-gray-500 line-through"
                                                         : "font-medium text-white"
                                                 }
@@ -1017,13 +1182,13 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                             </span>
                                         </div>
 
-                                        {redeemedDiscount && (
+                                        {discountInquiry && (
                                             <>
                                                 <div className="flex items-center justify-between text-sm">
                                                     <span className="text-green-300">
                                                         Discount (
                                                         {
-                                                            redeemedDiscount.discount_code
+                                                            discountInquiry.discount_code
                                                         }
                                                         )
                                                     </span>
@@ -1031,7 +1196,7 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                                     <span className="font-medium text-green-300">
                                                         -
                                                         {formatRupiah(
-                                                            redeemedDiscount.discount_amount
+                                                            discountInquiry.discount_amount
                                                         )}
                                                     </span>
                                                 </div>
@@ -1044,7 +1209,7 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
 
                                                         <span className="text-lg font-bold text-[#EAE0CF]">
                                                             {formatRupiah(
-                                                                redeemedDiscount.final_amount
+                                                                discountInquiry.final_amount
                                                             )}
                                                         </span>
                                                     </div>
@@ -1061,7 +1226,7 @@ const Competitions: React.FC<MyCompetitionProps> = ({ setSection }) => {
                                             </>
                                         )}
 
-                                        {!redeemedDiscount && (
+                                        {!discountInquiry && (
                                             <div className="border-t border-white/10 pt-2">
                                                 <div className="flex items-center justify-between">
                                                     <span className="font-semibold text-white">

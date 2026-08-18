@@ -14,6 +14,15 @@ import {
 import Toast from "../../components/Toast"
 import { isTokenExpired } from "../../utils/auth"
 
+interface RedeemedBy {
+    id_team_leader: number
+    id_registration: number
+    transaction_amount: number
+    discount_amount: number
+    final_amount: number
+    redeemed_at: string
+}
+
 interface DiscountCode {
     _id: string
     code: string
@@ -23,7 +32,7 @@ interface DiscountCode {
     end_date: string
     usage_limit: number | null
     used_count: number
-    redeemed_by: number[]
+    redeemed_by: RedeemedBy[]
     is_active: boolean
     createdAt: string
     updatedAt: string
@@ -398,6 +407,27 @@ const DiscountCodes = () => {
 
             is_active: currentForm.is_active,
         }
+    }
+
+    const getTeamLeaderById = (
+        idTeamLeader: number
+    ) => {
+        return teamLeaders.find(
+            (teamLeader) =>
+                Number(teamLeader.id_team_leader) ===
+                Number(idTeamLeader)
+        )
+    }
+
+    const formatRupiah = (amount: number) => {
+        return new Intl.NumberFormat(
+            "id-ID",
+            {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0,
+            }
+        ).format(amount)
     }
 
     // CREATE
@@ -1123,92 +1153,220 @@ const DiscountCodes = () => {
                     </div>
                 )}
 
-            {/* REDEEMED TEAM LEADER MODAL */}
+            {/* REDEEMED DETAIL MODAL */}
             {isRedeemedModalOpen &&
                 selectedDiscount && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 backdrop-blur-sm">
-                        <div className="w-full max-w-lg rounded-3xl border border-[#7288AE]/30 bg-[#111844] p-6 text-white shadow-2xl">
-                            <div className="flex items-start justify-between">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-5 backdrop-blur-sm">
+                        <div className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl border border-[#7288AE]/30 bg-[#111844] p-6 text-white shadow-2xl">
+                            {/* HEADER */}
+                            <div className="flex items-start justify-between gap-4">
                                 <div>
                                     <h2 className="text-2xl font-bold">
-                                        Redeemed Team Leaders
+                                        Discount Usage Details
                                     </h2>
 
                                     <p className="mt-1 text-sm text-gray-400">
-                                        Discount Code:{" "}
+                                        Detail penggunaan discount code{" "}
                                         <span className="font-mono font-semibold text-cyan-300">
-                                            {
-                                                selectedDiscount.code
-                                            }
+                                            {selectedDiscount.code}
                                         </span>
                                     </p>
                                 </div>
 
                                 <button
-                                    onClick={
-                                        closeRedeemedModal
-                                    }
+                                    type="button"
+                                    onClick={closeRedeemedModal}
                                     className="cursor-pointer rounded-full bg-white/10 p-2 hover:bg-white/20"
                                 >
                                     <X className="h-5 w-5" />
                                 </button>
                             </div>
 
+                            {/* SUMMARY */}
+                            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                    <p className="text-xs text-gray-400">
+                                        Discount Code
+                                    </p>
+
+                                    <p className="mt-1 font-mono font-semibold text-cyan-300">
+                                        {selectedDiscount.code}
+                                    </p>
+                                </div>
+
+                                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                    <p className="text-xs text-gray-400">
+                                        Discount Value
+                                    </p>
+
+                                    <p className="mt-1 font-semibold text-[#EAE0CF]">
+                                        {formatDiscount(
+                                            selectedDiscount
+                                        )}
+                                    </p>
+                                </div>
+
+                                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                    <p className="text-xs text-gray-400">
+                                        Used
+                                    </p>
+
+                                    <p className="mt-1 font-semibold">
+                                        {selectedDiscount.used_count}
+                                    </p>
+                                </div>
+
+                                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                    <p className="text-xs text-gray-400">
+                                        Usage Limit
+                                    </p>
+
+                                    <p className="mt-1 font-semibold">
+                                        {selectedDiscount.usage_limit ??
+                                            "Unlimited"}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* CONTENT */}
                             <div className="mt-6">
-                                {selectedDiscount
-                                    .redeemed_by.length ===
-                                    0 ? (
-                                    <div className="rounded-2xl border border-dashed border-white/20 p-8 text-center">
+                                {selectedDiscount.redeemed_by
+                                    .length === 0 ? (
+                                    <div className="rounded-2xl border border-dashed border-white/20 p-10 text-center">
                                         <Users className="mx-auto h-10 w-10 text-gray-500" />
 
                                         <p className="mt-3 font-medium">
-                                            No team leader
-                                            has redeemed this
-                                            code.
+                                            This discount code has not
+                                            been redeemed yet.
+                                        </p>
+
+                                        <p className="mt-1 text-sm text-gray-400">
+                                            Redemption details will
+                                            appear here after the code
+                                            is used.
                                         </p>
                                     </div>
                                 ) : (
-                                    <div className="max-h-80 space-y-3 overflow-y-auto">
+                                    <div className="space-y-4">
                                         {selectedDiscount.redeemed_by.map(
                                             (
-                                                id,
+                                                redemption,
                                                 index
-                                            ) => (
-                                                <div
-                                                    key={
-                                                        id
-                                                    }
-                                                    className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3"
-                                                >
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-purple-500/15 text-sm font-bold text-purple-300">
-                                                            {index +
-                                                                1}
+                                            ) => {
+                                                const teamLeader =
+                                                    getTeamLeaderById(
+                                                        redemption.id_team_leader
+                                                    )
+
+                                                return (
+                                                    <div
+                                                        key={`${redemption.id_registration}-${index}`}
+                                                        className="rounded-2xl border border-white/10 bg-white/5 p-5"
+                                                    >
+                                                        {/* USER */}
+                                                        <div className="flex flex-wrap items-start justify-between gap-4">
+                                                            <div className="flex items-center gap-3">
+                                                                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-purple-500/15 font-bold text-purple-300">
+                                                                    {index +
+                                                                        1}
+                                                                </div>
+
+                                                                <div>
+                                                                    <p className="font-semibold text-white">
+                                                                        {teamLeader?.name_team_leader ||
+                                                                            `Team Leader #${redemption.id_team_leader}`}
+                                                                    </p>
+
+                                                                    <p className="mt-0.5 text-xs text-gray-400">
+                                                                        {teamLeader?.email_team_leader ||
+                                                                            "Email not available"}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="rounded-lg bg-cyan-500/10 px-3 py-2 text-xs text-cyan-300">
+                                                                Registration #
+                                                                {
+                                                                    redemption.id_registration
+                                                                }
+                                                            </div>
                                                         </div>
 
-                                                        <div>
-                                                            <p className="text-xs text-gray-400">
-                                                                Team
-                                                                Leader
-                                                                ID
-                                                            </p>
+                                                        {/* TRANSACTION */}
+                                                        <div className="mt-5 grid gap-3 md:grid-cols-3">
+                                                            <div className="rounded-xl bg-black/15 p-3">
+                                                                <p className="text-xs text-gray-400">
+                                                                    Original
+                                                                    Amount
+                                                                </p>
 
-                                                            <p className="font-semibold">
-                                                                {
-                                                                    teamLeaders.find((teamLeader) => teamLeader.id_team_leader === id)?.name_team_leader
-                                                                }
-                                                            </p>
+                                                                <p className="mt-1 font-semibold text-white">
+                                                                    {formatRupiah(
+                                                                        redemption.transaction_amount
+                                                                    )}
+                                                                </p>
+                                                            </div>
+
+                                                            <div className="rounded-xl bg-green-500/5 p-3">
+                                                                <p className="text-xs text-gray-400">
+                                                                    Discount
+                                                                    Amount
+                                                                </p>
+
+                                                                <p className="mt-1 font-semibold text-green-300">
+                                                                    -
+                                                                    {formatRupiah(
+                                                                        redemption.discount_amount
+                                                                    )}
+                                                                </p>
+                                                            </div>
+
+                                                            <div className="rounded-xl bg-cyan-500/5 p-3">
+                                                                <p className="text-xs text-gray-400">
+                                                                    Final
+                                                                    Amount
+                                                                </p>
+
+                                                                <p className="mt-1 font-semibold text-cyan-300">
+                                                                    {formatRupiah(
+                                                                        redemption.final_amount
+                                                                    )}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* DETAIL */}
+                                                        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-4 text-xs text-gray-400">
+                                                            <div>
+                                                                Team
+                                                                Leader ID:{" "}
+                                                                <span className="text-gray-200">
+                                                                    {
+                                                                        redemption.id_team_leader
+                                                                    }
+                                                                </span>
+                                                            </div>
+
+                                                            <div>
+                                                                Redeemed:{" "}
+                                                                <span className="text-gray-200">
+                                                                    {formatDate(
+                                                                        redemption.redeemed_at
+                                                                    )}
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            )
+                                                )
+                                            }
                                         )}
                                     </div>
                                 )}
                             </div>
                         </div>
                     </div>
-                )}
+                )
+            }
 
             {/* DELETE MODAL */}
             {isDeleteModalOpen &&
